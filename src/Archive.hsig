@@ -1,0 +1,10 @@
+signature Archive ( Entry
+                  , packToFile
+                  , unpackFromFile
+                  ) where
+
+data Entry
+
+packToFile :: Foldable t => FilePath -> t Entry -> IO ()
+
+unpackFromFile :: FilePath -> IO [Entry]
