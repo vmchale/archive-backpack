@@ -1,14 +1,14 @@
 cabal-version: 2.0
-name: archive-sig
+name: archive-libarchive
 version: 0.1.0.0
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2019 Vanessa McHale
 maintainer: vanessa.mchale@iohk.io
 author: Vanessa McHale
-synopsis: Backpack signature for archive libraries
+synopsis: Common interface using libarchive
 description:
-    Backpack signature that provide a common interface to the Haskell tar package and the Haskell libarchive bindings
+    Backpack-ified way to use libarchive bindings
 category: Codec, Tar, Archive
 build-type: Simple
 

@@ -1,0 +1,23 @@
+signature Archive ( Entry
+                  , packToFile
+                  , unpackFromFile
+                  , unpackToDir
+                  , unpackFileToDir
+                  , readArchiveBytes
+                  ) where
+
+import qualified Data.ByteString.Lazy as BSL
+
+data Entry
+
+packToFile :: Foldable t => FilePath -> t Entry -> IO ()
+
+unpackFromFile :: FilePath -> IO [Entry]
+
+unpackToDir :: FilePath -> BSL.ByteString -> IO ()
+
+unpackFileToDir :: FilePath -- ^ Filepath pointing to archive
+                -> FilePath -- ^ Directory to unpack in
+                -> IO ()
+
+readArchiveBytes :: BSL.ByteString -> [Entry]

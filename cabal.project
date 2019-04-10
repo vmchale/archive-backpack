@@ -1,2 +1,6 @@
-packages: ./
+packages: archive-sig
+        , archive-libarchive
+        , hstar
 constraints: archive-sig +development
+           , archive-libarchive +development
+           , hstar +development
