@@ -2,7 +2,6 @@ cabal-version: 2.0
 name: hstar
 version: 0.1.0.0
 license: BSD3
-license-file: LICENSE
 copyright: Copyright: (c) 2019 Vanessa McHale
 maintainer: vanessa.mchale@iohk.io
 author: Vanessa McHale
@@ -28,7 +27,11 @@ executable hstar
     default-language: Haskell2010
     ghc-options: -Wall
     build-depends:
-        base >=4.3 && <5
+        base >=4.3 && <5,
+        archive-libarchive,
+        archive-sig
+
+    mixins: archive-libarchive (Archive.FFI as Archive)
 
     if flag(development)
         ghc-options: -Werror
