@@ -8,3 +8,8 @@ This is a demo of GHC's backpack, used to fuse the functionality of
 
 `archive-backpack` is built exclusively using
 [cabal-install](https://www.haskell.org/cabal/).
+
+
+```
+cabal new-build all
+```
