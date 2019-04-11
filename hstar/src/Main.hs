@@ -1,16 +1,28 @@
 module Main ( main ) where
 
 import           Archive
+import           Control.Monad       (filterM)
 import           Options.Applicative
+import           System.Directory    (doesDirectoryExist, getDirectoryContents)
 
 -- pack a directory/list of files?
 data Command = PackDir FilePath FilePath
              | Pack [FilePath] FilePath
              | Unpack FilePath FilePath
 
+getDirRecursive :: FilePath -> IO [FilePath]
+getDirRecursive fp = do
+    all' <- getDirectoryContents fp
+    dirs <- filterM doesDirectoryExist all'
+    case dirs of
+        [] -> pure all'
+        ds -> do
+            next <- mconcat <$> traverse getDirRecursive ds
+            pure $ next ++ all' -- TODO: dlist?
+
 run :: Command -> IO ()
 run (Unpack src dest) = unpackFileToDir src dest
-run (PackDir _ _)     = undefined
+run (PackDir dir tar) = packFromFiles tar =<< getDirRecursive dir
 run (Pack fs tar)     = packFromFiles tar fs
 
 unpack :: Parser Command
