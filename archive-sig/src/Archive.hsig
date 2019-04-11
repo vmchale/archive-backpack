@@ -10,7 +10,9 @@ import qualified Data.ByteString.Lazy as BSL
 
 data Entry
 
-packToFile :: Foldable t => FilePath -> t Entry -> IO ()
+-- mkEntry :: FilePath -> IO Entry
+
+packToFile :: FilePath -> [Entry] -> IO ()
 
 unpackFromFile :: FilePath -> IO [Entry]
 

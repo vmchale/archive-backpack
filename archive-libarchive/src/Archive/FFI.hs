@@ -11,7 +11,7 @@ import qualified Data.ByteString.Lazy as BSL
 
 type Entry = FFI.Entry
 
-packToFile :: Foldable t => FilePath -> t Entry -> IO ()
+packToFile :: FilePath -> [Entry] -> IO ()
 packToFile = FFI.entriesToFile
 
 unpackFromFile :: FilePath -> IO [Entry]

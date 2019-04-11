@@ -1,6 +1,8 @@
 packages: archive-sig
         , archive-libarchive
+        , archive-tar
         , hstar
 constraints: archive-sig +development
            , archive-libarchive +development
+           , archive-tar +development
            , hstar +development
