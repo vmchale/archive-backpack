@@ -1,7 +1,9 @@
 module Main ( main ) where
 
 import           Archive
+import           Control.Composition ((.*))
 import           Control.Monad       (filterM)
+import           Data.Foldable       (fold)
 import           Options.Applicative
 import           System.Directory    (doesDirectoryExist, getDirectoryContents)
 
@@ -17,8 +19,10 @@ getDirRecursive fp = do
     case dirs of
         [] -> pure all'
         ds -> do
-            next <- mconcat <$> traverse getDirRecursive ds
-            pure $ next ++ all' -- TODO: dlist?
+            next <- foldMapA getDirRecursive ds
+            pure $ next <> all' -- TODO: dlist?
+
+    where foldMapA = fmap fold .* traverse
 
 run :: Command -> IO ()
 run (Unpack src dest) = unpackFileToDir src dest

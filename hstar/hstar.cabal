@@ -35,7 +35,8 @@ executable hstar
         base >=4.11 && <5,
         archive-sig -any,
         optparse-applicative -any,
-        directory
+        directory,
+        composition-prelude
 
     if flag(pure)
         build-depends:
