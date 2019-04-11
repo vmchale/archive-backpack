@@ -14,7 +14,7 @@ import qualified Data.ByteString.Lazy as BSL
 
 type Entry = Tar.Entry
 
--- this is bad but currently libarchive's error handling is fucked
+-- this is bad but libarchive's error handling is vaguely fucked
 coerceToList :: Exception a => Entries a -> [Entry]
 coerceToList (Next e es) = e : coerceToList es
 coerceToList Done        = []
