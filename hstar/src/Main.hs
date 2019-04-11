@@ -3,7 +3,8 @@ module Main ( main ) where
 import           Archive
 import           Control.Composition ((.*))
 import           Control.Monad       (filterM)
-import           Data.Foldable       (fold)
+import           Data.DList          (DList, fromList)
+import           Data.Foldable       (fold, toList)
 import           Options.Applicative
 import           System.Directory    (doesDirectoryExist, getDirectoryContents)
 
@@ -12,21 +13,21 @@ data Command = PackDir FilePath FilePath
              | Pack [FilePath] FilePath
              | Unpack FilePath FilePath
 
-getDirRecursive :: FilePath -> IO [FilePath]
+getDirRecursive :: FilePath -> IO (DList FilePath)
 getDirRecursive fp = do
     all' <- getDirectoryContents fp
     dirs <- filterM doesDirectoryExist all'
     case dirs of
-        [] -> pure all'
+        [] -> pure $ fromList all'
         ds -> do
             next <- foldMapA getDirRecursive ds
-            pure $ next <> all' -- TODO: dlist?
+            pure $ next <> fromList all'
 
     where foldMapA = fmap fold .* traverse
 
 run :: Command -> IO ()
 run (Unpack src dest) = unpackFileToDir src dest
-run (PackDir dir tar) = packFromFiles tar =<< getDirRecursive dir
+run (PackDir dir tar) = packFromFiles tar =<< fmap toList (getDirRecursive dir)
 run (Pack fs tar)     = packFromFiles tar fs
 
 unpack :: Parser Command
