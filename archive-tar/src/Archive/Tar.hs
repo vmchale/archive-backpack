@@ -1,5 +1,5 @@
 module Archive.Tar ( Entry
-                   , packToFile
+                   , writeArchiveBytes
                    , unpackToDir
                    , readArchiveBytes
                    , packFromFiles
@@ -19,8 +19,8 @@ coerceToList (Next e es) = e : coerceToList es
 coerceToList Done        = []
 coerceToList (Fail ex)   = throw ex
 
-packToFile :: FilePath -> [Entry] -> IO ()
-packToFile = Tar.write .@ BSL.writeFile
+writeArchiveBytes :: [Entry] -> BSL.ByteString
+writeArchiveBytes = Tar.write
 
 readArchiveBytes :: BSL.ByteString -> [Entry]
 readArchiveBytes = coerceToList . Tar.read

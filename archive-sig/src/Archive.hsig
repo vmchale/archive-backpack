@@ -1,8 +1,9 @@
 signature Archive ( Entry
-                  , packToFile
                   , unpackToDir
                   , readArchiveBytes
                   , packFromFiles
+                  , writeArchiveBytes
+                  -- , mkEntry
                   ) where
 
 import qualified Data.ByteString.Lazy as BSL
@@ -10,6 +11,8 @@ import qualified Data.ByteString.Lazy as BSL
 data Entry
 
 -- mkEntry :: FilePath -> IO Entry
+
+-- dumpEntry :: Entry -> IO ()
 
 packFromFiles :: FilePath -- ^ Path of @.tar@ file to write
               -> [FilePath] -- ^ Files and directories to archive
@@ -19,8 +22,8 @@ packFromFiles :: FilePath -- ^ Path of @.tar@ file to write
 -- can you do generic implementations??
 -- that would be what's useful basically
 
-packToFile :: FilePath -> [Entry] -> IO ()
-
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
 
 readArchiveBytes :: BSL.ByteString -> [Entry]
+
+writeArchiveBytes :: [Entry] -> BSL.ByteString

@@ -33,7 +33,7 @@ library
         directory,
         dlist,
         bytestring,
-        composition-prelude
+        composition-prelude >=2.0.3.0
 
     if flag(development)
         ghc-options: -Werror

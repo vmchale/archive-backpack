@@ -1,15 +1,19 @@
 module Archive.Generic ( packFromDir
                        , unpackFileToDir
                        , unpackFromFile
+                       , packToFile
                        ) where
 
 import           Archive
-import           Control.Composition  ((.*))
+import           Control.Composition  ((.*), (.@))
 import           Control.Monad        (filterM)
 import qualified Data.ByteString.Lazy as BSL
 import           Data.DList           (DList, fromList)
 import           Data.Foldable        (fold, toList)
 import           System.Directory     (doesDirectoryExist, getDirectoryContents)
+
+packToFile :: FilePath -> [Entry] -> IO ()
+packToFile = writeArchiveBytes .@ BSL.writeFile
 
 unpackFromFile :: FilePath -> IO [Entry]
 unpackFromFile = fmap readArchiveBytes . BSL.readFile

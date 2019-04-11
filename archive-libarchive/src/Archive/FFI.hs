@@ -1,8 +1,8 @@
 module Archive.FFI ( Entry
-                   , packToFile
                    , readArchiveBytes
                    , unpackToDir
                    , packFromFiles
+                   , writeArchiveBytes
                    ) where
 
 import qualified Codec.Archive        as FFI
@@ -10,8 +10,8 @@ import qualified Data.ByteString.Lazy as BSL
 
 type Entry = FFI.Entry
 
-packToFile :: FilePath -> [Entry] -> IO ()
-packToFile = FFI.entriesToFile
+writeArchiveBytes :: [Entry] -> BSL.ByteString
+writeArchiveBytes = FFI.entriesToBSL
 
 readArchiveBytes :: BSL.ByteString -> [Entry]
 readArchiveBytes = FFI.readArchiveBSL
