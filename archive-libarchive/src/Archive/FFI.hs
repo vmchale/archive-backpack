@@ -4,6 +4,7 @@ module Archive.FFI ( Entry
                    , readArchiveBytes
                    , unpackToDir
                    , unpackFileToDir
+                   , packFromFiles
                    ) where
 
 import qualified Codec.Archive        as FFI
@@ -25,3 +26,6 @@ unpackToDir = FFI.unpackToDirLazy
 
 unpackFileToDir :: FilePath -> FilePath -> IO ()
 unpackFileToDir = FFI.unpackArchive
+
+packFromFiles :: FilePath -> [FilePath] -> IO ()
+packFromFiles = undefined

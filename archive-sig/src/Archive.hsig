@@ -4,6 +4,7 @@ signature Archive ( Entry
                   , unpackToDir
                   , unpackFileToDir
                   , readArchiveBytes
+                  , packFromFiles
                   ) where
 
 import qualified Data.ByteString.Lazy as BSL
@@ -11,6 +12,10 @@ import qualified Data.ByteString.Lazy as BSL
 data Entry
 
 -- mkEntry :: FilePath -> IO Entry
+
+packFromFiles :: FilePath -- ^ Path of @.tar@ file to write
+              -> [FilePath] -- ^ Files and directories to archive
+              -> IO ()
 
 packToFile :: FilePath -> [Entry] -> IO ()
 

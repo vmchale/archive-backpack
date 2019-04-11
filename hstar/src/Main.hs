@@ -11,7 +11,7 @@ data Command = PackDir FilePath FilePath
 run :: Command -> IO ()
 run (Unpack src dest) = unpackFileToDir src dest
 run (PackDir _ _)     = undefined
-run (Pack _ _)        = undefined
+run (Pack fs tar)     = packFromFiles tar fs
 
 unpack :: Parser Command
 unpack = Unpack
