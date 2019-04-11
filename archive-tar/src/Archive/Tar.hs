@@ -1,8 +1,6 @@
 module Archive.Tar ( Entry
                    , packToFile
-                   , unpackFromFile
                    , unpackToDir
-                   , unpackFileToDir
                    , readArchiveBytes
                    , packFromFiles
                    ) where
@@ -23,12 +21,6 @@ coerceToList (Fail ex)   = throw ex
 
 packToFile :: FilePath -> [Entry] -> IO ()
 packToFile = Tar.write .@ BSL.writeFile
-
-unpackFileToDir :: FilePath -> FilePath -> IO ()
-unpackFileToDir = Tar.extract
-
-unpackFromFile :: FilePath -> IO [Entry]
-unpackFromFile = fmap readArchiveBytes . BSL.readFile
 
 readArchiveBytes :: BSL.ByteString -> [Entry]
 readArchiveBytes = coerceToList . Tar.read

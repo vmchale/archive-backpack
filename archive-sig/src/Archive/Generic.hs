@@ -1,11 +1,23 @@
-module Archive.Generic ( packFromDir ) where
+module Archive.Generic ( packFromDir
+                       , unpackFileToDir
+                       , unpackFromFile
+                       ) where
 
 import           Archive
-import           Control.Composition ((.*))
-import           Control.Monad       (filterM)
-import           Data.DList          (DList, fromList)
-import           Data.Foldable       (fold, toList)
-import           System.Directory    (doesDirectoryExist, getDirectoryContents)
+import           Control.Composition  ((.*))
+import           Control.Monad        (filterM)
+import qualified Data.ByteString.Lazy as BSL
+import           Data.DList           (DList, fromList)
+import           Data.Foldable        (fold, toList)
+import           System.Directory     (doesDirectoryExist, getDirectoryContents)
+
+unpackFromFile :: FilePath -> IO [Entry]
+unpackFromFile = fmap readArchiveBytes . BSL.readFile
+
+unpackFileToDir :: FilePath -- ^ Filepath pointing to archive
+                -> FilePath -- ^ Directory
+                -> IO ()
+unpackFileToDir tar dir = unpackToDir dir =<< BSL.readFile tar
 
 packFromDir :: FilePath -- ^ Directory to be packed up
             -> FilePath -- ^ @.tar@ archive file
