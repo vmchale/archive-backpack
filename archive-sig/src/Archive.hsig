@@ -17,6 +17,10 @@ packFromFiles :: FilePath -- ^ Path of @.tar@ file to write
               -> [FilePath] -- ^ Files and directories to archive
               -> IO ()
 
+-- TODO: use Tar.pack or something and then BS.writeFile tar . Tar.write =<< Tar.pack base paths in the high-level?
+-- can you do generic implementations??
+-- that would be what's useful basically
+
 packToFile :: FilePath -> [Entry] -> IO ()
 
 unpackFromFile :: FilePath -> IO [Entry]

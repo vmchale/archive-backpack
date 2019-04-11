@@ -23,12 +23,17 @@ flag development
 
 library
     signatures: Archive
+    exposed-modules: Archive.Generic
     hs-source-dirs: src
     default-language: Haskell2010
     ghc-options: -Wall
     build-depends:
         base >=4.3 && <5,
-        bytestring -any
+        bytestring -any,
+        directory,
+        dlist,
+        bytestring,
+        composition-prelude
 
     if flag(development)
         ghc-options: -Werror
