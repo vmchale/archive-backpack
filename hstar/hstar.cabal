@@ -29,7 +29,8 @@ executable hstar
     build-depends:
         base >=4.3 && <5,
         archive-libarchive,
-        archive-sig
+        archive-sig,
+        optparse-applicative
 
     mixins: archive-libarchive (Archive.FFI as Archive)
 
