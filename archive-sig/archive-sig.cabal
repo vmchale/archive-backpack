@@ -28,7 +28,7 @@ library
     ghc-options: -Wall
     build-depends:
         base >=4.3 && <5,
-        bytestring
+        bytestring -any
 
     if flag(development)
         ghc-options: -Werror
