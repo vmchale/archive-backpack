@@ -11,6 +11,7 @@ import qualified Data.ByteString.Lazy as BSL
 import           Data.DList           (DList, fromList)
 import           Data.Foldable        (fold, toList)
 import           System.Directory     (doesDirectoryExist, getDirectoryContents)
+import           System.FilePath      ((</>))
 
 packToFile :: FilePath -> [Entry] -> IO ()
 packToFile = writeArchiveBytes .@ BSL.writeFile
@@ -30,12 +31,14 @@ packFromDir dir tar = packFromFiles tar =<< fmap toList (getDirRecursive dir)
 
 getDirRecursive :: FilePath -> IO (DList FilePath)
 getDirRecursive fp = do
-    all' <- getDirectoryContents fp
-    dirs <- filter (\x -> x /= "." && x /= "..") <$> filterM doesDirectoryExist all'
+    all' <- exclude <$> getDirectoryContents fp
+    dirs <- exclude <$> filterM doesDirectoryExist all'
     case dirs of
-        [] -> pure $ fromList all'
+        [] -> pure $ fromList (mkRel <$> all')
         ds -> do
-            next <- foldMapA getDirRecursive ds
-            pure $ next <> fromList all'
+            next <- foldMapA getDirRecursive (mkRel <$> ds)
+            pure $ next <> fromList (mkRel <$> all')
 
     where foldMapA = fmap fold .* traverse
+          exclude = filter (\x -> x /= "." && x /= "..")
+          mkRel = (fp </>)
