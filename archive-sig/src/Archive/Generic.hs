@@ -31,7 +31,7 @@ packFromDir dir tar = packFromFiles tar =<< fmap toList (getDirRecursive dir)
 getDirRecursive :: FilePath -> IO (DList FilePath)
 getDirRecursive fp = do
     all' <- getDirectoryContents fp
-    dirs <- filterM doesDirectoryExist all'
+    dirs <- filter (\x -> x /= "." && x /= "..") <$> filterM doesDirectoryExist all'
     case dirs of
         [] -> pure $ fromList all'
         ds -> do
