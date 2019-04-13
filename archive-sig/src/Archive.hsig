@@ -15,17 +15,9 @@ data Error
 
 instance Show Error
 
--- mkEntry :: FilePath -> IO Entry
-
--- dumpEntry :: Entry -> IO ()
-
 packFromFiles :: FilePath -- ^ Path of @.tar@ file to write
               -> [FilePath] -- ^ Files and directories to archive
               -> IO ()
-
--- TODO: use Tar.pack or something and then BS.writeFile tar . Tar.write =<< Tar.pack base paths in the high-level?
--- can you do generic implementations??
--- that would be what's useful basically
 
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
 
