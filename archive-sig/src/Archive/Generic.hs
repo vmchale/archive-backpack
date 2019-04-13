@@ -36,7 +36,7 @@ getDirRecursive fp = do
     case dirs of
         [] -> pure $ fromList (mkRel <$> all')
         ds -> do
-            next <- foldMapA getDirRecursive ds
+            next <- foldMapA getDirRecursive (mkRel <$> ds)
             pure $ next <> fromList (mkRel <$> all')
 
     where foldMapA = fmap fold .* traverse

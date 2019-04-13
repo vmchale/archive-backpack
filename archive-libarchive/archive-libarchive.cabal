@@ -31,7 +31,7 @@ library
         base >=4.3 && <5,
         libarchive >=1.1.0.0,
         bytestring -any,
-        composition-prelude
+        composition-prelude -any
 
     if flag(development)
         ghc-options: -Werror
