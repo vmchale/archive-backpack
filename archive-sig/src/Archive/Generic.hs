@@ -32,11 +32,11 @@ packFromDir dir tar = packFromFiles tar =<< fmap toList (getDirRecursive dir)
 getDirRecursive :: FilePath -> IO (DList FilePath)
 getDirRecursive fp = do
     all' <- exclude <$> getDirectoryContents fp
-    dirs <- exclude <$> filterM doesDirectoryExist all'
+    dirs <- exclude <$> filterM doesDirectoryExist (mkRel <$> all')
     case dirs of
         [] -> pure $ fromList (mkRel <$> all')
         ds -> do
-            next <- foldMapA getDirRecursive (mkRel <$> ds)
+            next <- foldMapA getDirRecursive ds
             pure $ next <> fromList (mkRel <$> all')
 
     where foldMapA = fmap fold .* traverse
