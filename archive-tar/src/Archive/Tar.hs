@@ -1,4 +1,5 @@
 module Archive.Tar ( Entry
+                   , Error
                    , writeArchiveBytes
                    , unpackToDir
                    , readArchiveBytes
@@ -8,21 +9,22 @@ module Archive.Tar ( Entry
 import           Codec.Archive.Tar    (Entries (..))
 import qualified Codec.Archive.Tar    as Tar
 import           Control.Composition  ((.@))
-import           Control.Exception    (Exception, throw)
 import qualified Data.ByteString.Lazy as BSL
 
 type Entry = Tar.Entry
 
+type Error = Tar.FormatError
+
 -- this is bad but libarchive's error handling is vaguely fucked
-coerceToList :: Exception a => Entries a -> [Entry]
-coerceToList (Next e es) = e : coerceToList es
-coerceToList Done        = []
-coerceToList (Fail ex)   = throw ex
+coerceToList :: Entries a -> Either a [Entry]
+coerceToList (Next e es) = (e :) <$> coerceToList es
+coerceToList Done        = Right []
+coerceToList (Fail ex)   = Left ex
 
 writeArchiveBytes :: [Entry] -> BSL.ByteString
 writeArchiveBytes = Tar.write
 
-readArchiveBytes :: BSL.ByteString -> [Entry]
+readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
 readArchiveBytes = coerceToList . Tar.read
 
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()

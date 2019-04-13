@@ -17,7 +17,7 @@ packToFile :: FilePath -> [Entry] -> IO ()
 packToFile = writeArchiveBytes .@ BSL.writeFile
 
 unpackFromFile :: FilePath -> IO [Entry]
-unpackFromFile = fmap readArchiveBytes . BSL.readFile
+unpackFromFile = fmap (either (error . show) id . readArchiveBytes) . BSL.readFile
 
 unpackFileToDir :: FilePath -- ^ Filepath pointing to archive
                 -> FilePath -- ^ Directory
