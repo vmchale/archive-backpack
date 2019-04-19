@@ -1,7 +1,6 @@
 module Main ( main ) where
 
 import           Archive.Compression
-import           Archive.Generic
 import           Compression
 import           Options.Applicative
 
@@ -14,8 +13,12 @@ run :: Command -> IO ()
 run (Unpack src dest) =
     let dec = decompressor (compressionByFileExt dest)
         in unpackFileToDirAndDecompress dec src dest
-run (PackDir dir tar) = packFromDir dir tar
-run (Pack fs tar)     = packFromFiles tar fs
+run (PackDir dir tar) =
+    let comp = compressor (compressionByFileExt tar)
+        in packFromDirAndCompress comp dir tar
+run (Pack fs tar) =
+    let comp = compressor (compressionByFileExt tar)
+        in packFromFilesAndCompress comp tar fs
 
 unpack :: Parser Command
 unpack = Unpack
