@@ -11,7 +11,7 @@ data Command = PackDir FilePath FilePath
 
 run :: Command -> IO ()
 run (Unpack src dest) =
-    let dec = decompressor (compressionByFileExt dest)
+    let dec = decompressor (compressionByFileExt src)
         in unpackFileToDirAndDecompress dec src dest
 run (PackDir dir tar) =
     let comp = compressor (compressionByFileExt tar)
