@@ -1,5 +1,6 @@
 module Main ( main ) where
 
+import           Archive.Compression
 import           Archive.Generic
 import           Compression
 import           Options.Applicative
