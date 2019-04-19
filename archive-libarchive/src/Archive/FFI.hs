@@ -2,8 +2,8 @@ module Archive.FFI ( Entry
                    , Error
                    , readArchiveBytes
                    , unpackToDir
-                   , packFromFiles
                    , writeArchiveBytes
+                   , packFiles
                    ) where
 
 import qualified Codec.Archive        as FFI
@@ -23,5 +23,5 @@ readArchiveBytes = FFI.readArchiveBSL
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
 unpackToDir = fmap (either (error . show) id) .* FFI.runArchiveM .* FFI.unpackToDirLazy
 
-packFromFiles :: FilePath -> [FilePath] -> IO ()
-packFromFiles tar fps = BSL.writeFile tar =<< FFI.packFiles fps
+packFiles :: [FilePath] -> IO BSL.ByteString
+packFiles = FFI.packFiles

@@ -2,9 +2,8 @@ signature Archive ( Entry
                   , Error
                   , unpackToDir
                   , readArchiveBytes
-                  , packFromFiles
+                  , packFiles
                   , writeArchiveBytes
-                  -- , mkEntry
                   ) where
 
 import qualified Data.ByteString.Lazy as BSL
@@ -15,9 +14,9 @@ data Error
 
 instance Show Error
 
-packFromFiles :: FilePath -- ^ Path of @.tar@ file to write
-              -> [FilePath] -- ^ Files and directories to archive
-              -> IO ()
+-- | @since 0.2.0.0
+packFiles :: [FilePath] -- ^ Files and directories to write to archive
+          -> IO BSL.ByteString -- ^ 'BSL.ByteString' containing archive
 
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
 

@@ -1,7 +1,7 @@
 module Main ( main ) where
 
-import           Archive
 import           Archive.Generic
+import           Compression
 import           Options.Applicative
 
 -- pack a directory/list of files?
@@ -10,7 +10,9 @@ data Command = PackDir FilePath FilePath
              | Unpack FilePath FilePath
 
 run :: Command -> IO ()
-run (Unpack src dest) = unpackFileToDir src dest
+run (Unpack src dest) =
+    let dec = decompressor (compressionByFileExt dest)
+        in unpackFileToDirAndDecompress dec src dest
 run (PackDir dir tar) = packFromDir dir tar
 run (Pack fs tar)     = packFromFiles tar fs
 
@@ -18,6 +20,7 @@ unpack :: Parser Command
 unpack = Unpack
     <$> argument str
         (metavar "SRC"
+        -- <> completer (bashCompleter "file -X '!*.*tar' -o plusdirs")
         <> help "Archive to unpack")
     <*> argument str
         (metavar "DEST"

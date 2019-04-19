@@ -3,7 +3,7 @@ module Archive.Tar ( Entry
                    , writeArchiveBytes
                    , unpackToDir
                    , readArchiveBytes
-                   , packFromFiles
+                   , packFiles
                    ) where
 
 import           Codec.Archive.Tar    (Entries (..))
@@ -30,5 +30,5 @@ readArchiveBytes = coerceToList . Tar.read
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
 unpackToDir = Tar.read .@ Tar.unpack
 
-packFromFiles :: FilePath -> [FilePath] -> IO ()
-packFromFiles arc = Tar.create arc "."
+packFiles :: [FilePath] -> IO BSL.ByteString
+packFiles = fmap Tar.write . Tar.pack "."
