@@ -37,7 +37,6 @@ library
         base >=4.3 && <5,
         bytestring -any,
         directory -any,
-        dlist -any,
         bytestring -any,
         composition-prelude >=2.0.3.0,
         filepath -any

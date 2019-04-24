@@ -2,3 +2,4 @@
 
   * Add `unpackFileToDirAndDecompress`
   * Move `packFromFiles` to `Archive.Generic` and add `packFiles`
+  * Remove `dlist` dependency
