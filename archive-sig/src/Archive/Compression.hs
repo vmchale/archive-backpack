@@ -6,7 +6,6 @@ module Archive.Compression ( Decompressor
 
 import           Archive
 import qualified Data.ByteString.Lazy       as BSL
-import           Data.Foldable              (toList)
 import           System.Directory.Recursive
 
 type Decompressor = BSL.ByteString -> BSL.ByteString
@@ -21,7 +20,7 @@ unpackFileToDirAndDecompress f tar dir = unpackToDir dir =<< (f <$> BSL.readFile
 
 -- | @since 0.2.0.0
 packFromDirAndCompress :: Compressor -> FilePath -> FilePath -> IO ()
-packFromDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< fmap toList (getDirRecursive dir)
+packFromDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< getDirRecursive dir
 
 -- | @since 0.2.0.0
 packFromFilesAndCompress :: Compressor -> FilePath -> [FilePath] -> IO ()

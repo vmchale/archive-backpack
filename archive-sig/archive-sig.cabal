@@ -35,7 +35,7 @@ library
         base >=4.3 && <5,
         bytestring -any,
         composition-prelude >=2.0.3.0,
-        dir-traverse -any
+        dir-traverse >=0.2.0.0
 
     if flag(development)
         ghc-options: -Werror
