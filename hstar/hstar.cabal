@@ -39,7 +39,8 @@ executable hstar
         bytestring,
         lzma,
         bzlib,
-        zlib
+        zlib,
+        lzlib >= 0.2.0.0
 
     if flag(pure)
         build-depends:
