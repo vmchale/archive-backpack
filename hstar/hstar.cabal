@@ -1,56 +1,55 @@
 cabal-version: 2.0
-name: hstar
-version: 0.1.0.0
-license: BSD3
-copyright: Copyright: (c) 2019 Vanessa McHale
-maintainer: vamchale@gmail.com
-author: Vanessa McHale
-synopsis: Haskell version of tar CLI utility
+name:          hstar
+version:       0.1.0.0
+license:       BSD3
+copyright:     Copyright: (c) 2019 Vanessa McHale
+maintainer:    vamchale@gmail.com
+author:        Vanessa McHale
+synopsis:      Haskell version of tar CLI utility
 description:
     Haskell implementation of the tar utility, demonstrating backpack
-category: Codec, Tar, Archive
-build-type: Simple
+
+category:      Codec, Tar, Archive
+build-type:    Simple
 
 source-repository head
-    type: git
+    type:     git
     location: https://github.com/vmchale/archive-backpack
 
 flag development
-    description:
-        Enable `-Werror`
-    default: False
-    manual: True
+    description: Enable `-Werror`
+    default:     False
+    manual:      True
 
 flag pure
-    description:
-        Use Haskell backend instead of libarchive
-    default: False
+    description: Use Haskell backend instead of libarchive
+    default:     False
 
 executable hstar
-    main-is: Main.hs
-    other-modules: Compression
-    hs-source-dirs: src
+    main-is:          Main.hs
+    hs-source-dirs:   src
+    other-modules:    Compression
     default-language: Haskell2010
-    ghc-options: -Wall
+    ghc-options:      -Wall
     build-depends:
         base >=4.11 && <5,
         archive-sig -any,
         optparse-applicative -any,
-        bytestring,
-        lzma,
-        bzlib,
-        zlib,
-        lzlib >= 0.2.0.0
+        bytestring -any,
+        lzma -any,
+        bzlib -any,
+        zlib -any,
+        lzlib >=0.2.0.0
 
     if flag(pure)
-        build-depends:
-            archive-tar -any
+        build-depends: archive-tar -any
+
     else
-        build-depends:
-            archive-libarchive -any
+        build-depends: archive-libarchive -any
 
     if flag(pure)
         mixins: archive-tar (Archive.Tar as Archive)
+
     else
         mixins: archive-libarchive (Archive.FFI as Archive)
 
@@ -58,8 +57,9 @@ executable hstar
         ghc-options: -Werror
 
     if impl(ghc >=8.0)
-        ghc-options: -Wincomplete-uni-patterns -Wincomplete-record-updates
-                     -Wredundant-constraints -Widentities
+        ghc-options:
+            -Wincomplete-uni-patterns -Wincomplete-record-updates
+            -Wredundant-constraints -Widentities
 
     if impl(ghc >=8.4)
         ghc-options: -Wmissing-export-lists
