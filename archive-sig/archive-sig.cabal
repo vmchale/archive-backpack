@@ -4,7 +4,7 @@ version: 0.2.0.1
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2019 Vanessa McHale
-maintainer: vanessa.mchale@iohk.io
+maintainer: vamchale@gmail.com
 author: Vanessa McHale
 synopsis: Backpack signature for archive libraries
 description:

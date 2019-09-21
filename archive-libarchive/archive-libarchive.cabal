@@ -3,7 +3,7 @@ name: archive-libarchive
 version: 0.2.0.0
 license: BSD3
 copyright: Copyright: (c) 2019 Vanessa McHale
-maintainer: vanessa.mchale@iohk.io
+maintainer: vamchale@gmail.com
 author: Vanessa McHale
 synopsis: Common interface using libarchive
 description:

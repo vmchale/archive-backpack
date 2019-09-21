@@ -3,7 +3,7 @@ name: hstar
 version: 0.1.0.0
 license: BSD3
 copyright: Copyright: (c) 2019 Vanessa McHale
-maintainer: vanessa.mchale@iohk.io
+maintainer: vamchale@gmail.com
 author: Vanessa McHale
 synopsis: Haskell version of tar CLI utility
 description:
