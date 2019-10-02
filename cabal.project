@@ -3,12 +3,9 @@ packages: archive-sig
         , archive-tar
         , hstar
 
+max-backjumps: 40000
+
 constraints: archive-sig +development
            , archive-libarchive +development
            , archive-tar +development
            , hstar +development
-
-source-repository-package
-    type: git
-    location: https://github.com/vmchale/libarchive.git
-    tag: ea287b2424ad00614f1f0efeb59644584b761699
