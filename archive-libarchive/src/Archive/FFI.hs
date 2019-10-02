@@ -21,7 +21,8 @@ readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
 readArchiveBytes = FFI.readArchiveBSL
 
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
-unpackToDir = fmap (either (error . show) id) .* FFI.runArchiveM .* FFI.unpackToDirLazy
+unpackToDir = fmap (either showError id) .* FFI.runArchiveM .* FFI.unpackToDirLazy
+    where showError = error . show
 
 packFiles :: [FilePath] -> IO BSL.ByteString
 packFiles = FFI.packFiles
