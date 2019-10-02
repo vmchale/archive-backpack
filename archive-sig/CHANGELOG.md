@@ -1,3 +1,7 @@
+# 0.2.0.2
+
+  * Export `Compressor` type for docs
+
 # 0.2.0.1
 
   * Use `dir-traverse` to provide recursive directory traversal

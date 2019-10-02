@@ -1,4 +1,5 @@
 module Archive.Compression ( Decompressor
+                           , Compressor
                            , unpackFileToDirAndDecompress
                            , packFromFilesAndCompress
                            , packFromDirAndCompress
