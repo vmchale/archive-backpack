@@ -29,12 +29,12 @@ decompressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
 decompressor Lzma = Lzma.decompress
 decompressor Bz2  = BZip.decompress
 decompressor GZip = GZip.decompress
-decompressor Lz   = Lzip.decompress . BSL.toStrict
+decompressor Lz   = Lzip.decompress
 decompressor None = id
 
 compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
 compressor Lzma = Lzma.compress
 compressor Bz2  = BZip.compress
 compressor GZip = GZip.compress
-compressor Lz   = Lzip.compress . BSL.toStrict
+compressor Lz   = Lzip.compress
 compressor None = id

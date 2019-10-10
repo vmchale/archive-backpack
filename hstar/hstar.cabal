@@ -43,7 +43,7 @@ executable hstar
         lzma -any,
         bzlib -any,
         zlib -any,
-        lzlib >=0.2.0.0
+        lzlib >=0.3.0.0
 
     if flag(pure)
         build-depends: archive-tar -any
