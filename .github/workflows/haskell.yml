@@ -13,14 +13,6 @@ jobs:
           cabal build --enable-tests --enable-benchmarks --only-dependencies
       - name: Build
         run: "cabal build --enable-tests --enable-benchmarks"
-      - name: "Get test data"
-        run: |
-          sudo apt install lzip
-          make -j
-      - name: Tests
-        run: "cabal test"
-      - name: Documentation
-        run: "cabal haddock"
     strategy:
       matrix:
         cabal:
