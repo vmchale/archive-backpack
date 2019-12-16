@@ -7,6 +7,8 @@ jobs:
         with:
           cabal-version: "${{ matrix.cabal }}"
           ghc-version: "${{ matrix.ghc }}"
+      - name: update
+        run: "cabal update "
       - name: build
         run: "cabal build all"
     strategy:

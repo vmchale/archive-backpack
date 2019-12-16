@@ -4,6 +4,7 @@ let haskellCi =
 in    haskellCi.generalCi
         [ haskellCi.checkout
         , haskellCi.haskellEnv haskellCi.matrixEnv
+        , haskellCi.cabalWithFlags "update" ([] : List Text)
         , haskellCi.cabalBuildWithFlags [ "all" ]
         ]
         ( Some
