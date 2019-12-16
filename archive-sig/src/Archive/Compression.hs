@@ -48,7 +48,7 @@ srcFilter ".shake"          = False
 srcFilter ".vagrant"        = False
 srcFilter "tags"            = False -- ctags/vim
 srcFilter ".hspec-failures" = False
-srcFilter _                 = False
+srcFilter _                 = True
 
 -- | @since 0.2.0.0
 packFromFilesAndCompress :: Compressor -> FilePath -> [FilePath] -> IO ()
