@@ -50,6 +50,12 @@ srcFilter fp | ".git" `isSuffixOf` fp = False
              | "tags" `isSuffixOf` fp = False
              | "hspec-failures" `isSuffixOf` fp = False
              | ".github" `isSuffixOf` fp = False
+             | ".travis.yml" `isSuffixOf` fp = False
+             | "TODO.md" `isSuffixOf` fp = False
+             | ".yamllint" `isSuffixOf` fp = False
+             | ".ctags" `isSuffixOf` fp = False
+             | ".atsfmt.toml" `isSuffixOf` fp = False
+             | ".gitignore" `isSuffixOf` fp = False
              | otherwise = True
 
 -- | @since 0.2.0.0

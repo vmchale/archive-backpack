@@ -68,7 +68,7 @@ cmd = hsubparser
     (command "unpack" (info unpack (progDesc "Unpack an archive"))
     <> command "pack-dir" (info packDir (progDesc "Pack a directory's contents into an archive"))
     <> command "pack" (info pack (progDesc "Pack an archive from a list of files"))
-    <> command "pack-src" (info packSrc (progDesc "Pack up a source directory, ignoring version control and artifact directories"))
+    <> command "pack-src" (info packSrc (progDesc "Pack up a source directory as a bundle, ignoring version control and artifact directories"))
     )
 
 topLevel :: ParserInfo Command
