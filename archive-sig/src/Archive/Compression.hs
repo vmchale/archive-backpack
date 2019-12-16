@@ -49,6 +49,7 @@ srcFilter fp | ".git" `isSuffixOf` fp = False
              | ".vagrant" `isSuffixOf` fp = False
              | "tags" `isSuffixOf` fp = False
              | "hspec-failures" `isSuffixOf` fp = False
+             | ".github" `isSuffixOf` fp = False
              | otherwise = True
 
 -- | @since 0.2.0.0
