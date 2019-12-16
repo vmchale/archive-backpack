@@ -21,7 +21,10 @@ unpackFileToDirAndDecompress :: Decompressor -- ^ Decompression to use
 unpackFileToDirAndDecompress f tar dir = unpackToDir dir =<< (f <$> BSL.readFile tar)
 
 -- | @since 0.2.0.0
-packFromDirAndCompress :: Compressor -> FilePath -> FilePath -> IO ()
+packFromDirAndCompress :: Compressor
+                       -> FilePath -- ^ Directory to pack up
+                       -> FilePath -- ^ Destination tarball
+                       -> IO ()
 packFromDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< getDirRecursive dir
 
 -- | Pack up source files, ignoring version control directories and common
