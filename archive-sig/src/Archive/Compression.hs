@@ -56,6 +56,7 @@ srcFilter fp | ".git" `isSuffixOf` fp = False
              | ".ctags" `isSuffixOf` fp = False
              | ".atsfmt.toml" `isSuffixOf` fp = False
              | ".gitignore" `isSuffixOf` fp = False
+             | ".clang-format" `isSuffixOf` fp = False
              | otherwise = True
 
 -- | @since 0.2.0.0
