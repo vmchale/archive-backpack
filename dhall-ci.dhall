@@ -6,5 +6,4 @@ in      dhallCi.dhallSteps
           , dhallCi.checkDhallYaml
               [ "dhall-ci.dhall", "haskell-ci.dhall", "hlint-ci.dhall" ]
           ]
-      ⫽ { on = [ dhallCi.printEvent dhallCi.Event.Push ] }
     : dhallCi.CI
