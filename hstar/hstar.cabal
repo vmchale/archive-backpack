@@ -37,7 +37,7 @@ executable hstar
 
     build-depends:
         base >=4.11 && <5,
-        archive-sig >=0.2.1.0,
+        archive-sig >=0.2.1.2,
         optparse-applicative -any,
         bytestring -any,
         lzma -any,
