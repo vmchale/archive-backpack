@@ -35,19 +35,20 @@ packSrcDirAndCompress :: Compressor -> FilePath -> FilePath -> IO ()
 packSrcDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< getDirFiltered (pure.srcFilter) dir
 
 srcFilter :: FilePath -> Bool
-srcFilter ".git"          = False
-srcFilter "_darcs"        = False
-srcFilter ".hg"           = False
-srcFilter ".pijul"        = False
-srcFilter "dist"          = False
-srcFilter "dist-newstyle" = False
-srcFilter ".stack-work"   = False
-srcFilter "target"        = False -- rust/cargo
-srcFilter ".atspkg"       = False
-srcFilter ".shake"        = False
-srcFilter ".vagrant"      = False
-srcFilter "tags"          = False -- ctags/vim
-srcFilter _               = False
+srcFilter ".git"            = False
+srcFilter "_darcs"          = False
+srcFilter ".hg"             = False
+srcFilter ".pijul"          = False
+srcFilter "dist"            = False
+srcFilter "dist-newstyle"   = False
+srcFilter ".stack-work"     = False
+srcFilter "target"          = False -- rust/cargo
+srcFilter ".atspkg"         = False
+srcFilter ".shake"          = False
+srcFilter ".vagrant"        = False
+srcFilter "tags"            = False -- ctags/vim
+srcFilter ".hspec-failures" = False
+srcFilter _                 = False
 
 -- | @since 0.2.0.0
 packFromFilesAndCompress :: Compressor -> FilePath -> [FilePath] -> IO ()
