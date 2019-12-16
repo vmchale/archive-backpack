@@ -1,3 +1,7 @@
+# 0.2.2.0
+
+  * Add `versionInfo` to `Archive` signature
+
 # 0.2.1.2
 
   * Bugfix

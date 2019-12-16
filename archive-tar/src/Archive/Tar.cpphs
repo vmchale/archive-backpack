@@ -4,6 +4,7 @@ module Archive.Tar ( Entry
                    , unpackToDir
                    , readArchiveBytes
                    , packFiles
+                   , versionInfo
                    ) where
 
 import           Codec.Archive.Tar    (Entries (..))
@@ -32,3 +33,6 @@ unpackToDir = Tar.read .@ Tar.unpack
 
 packFiles :: [FilePath] -> IO BSL.ByteString
 packFiles = fmap Tar.write . Tar.pack "."
+
+versionInfo :: String
+versionInfo = "tar: " ++ VERSION_tar

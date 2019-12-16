@@ -4,11 +4,13 @@ module Archive.FFI ( Entry
                    , unpackToDir
                    , writeArchiveBytes
                    , packFiles
+                   , versionInfo
                    ) where
 
-import qualified Codec.Archive        as FFI
-import           Control.Composition  ((.*))
-import qualified Data.ByteString.Lazy as BSL
+import qualified Codec.Archive                 as FFI
+import           Codec.Archive.Foreign.Archive (archiveVersionString)
+import           Control.Composition           ((.*))
+import qualified Data.ByteString.Lazy          as BSL
 
 type Entry = FFI.Entry
 
@@ -26,3 +28,6 @@ unpackToDir = fmap (either showError id) .* FFI.runArchiveM .* FFI.unpackToDirLa
 
 packFiles :: [FilePath] -> IO BSL.ByteString
 packFiles = FFI.packFiles
+
+versionInfo :: String
+versionInfo = "libarchive-hs: " ++ VERSION_libarchive ++ "\n" ++ archiveVersionString

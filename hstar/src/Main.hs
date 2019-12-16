@@ -1,8 +1,14 @@
 module Main ( main ) where
 
+import           Archive
 import           Archive.Compression
 import           Compression
+import qualified Data.Version        as V
 import           Options.Applicative
+import qualified Paths_hstar         as P
+
+hstarVersion :: V.Version
+hstarVersion = P.version
 
 -- pack a directory/list of files?
 data Command = PackDir !FilePath !FilePath
@@ -71,8 +77,11 @@ cmd = hsubparser
     <> command "pack-src" (info packSrc (progDesc "Pack up a source directory as a bundle, ignoring version control and artifact directories"))
     )
 
+versionMod :: Parser (a -> a)
+versionMod = infoOption ("hstar version: " ++ V.showVersion hstarVersion ++ "\n" ++ versionInfo) (short 'V' <> long "version" <> help "Show version")
+
 topLevel :: ParserInfo Command
-topLevel = info (helper <*> cmd)
+topLevel = info (helper <*> versionMod <*> cmd)
     (fullDesc
     <> progDesc "A Haskell implementation of tar"
     <> header "hstar - a flexible archiving tool")
