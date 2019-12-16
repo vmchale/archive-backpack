@@ -1,3 +1,7 @@
+# 0.2.1.0
+
+  * Add `packSrcDirAndCompress`
+
 # 0.2.0.2
 
   * Export `Compressor` type for docs
