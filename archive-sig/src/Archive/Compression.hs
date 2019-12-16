@@ -46,6 +46,5 @@ srcFilter ".vagrant"      = False
 srcFilter _               = False
 
 -- | @since 0.2.0.0
--- | @since 0.2.0.0
 packFromFilesAndCompress :: Compressor -> FilePath -> [FilePath] -> IO ()
 packFromFilesAndCompress f tar fps = BSL.writeFile tar =<< (f <$> packFiles fps)
