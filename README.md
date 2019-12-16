@@ -13,11 +13,3 @@ This is a demo of GHC's backpack, used to fuse the functionality of
 ```
 cabal build all
 ```
-
-or
-
-```
-./bash/build
-```
-
-if you use [cpkg](http://hackage.haskell.org/package/cpkg).
