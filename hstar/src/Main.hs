@@ -83,7 +83,7 @@ versionMod = infoOption ("hstar version: " ++ V.showVersion hstarVersion ++ "\n"
 topLevel :: ParserInfo Command
 topLevel = info (helper <*> versionMod <*> cmd)
     (fullDesc
-    <> progDesc "A Haskell implementation of tar"
+    <> progDesc "A Haskell archiver tool"
     <> header "hstar - a flexible archiving tool")
 
 main :: IO ()
