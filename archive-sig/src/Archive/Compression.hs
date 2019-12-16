@@ -8,6 +8,7 @@ module Archive.Compression ( Decompressor
 
 import           Archive
 import qualified Data.ByteString.Lazy       as BSL
+import           Data.List                  (isSuffixOf)
 import           System.Directory.Recursive
 
 type Decompressor = BSL.ByteString -> BSL.ByteString
@@ -35,20 +36,20 @@ packSrcDirAndCompress :: Compressor -> FilePath -> FilePath -> IO ()
 packSrcDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< getDirFiltered (pure.srcFilter) dir
 
 srcFilter :: FilePath -> Bool
-srcFilter ".git"            = False
-srcFilter "_darcs"          = False
-srcFilter ".hg"             = False
-srcFilter ".pijul"          = False
-srcFilter "dist"            = False
-srcFilter "dist-newstyle"   = False
-srcFilter ".stack-work"     = False
-srcFilter "target"          = False -- rust/cargo
-srcFilter ".atspkg"         = False
-srcFilter ".shake"          = False
-srcFilter ".vagrant"        = False
-srcFilter "tags"            = False -- ctags/vim
-srcFilter ".hspec-failures" = False
-srcFilter _                 = True
+srcFilter fp | ".git" `isSuffixOf` fp = False
+             | "_darcs" `isSuffixOf` fp = False
+             | ".hg" `isSuffixOf` fp = False
+             | ".pijul" `isSuffixOf` fp = False
+             | "dist" `isSuffixOf` fp = False
+             | "dist-newstyle" `isSuffixOf` fp = False
+             | ".stack-work" `isSuffixOf` fp = False
+             | "target" `isSuffixOf` fp = False
+             | ".atspkg" `isSuffixOf` fp = False
+             | ".shake" `isSuffixOf` fp = False
+             | ".vagrant" `isSuffixOf` fp = False
+             | "tags" `isSuffixOf` fp = False
+             | "hspec-failures" `isSuffixOf` fp = False
+             | otherwise = True
 
 -- | @since 0.2.0.0
 packFromFilesAndCompress :: Compressor -> FilePath -> [FilePath] -> IO ()

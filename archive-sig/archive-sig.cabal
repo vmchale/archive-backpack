@@ -1,6 +1,6 @@
 cabal-version:   2.0
 name:            archive-sig
-version:         0.2.1.1
+version:         0.2.1.2
 license:         BSD3
 license-file:    LICENSE
 copyright:       Copyright: (c) 2019 Vanessa McHale
@@ -36,7 +36,7 @@ library
         base >=4.3 && <5,
         bytestring -any,
         composition-prelude >=2.0.3.0,
-        dir-traverse >=0.2.2.1
+        dir-traverse >=0.2.2.2
 
     if flag(development)
         ghc-options: -Werror
