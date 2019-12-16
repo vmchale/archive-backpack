@@ -17,6 +17,7 @@ extra-doc-files: CHANGELOG.md
 source-repository head
     type:     git
     location: https://github.com/vmchale/archive-backpack
+    subdir:   archive-sig
 
 flag development
     description: Enable `-Werror`

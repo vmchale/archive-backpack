@@ -14,6 +14,7 @@ build-type:    Simple
 source-repository head
     type:     git
     location: https://github.com/vmchale/archive-backpack
+    subdir:   archive-libarchive
 
 flag development
     description: Enable `-Werror`
