@@ -59,6 +59,7 @@ srcFilter fp | ".git" `isSuffixOf` fp = False
              | ".clang-format" `isSuffixOf` fp = False
              | "stack.yaml.lock" `isSuffixOf` fp = False
              | "appveyor.yml" `isSuffixOf` fp = False
+             | ".terraform" `isSuffixOf` fp = False
              | otherwise = True
 
 -- | @since 0.2.0.0
