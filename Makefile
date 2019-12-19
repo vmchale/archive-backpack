@@ -2,7 +2,6 @@
 
 SHELL := bash
 MAKEFLAGS += --warn-undefined-variables --no-builtin-rules -j
-.SHELLFLAGS := -eu pipefail
 .DELETE_ON_ERROR:
 
 ci: .github/workflows/haskell.yml .github/workflows/dhall.yml .github/workflows/hlint.yml
