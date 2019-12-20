@@ -1,5 +1,5 @@
 let haskellCi =
-      https://raw.githubusercontent.com/vmchale/github-actions-dhall/master/haskell-ci.dhall sha256:0436a5c08f98e083bfb147330ff273f2b182a9e695e0e67441c0f22c3bf4dc4d
+      https://raw.githubusercontent.com/vmchale/github-actions-dhall/master/haskell-ci.dhall sha256:5690c3ba762328bbe4409015cc1ebf2706c0b2e367733740deb7bee9d4252eac
 
 let concatMapSep =
       https://raw.githubusercontent.com/dhall-lang/dhall-lang/9f259cd68870b912fbf2f2a08cd63dc3ccba9dc3/Prelude/Text/concatMapSep sha256:c272aca80a607bc5963d1fcb38819e7e0d3e72ac4d02b1183b1afb6a91340840
@@ -40,7 +40,7 @@ in      haskellCi.generalCi
       ⫽ { on =
             [ haskellCi.Event.push
             , haskellCi.Event.pull_request
-            , haskellCi.Event.Schedule { schedule = { cron = "30 3 * * *" } }
+            , haskellCi.Event.Schedule { schedule = [ { cron = "30 3 * * *" } ] }
             ]
         }
     : haskellCi.CI.Type
