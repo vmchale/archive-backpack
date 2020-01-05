@@ -3,13 +3,13 @@ module Compression ( compressionByFileExt
                    , compressor
                    ) where
 
-import qualified Codec.Compression.BZip as BZip
-import qualified Codec.Compression.GZip as GZip
-import qualified Codec.Compression.Lzma as Lzma
-import           Codec.Lzip             as Lzip
-import qualified Data.ByteString.Lazy   as BSL
-import           Data.List              (isSuffixOf)
+import qualified Codec.Compression.BZip      as BZip
+import qualified Codec.Compression.GZip      as GZip
+import qualified Codec.Compression.Lzma      as Lzma
 import qualified Codec.Compression.Zstd.Lazy as Zstd
+import           Codec.Lzip                  as Lzip
+import qualified Data.ByteString.Lazy        as BSL
+import           Data.List                   (isSuffixOf)
 
 data Compressor = Lzma
                 | Lz
@@ -34,7 +34,7 @@ decompressor Lzma = Lzma.decompress
 decompressor Bz2  = BZip.decompress
 decompressor GZip = GZip.decompress
 decompressor Lz   = Lzip.decompress
-decompression Zstd = Zstd.decompress
+decompressor Zstd = Zstd.decompress
 decompressor None = id
 
 compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
