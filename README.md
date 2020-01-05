@@ -23,5 +23,5 @@ CI is provided via
 the CI scripts, edit `haskell-ci.dhall` and run
 
 ```
-make ci -j
+make ci
 ```
