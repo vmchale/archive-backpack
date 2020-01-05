@@ -1,6 +1,6 @@
 cabal-version:   2.0
 name:            archive-sig
-version:         0.2.0.2
+version:         0.2.2.0
 license:         BSD3
 license-file:    LICENSE
 copyright:       Copyright: (c) 2019 Vanessa McHale
@@ -17,6 +17,7 @@ extra-doc-files: CHANGELOG.md
 source-repository head
     type:     git
     location: https://github.com/vmchale/archive-backpack
+    subdir:   archive-sig
 
 flag development
     description: Enable `-Werror`
@@ -36,7 +37,7 @@ library
         base >=4.3 && <5,
         bytestring -any,
         composition-prelude >=2.0.3.0,
-        dir-traverse >=0.2.0.0
+        dir-traverse >=0.2.2.2
 
     if flag(development)
         ghc-options: -Werror

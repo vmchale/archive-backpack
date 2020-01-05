@@ -4,6 +4,7 @@ signature Archive ( Entry
                   , readArchiveBytes
                   , packFiles
                   , writeArchiveBytes
+                  , versionInfo
                   ) where
 
 import qualified Data.ByteString.Lazy as BSL
@@ -23,3 +24,5 @@ unpackToDir :: FilePath -> BSL.ByteString -> IO ()
 readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
 
 writeArchiveBytes :: [Entry] -> BSL.ByteString
+
+versionInfo :: String

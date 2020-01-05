@@ -2,5 +2,5 @@
 
 set -e pipefail
 
-PKG_CONFIG_PATH=$(cpkg dump pkg-config libarchive) cabal build exe:hstar -w ghc-8.6.5
-cp "$(fd -t x '^hstar$' -I | tail -n1)" "$HOME"/.cabal/bin
+cabal build exe:hstar -w ghc-8.6.5
+cp "$(fd -t x '^hstar$' -I | tail -n1)" "$HOME"/.local/bin

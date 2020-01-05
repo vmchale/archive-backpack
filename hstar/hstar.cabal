@@ -16,6 +16,7 @@ build-type:    Simple
 source-repository head
     type:     git
     location: https://github.com/vmchale/archive-backpack
+    subdir:   hstar
 
 flag development
     description: Enable `-Werror`
@@ -30,6 +31,8 @@ executable hstar
     main-is:          Main.hs
     hs-source-dirs:   src
     other-modules:    Compression
+                      Paths_hstar
+    autogen-modules:  Paths_hstar
     default-language: Haskell2010
     ghc-options:
         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
@@ -37,7 +40,7 @@ executable hstar
 
     build-depends:
         base >=4.11 && <5,
-        archive-sig -any,
+        archive-sig >=0.2.1.2,
         optparse-applicative -any,
         bytestring -any,
         lzma -any,

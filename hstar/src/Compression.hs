@@ -23,6 +23,7 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp = GZip
                         | ".tar.bz2" `isSuffixOf` fp = Bz2
                         | ".tar.gz" `isSuffixOf` fp = GZip
                         | ".tar.xz" `isSuffixOf` fp = Lzma
+                        | ".txz" `isSuffixOf` fp = Lzma
                         | ".tar.lz" `isSuffixOf` fp = Lz
                         | ".tar.zst" `isSuffixOf` fp = Zstd
                         | ".tar" `isSuffixOf` fp = None
