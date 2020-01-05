@@ -46,6 +46,7 @@ executable hstar
         lzma -any,
         bzlib -any,
         zlib -any,
+        zstd -any,
         lzlib >=0.3.0.0
 
     if flag(pure)
