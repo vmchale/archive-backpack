@@ -1,7 +1,7 @@
-packages: archive-sig
+packages: hstar
+        , archive-sig
         , archive-libarchive
         , archive-tar
-        , hstar
 
 max-backjumps: 40000
 
