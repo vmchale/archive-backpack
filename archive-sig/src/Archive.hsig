@@ -25,4 +25,5 @@ readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
 
 writeArchiveBytes :: [Entry] -> BSL.ByteString
 
+-- | @since 0.2.2.0
 versionInfo :: String
