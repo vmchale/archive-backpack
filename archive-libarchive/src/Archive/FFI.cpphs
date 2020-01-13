@@ -29,5 +29,6 @@ unpackToDir = fmap (either showError id) .* FFI.runArchiveM .* FFI.unpackToDirLa
 packFiles :: [FilePath] -> IO BSL.ByteString
 packFiles = FFI.packFiles
 
+-- | @since 0.2.2.0
 versionInfo :: String
 versionInfo = "libarchive-hs: " ++ VERSION_libarchive ++ "\n" ++ archiveVersionString
