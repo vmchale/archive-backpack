@@ -21,6 +21,9 @@ data Compressor = Lzma
 compressionByFileExt :: FilePath -> Compressor
 compressionByFileExt fp | ".tgz" `isSuffixOf` fp = GZip
                         | ".tar.bz2" `isSuffixOf` fp = Bz2
+                        | ".tar.bz" `isSuffixOf` fp = Bz2
+                        | ".tbz2" `isSuffixOf` fp = Bz2
+                        | ".tbz" `isSuffixOf` fp = Bz2
                         | ".tar.gz" `isSuffixOf` fp = GZip
                         | ".tar.xz" `isSuffixOf` fp = Lzma
                         | ".txz" `isSuffixOf` fp = Lzma
