@@ -1,3 +1,5 @@
+{-# LANGUAGE PackageImports #-}
+
 module Compression ( compressionByFileExt
                    , decompressor
                    , compressor
@@ -6,6 +8,7 @@ module Compression ( compressionByFileExt
 import qualified Codec.Compression.BZip      as BZip
 import qualified Codec.Compression.GZip      as GZip
 import qualified Codec.Compression.Lzma      as Lzma
+import qualified Codec.Compression.Zlib      as Zlib
 import qualified Codec.Compression.Zstd.Lazy as Zstd
 import           Codec.Lzip                  as Lzip
 import qualified Data.ByteString.Lazy        as BSL
@@ -16,6 +19,7 @@ data Compressor = Lzma
                 | Bz2
                 | GZip
                 | Zstd
+                | Deflate
                 | None
 
 compressionByFileExt :: FilePath -> Compressor
@@ -29,21 +33,24 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp = GZip
                         | ".txz" `isSuffixOf` fp = Lzma
                         | ".tar.lz" `isSuffixOf` fp = Lz
                         | ".tar.zst" `isSuffixOf` fp = Zstd
+                        | ".tar.Z" `isSuffixOf` fp = Deflate
                         | ".tar" `isSuffixOf` fp = None
                         | otherwise = error "Suffix not supported or invalid."
 
 decompressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
-decompressor Lzma = Lzma.decompress
-decompressor Bz2  = BZip.decompress
-decompressor GZip = GZip.decompress
-decompressor Lz   = Lzip.decompress
-decompressor Zstd = Zstd.decompress
-decompressor None = id
+decompressor Lzma    = Lzma.decompress
+decompressor Bz2     = BZip.decompress
+decompressor GZip    = GZip.decompress
+decompressor Lz      = Lzip.decompress
+decompressor Zstd    = Zstd.decompress
+decompressor Deflate = Zlib.decompress
+decompressor None    = id
 
 compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
-compressor Lzma = Lzma.compress
-compressor Bz2  = BZip.compress
-compressor GZip = GZip.compress
-compressor Lz   = Lzip.compress
-compressor Zstd = Zstd.compress Zstd.maxCLevel
-compressor None = id
+compressor Lzma    = Lzma.compress
+compressor Bz2     = BZip.compress
+compressor GZip    = GZip.compress
+compressor Lz      = Lzip.compress
+compressor Zstd    = Zstd.compress Zstd.maxCLevel
+compressor Deflate = Zlib.compress
+compressor None    = id
