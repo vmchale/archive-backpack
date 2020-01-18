@@ -1,1 +1,2 @@
 - [ ] http://hackage.haskell.org/package/tar-conduit-0.3.2/docs/Data-Conduit-Tar.html
+- [ ] http://hackage.haskell.org/package/pure-zlib
