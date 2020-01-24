@@ -1,5 +1,3 @@
-{-# LANGUAGE PackageImports #-}
-
 module Compression ( compressionByFileExt
                    , decompressor
                    , compressor
