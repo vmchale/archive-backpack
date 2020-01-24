@@ -11,6 +11,8 @@ import qualified Codec.Archive                 as FFI
 import           Codec.Archive.Foreign.Archive (archiveVersionString)
 import           Control.Composition           ((.*))
 import qualified Data.ByteString.Lazy          as BSL
+import qualified Data.Version                  as V
+import qualified Paths_archive_libarchive      as P
 
 type Entry = FFI.Entry
 
@@ -31,4 +33,7 @@ packFiles = FFI.packFiles
 
 -- | @since 0.2.2.0
 versionInfo :: String
-versionInfo = "libarchive-hs: " ++ VERSION_libarchive ++ "\n" ++ archiveVersionString
+versionInfo =
+       "libarchive-hs: " ++ VERSION_libarchive ++ "\n"
+    ++ archiveVersionString ++ "\n"
+    ++ "archive-libarchive: " ++ V.showVersion P.version
