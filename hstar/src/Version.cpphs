@@ -1,0 +1,18 @@
+module Version ( allVersionsString ) where
+
+import           Archive
+import           Codec.Lzip
+import qualified Data.Version as V
+import qualified Paths_hstar  as P
+
+allVersionsString :: String
+allVersionsString =
+       "hstar version: " ++ V.showVersion P.version ++ "\n"
+    ++ versionInfo ++ "\n"
+    ++ "lzlib-hs: " ++ VERSION_lzlib ++ "\n"
+    ++ "lzlib: " ++ lZVersion ++ "\n"
+    ++ "lzlib API: " ++ show (lZApiVersion :: Int) ++ "\n"
+    ++ "zlib-hs: " ++ VERSION_zlib ++ "\n"
+    ++ "lzma-hs: " ++ VERSION_lzma ++ "\n"
+    ++ "zstd-hs: " ++ VERSION_zstd ++ "\n"
+    ++ "bzlib-hs: " ++ VERSION_bzlib
