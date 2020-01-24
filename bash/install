@@ -4,3 +4,4 @@ set -e pipefail
 
 cabal build exe:hstar -w ghc-8.6.5
 cp "$(fd -t x '^hstar$' -I | tail -n1)" "$HOME"/.local/bin
+strip "$HOME"/.local/bin/hstar
