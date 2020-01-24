@@ -11,6 +11,8 @@ import           Codec.Archive.Tar    (Entries (..))
 import qualified Codec.Archive.Tar    as Tar
 import           Control.Composition  ((.@))
 import qualified Data.ByteString.Lazy as BSL
+import qualified Data.Version         as V
+import qualified Paths_archive_tar    as P
 
 type Entry = Tar.Entry
 
@@ -36,4 +38,4 @@ packFiles = fmap Tar.write . Tar.pack "."
 
 -- | @since 0.2.2.0
 versionInfo :: String
-versionInfo = "tar: " ++ VERSION_tar
+versionInfo = "tar: " ++ VERSION_tar ++ "\narchive-tar: " ++ V.showVersion P.version

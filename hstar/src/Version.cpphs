@@ -1,13 +1,15 @@
 module Version ( allVersionsString ) where
 
 import           Archive
+import           Archive.Generic
 import           Codec.Lzip
-import qualified Data.Version as V
-import qualified Paths_hstar  as P
+import qualified Data.Version    as V
+import qualified Paths_hstar     as P
 
 allVersionsString :: String
 allVersionsString =
        "hstar version: " ++ V.showVersion P.version ++ "\n"
+    ++ "archive-sig version: " ++ V.showVersion archiveSigVersion ++ "\n"
     ++ versionInfo ++ "\n"
     ++ "lzlib-hs: " ++ VERSION_lzlib ++ "\n"
     ++ "lzlib: " ++ lZVersion ++ "\n"
