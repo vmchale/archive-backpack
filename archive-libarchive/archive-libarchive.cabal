@@ -1,6 +1,6 @@
 cabal-version: 2.0
 name:          archive-libarchive
-version:       0.2.2.0
+version:       0.2.2.1
 license:       BSD3
 license-file:  LICENSE
 copyright:     Copyright: (c) 2019-2020 Vanessa McHale
@@ -25,6 +25,8 @@ library
     exposed-modules:    Archive.FFI
     build-tool-depends: cpphs:cpphs -any
     hs-source-dirs:     src
+    other-modules:      Paths_archive_libarchive
+    autogen-modules:    Paths_archive_libarchive
     default-language:   Haskell2010
     ghc-options:        -Wall
     build-depends:

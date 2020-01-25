@@ -1,6 +1,6 @@
 cabal-version:   2.0
 name:            archive-sig
-version:         0.2.2.0
+version:         0.2.3.0
 license:         BSD3
 license-file:    LICENSE
 copyright:       Copyright: (c) 2019-2020 Vanessa McHale
@@ -31,6 +31,8 @@ library
 
     signatures:       Archive
     hs-source-dirs:   src
+    other-modules:    Paths_archive_sig
+    autogen-modules:  Paths_archive_sig
     default-language: Haskell2010
     ghc-options:      -Wall
     build-depends:

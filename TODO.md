@@ -1,5 +1,6 @@
 - [ ] http://hackage.haskell.org/package/tar-conduit-0.3.2/docs/Data-Conduit-Tar.html
 - [ ] http://hackage.haskell.org/package/pure-zlib
-- [ ] http://hackage.haskell.org/package/brotli 
+- [ ] http://hackage.haskell.org/package/brotli
 - [ ] lz4 lol
 - [ ] remote downloads?
+- [ ] https://hackage.haskell.org/package/pipes-zlib

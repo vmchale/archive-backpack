@@ -3,4 +3,6 @@
 set -e pipefail
 
 cabal build exe:hstar -w ghc-8.6.5
-cp "$(fd -t x '^hstar$' -I | tail -n1)" "$HOME"/.local/bin
+bin="$(fd -t x '^hstar$' -I | tail -n1)"
+strip "$bin"
+cp "$bin" "$HOME"/.local/bin
