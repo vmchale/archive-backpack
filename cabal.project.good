@@ -1,0 +1,13 @@
+packages: hstar
+        , archive-sig
+        , archive-libarchive
+        , archive-tar
+        , bzip-signature
+
+max-backjumps: 40000
+
+constraints: archive-sig +development
+           , archive-libarchive +development
+           , archive-tar +development
+           , hstar +development
+           , zlib +pkg-config

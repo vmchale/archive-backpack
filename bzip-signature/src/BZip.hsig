@@ -1,0 +1,9 @@
+signature BZip ( decompress
+               , compress
+               ) where
+
+import qualified Data.ByteString.Lazy as BSL
+
+compress :: BSL.ByteString -> BSL.ByteString
+
+decompress :: BSL.ByteString -> BSL.ByteString
