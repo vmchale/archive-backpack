@@ -3,7 +3,7 @@ module Compression ( compressionByFileExt
                    , compressor
                    ) where
 
-import qualified Codec.Compression.BZip      as BZip
+import qualified BZip
 import qualified Codec.Compression.GZip      as GZip
 import qualified Codec.Compression.Lzma      as Lzma
 import qualified Codec.Compression.Zlib      as Zlib

@@ -2,10 +2,9 @@ module Version ( allVersionsString ) where
 
 import           Archive
 import           Archive.Generic
-import           Codec.Compression.BZip.Foreign
 import           Codec.Lzip
-import qualified Data.Version                   as V
-import qualified Paths_hstar                    as P
+import qualified Data.Version    as V
+import qualified Paths_hstar     as P
 
 allVersionsString :: String
 allVersionsString =
@@ -19,4 +18,4 @@ allVersionsString =
     ++ "lzma-hs: " ++ VERSION_lzma ++ "\n"
     ++ "zstd-hs: " ++ VERSION_zstd ++ "\n"
     ++ "bz2-hs: " ++ VERSION_bz2 ++ "\n"
-    ++ "bz2: " ++ bZ2BzlibVersion
+    ++ "bzip-signature: " ++ VERSION_bzip_signature

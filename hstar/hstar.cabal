@@ -49,9 +49,12 @@ executable hstar
         bytestring -any,
         lzma -any,
         bz2 >=0.1.1.0,
+        bzip-signature -any,
         zlib -any,
         zstd -any,
         lzlib >=0.3.0.0
+
+    mixins:             bz2 (Codec.Compression.BZip as BZip)
 
     if flag(pure)
         build-depends: archive-tar -any
