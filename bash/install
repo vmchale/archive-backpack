@@ -2,7 +2,7 @@
 
 set -e pipefail
 
-cabal build exe:hstar
+cabal build exe:hstar -w ghc-8.8.2
 bin="$(fd -t x '^hstar$' -I | tail -n1)"
 strip "$bin"
 cp "$bin" "$HOME"/.local/bin
