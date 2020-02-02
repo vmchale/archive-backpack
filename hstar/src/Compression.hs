@@ -13,12 +13,12 @@ import qualified Data.ByteString.Lazy        as BSL
 import           Data.List                   (isSuffixOf)
 
 data Compressor = Lzma
-                | Lz
-                | Bz2
-                | GZip
-                | Zstd
-                | Deflate
-                | None
+    | Lz
+    | Bz2
+    | GZip
+    | Zstd
+    | Deflate
+    | None
 
 compressionByFileExt :: FilePath -> Compressor
 compressionByFileExt fp | ".tgz" `isSuffixOf` fp = GZip

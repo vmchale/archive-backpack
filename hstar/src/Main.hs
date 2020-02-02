@@ -7,9 +7,9 @@ import           Version
 
 -- pack a directory/list of files?
 data Command = PackDir !FilePath !FilePath
-             | Pack ![FilePath] !FilePath
-             | Unpack !FilePath !FilePath
-             | PackSrc !FilePath !FilePath
+    | Pack ![FilePath] !FilePath
+    | Unpack !FilePath !FilePath
+    | PackSrc !FilePath !FilePath
 
 run :: Command -> IO ()
 run (Unpack src dest) =
