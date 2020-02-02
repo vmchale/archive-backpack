@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.xz
+do
+    bench "hstar unpack $tarball ." "tar xf $tarball"
+done
+
