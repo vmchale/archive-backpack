@@ -35,6 +35,7 @@ packFromDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< getDirRecu
 packSrcDirAndCompress :: Compressor -> FilePath -> FilePath -> IO ()
 packSrcDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< getDirFiltered (pure.srcFilter) dir
 
+-- FIXME: isInfixOf?
 srcFilter :: FilePath -> Bool
 srcFilter fp | ".git" `isSuffixOf` fp = False
              | "_darcs" `isSuffixOf` fp = False
