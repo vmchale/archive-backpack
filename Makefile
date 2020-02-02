@@ -7,7 +7,7 @@ MAKEFLAGS += --warn-undefined-variables --no-builtin-rules -j
 setup: ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2
 
 clean:
-	rm -rf tags dist-newstyle *.tar*
+	rm -rf tags dist-newstyle *.tar* *.svg
 
 ci: .github/workflows/haskell.yml .github/workflows/dhall.yml .github/workflows/hlint.yml
 
