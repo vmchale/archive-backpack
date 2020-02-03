@@ -6,4 +6,3 @@ for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.ta
 do
     bench "hstar unpack $tarball ." "tar xf $tarball"
 done
-
