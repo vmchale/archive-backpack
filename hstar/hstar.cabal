@@ -48,7 +48,7 @@ executable hstar
         optparse-applicative -any,
         bytestring -any,
         lzma -any,
-        bz2 >=0.1.1.0,
+        bz2 >=1.0.0.0,
         zlib -any,
         zstd -any,
         lzlib >=1.0.1.0
