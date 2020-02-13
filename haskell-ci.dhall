@@ -26,7 +26,7 @@ let installLibarchive =
 in      haskellCi.generalCi
           [ haskellCi.checkout
           , haskellCi.haskellEnv haskellCi.matrixEnv
-          , installLibarchive [ 3, 4, 1 ]
+          , installLibarchive [ 3, 4, 2 ]
           , haskellCi.cabalWithFlags "update" ([] : List Text)
           , haskellCi.cabalBuildWithFlags [ "all" ]
           , haskellCi.cabalBuildWithFlags
