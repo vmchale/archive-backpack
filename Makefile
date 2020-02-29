@@ -1,6 +1,5 @@
 .PHONY: ci
 
-SHELL := bash
 MAKEFLAGS += --warn-undefined-variables --no-builtin-rules -j
 .DELETE_ON_ERROR:
 
