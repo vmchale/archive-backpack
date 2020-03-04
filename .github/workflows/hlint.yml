@@ -3,8 +3,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: "actions/checkout@v1"
-      - name: "Run hlint"
+      - name: Run hlint
         run: "curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s ."
-name: "HLint checks"
+name: HLint checks
 on:
   - push

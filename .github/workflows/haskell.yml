@@ -7,7 +7,7 @@ jobs:
         with:
           cabal-version: "${{ matrix.cabal }}"
           ghc-version: "${{ matrix.ghc }}"
-      - name: "Install libarchive"
+      - name: Install libarchive
         run: |
           wget https://www.libarchive.org/downloads/libarchive-3.4.2.tar.gz
           tar xvf libarchive-3.4.2.tar.gz
@@ -16,19 +16,19 @@ jobs:
           make -j
           sudo make install
       - name: update
-        run: "cabal update "
+        run: cabal update 
       - name: build
-        run: "cabal build all"
+        run: cabal build all
       - name: build
         run: "cabal build all --constraint='hstar +pure'"
     strategy:
       matrix:
         cabal:
-          - "3.0"
+          - '3.0'
         ghc:
-          - "8.4.4"
-          - "8.6.5"
-name: "Haskell CI"
+          - '8.4.4'
+          - '8.6.5'
+name: Haskell CI
 on:
   - push
   - pull_request
