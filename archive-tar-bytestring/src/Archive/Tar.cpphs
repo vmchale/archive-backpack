@@ -1,0 +1,47 @@
+{-# LANGUAGE OverloadedStrings #-}
+
+module Archive.Tar ( Entry
+                   , Error
+                   , writeArchiveBytes
+                   , unpackToDir
+                   , readArchiveBytes
+                   , packFiles
+                   , versionInfo
+                   ) where
+
+import           Codec.Archive.Tar                (Entries (..))
+import qualified Codec.Archive.Tar                as Tar
+import           Control.Composition              ((.@))
+import qualified Data.ByteString.Lazy             as BSL
+import qualified Data.Text                        as T
+import           Data.Text.Encoding               (encodeUtf8)
+import qualified Data.Version                     as V
+import qualified Paths_archive_tar_bytestring     as P
+import           System.Posix.ByteString.FilePath (RawFilePath)
+
+type Entry = Tar.Entry
+
+type Error = Tar.FormatError
+
+convertFilePath :: FilePath -> RawFilePath
+convertFilePath = encodeUtf8 . T.pack
+
+coerceToList :: Entries a -> Either a [Entry]
+coerceToList (Next e es) = (e :) <$> coerceToList es
+coerceToList Done        = Right []
+coerceToList (Fail ex)   = Left ex
+
+writeArchiveBytes :: [Entry] -> BSL.ByteString
+writeArchiveBytes = Tar.write
+
+readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
+readArchiveBytes = coerceToList . Tar.read
+
+unpackToDir :: FilePath -> BSL.ByteString -> IO ()
+unpackToDir = Tar.read .@ Tar.unpack . convertFilePath
+
+packFiles :: [FilePath] -> IO BSL.ByteString
+packFiles = fmap Tar.write . Tar.pack "." . fmap convertFilePath
+
+versionInfo :: String
+versionInfo = "tar-bytestring: " ++ VERSION_tar_bytestring ++ "\narchive-tar-bytestring: " ++ V.showVersion P.version
