@@ -3,6 +3,7 @@ module Version ( allVersionsString ) where
 import           Archive
 import           Archive.Generic
 import           Codec.Compression.BZip
+import           Codec.Lz4              (lZ4VersionString)
 import           Codec.Lzip
 import qualified Data.Version           as V
 import qualified Paths_hstar            as P
@@ -17,6 +18,8 @@ allVersionsString =
     ++ "lzlib API: " ++ show (lZApiVersion :: Int) ++ "\n"
     ++ "zlib-hs: " ++ VERSION_zlib ++ "\n"
     ++ "lzma-hs: " ++ VERSION_lzma ++ "\n"
+    ++ "lz4-hs: " ++ VERSION_lz4_hs ++ "\n"
+    ++ "lz4: " ++ lZ4VersionString ++ "\n"
     ++ "zstd-hs: " ++ VERSION_zstd ++ "\n"
     ++ "bz2-hs: " ++ VERSION_bz2 ++ "\n"
     ++ "bz2: " ++ bZ2BzlibVersion

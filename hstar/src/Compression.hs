@@ -8,6 +8,7 @@ import qualified Codec.Compression.GZip      as GZip
 import qualified Codec.Compression.Lzma      as Lzma
 import qualified Codec.Compression.Zlib      as Zlib
 import qualified Codec.Compression.Zstd.Lazy as Zstd
+import qualified Codec.Lz4                   as Lz4
 import           Codec.Lzip                  as Lzip
 import qualified Data.ByteString.Lazy        as BSL
 import           Data.List                   (isSuffixOf)
@@ -18,6 +19,7 @@ data Compressor = Lzma
     | GZip
     | Zstd
     | Deflate
+    | Lz4
     | None
 
 compressionByFileExt :: FilePath -> Compressor
@@ -33,6 +35,7 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp = GZip
                         | ".tlz" `isSuffixOf` fp = Lz
                         | ".tar.zst" `isSuffixOf` fp = Zstd
                         | ".tar.Z" `isSuffixOf` fp = Deflate
+                        | ".tar.lz4" `isSuffixOf` fp = Lz4
                         | ".tar" `isSuffixOf` fp = None
                         | otherwise = error "Suffix not supported or invalid."
 
@@ -43,6 +46,7 @@ decompressor GZip    = GZip.decompress
 decompressor Lz      = Lzip.decompress
 decompressor Zstd    = Zstd.decompress
 decompressor Deflate = Zlib.decompress
+decompressor Lz4     = Lz4.decompress
 decompressor None    = id
 
 compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
@@ -52,4 +56,5 @@ compressor GZip    = GZip.compress
 compressor Lz      = Lzip.compress
 compressor Zstd    = Zstd.compress Zstd.maxCLevel
 compressor Deflate = Zlib.compress
+compressor Lz4     = Lz4.compress
 compressor None    = id
