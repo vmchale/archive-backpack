@@ -6,3 +6,5 @@
 - [ ] lz4 lol
 - [ ] remote downloads?
 - [ ] https://hackage.haskell.org/package/pipes-zlib
+# Features
+- [ ] Abstract fptype so tar-bytestring is smarter
