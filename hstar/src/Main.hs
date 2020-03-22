@@ -2,19 +2,20 @@ module Main ( main ) where
 
 import           Archive.Compression
 import           Compression
+import           Data.Maybe          (fromMaybe)
 import           Options.Applicative
 import           Version
 
 -- pack a directory/list of files?
 data Command = PackDir !FilePath !FilePath
     | Pack ![FilePath] !FilePath
-    | Unpack !FilePath !FilePath
+    | Unpack !FilePath !(Maybe FilePath)
     | PackSrc !FilePath !FilePath
 
 run :: Command -> IO ()
 run (Unpack src dest) =
     let dec = decompressor (compressionByFileExt src)
-        in unpackFileToDirAndDecompress dec src dest
+        in unpackFileToDirAndDecompress dec src (fromMaybe "." dest)
 run (PackDir dir' tar) =
     let comp = compressor (compressionByFileExt tar)
         in packFromDirAndCompress comp dir' tar
@@ -31,9 +32,9 @@ unpack = Unpack
         (metavar "SRC"
         -- <> completer (bashCompleter "file -X '!*.*tar' -o plusdirs")
         <> help "Archive to unpack")
-    <*> argument str
+    <*> optional (argument str
         (metavar "DEST"
-        <> help "Where to unpack it")
+        <> help "Where to unpack it"))
 
 packDir :: Parser Command
 packDir = PackDir
