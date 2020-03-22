@@ -28,7 +28,7 @@ ghc-8.8.2-x86_64-deb9-linux.tar.gz: ghc-8.8.2-x86_64-deb9-linux.tar
 ghc-8.8.2-x86_64-deb9-linux.tar.lz: ghc-8.8.2-x86_64-deb9-linux.tar
 	lzip --keep --force $<
 
-ghc-8.8.2-x86_64-deb9-linux.tar.zstd: ghc-8.8.2-x86_64-deb9-linux.tar
+ghc-8.8.2-x86_64-deb9-linux.tar.zst: ghc-8.8.2-x86_64-deb9-linux.tar
 	zstd -k -f $<
 
 ghc-8.8.2-x86_64-deb9-linux.tar.bz2: ghc-8.8.2-x86_64-deb9-linux.tar
