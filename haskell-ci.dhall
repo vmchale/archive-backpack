@@ -33,11 +33,7 @@ in      haskellCi.generalCi
               [ "all", "--constraint='hstar +pure'" ]
           ]
           ( Some
-              { ghc =
-                [ haskellCi.GHC.GHC844
-                , haskellCi.GHC.GHC865
-                , haskellCi.GHC.GHC881
-                ]
+              { ghc = [ haskellCi.GHC.GHC865, haskellCi.GHC.GHC881 ]
               , cabal = [ haskellCi.Cabal.Cabal30 ]
               }
           )
