@@ -19,7 +19,7 @@ Benchmarks run on Linux.
 | ------- | ----------- | ------- | ---: |
 | bsdtar | lz4 | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4` | 2.771 s |
 | hstar | lz4 | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4` | 2.780 s |
-| GNU tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar -xf -` | 2.842 s |
+| GNU tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 \| tar -xf -` | 2.842 s |
 | bsdtar | gzip | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 4.862 s |
 | hstar | gzip | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 6.756 s |
 | GNU tar | gzip | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 8.501 s |
