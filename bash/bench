@@ -4,12 +4,10 @@ set -e
 
 bench 'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
     'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
-    'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar -xf -'
+    'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar -xf -' \
     'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | star xf -' --before 'rm -rf ghc-8.8.2'
 
 for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst
 do
     bench "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" --before 'rm -rf ghc-8.8.2'
 done
-
-# star too slow on linux
