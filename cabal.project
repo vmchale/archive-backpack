@@ -2,9 +2,13 @@ packages: hstar
         , archive-sig
         , archive-libarchive
         , archive-tar
-        , archive-tar-bytestring
+        -- , archive-tar-bytestring
 
 max-backjumps: 40000
+
+allow-newer:
+  lzma:base
+  polyparse:base
 
 constraints: archive-sig +development
            , archive-libarchive +development
