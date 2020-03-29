@@ -10,7 +10,6 @@ module Archive.FFI ( Entry
 import qualified Codec.Archive                 as FFI
 import           Codec.Archive.Foreign.Archive (archiveVersionString)
 import           Control.Composition           ((.*))
-import           Control.Exception             (throw)
 import qualified Data.ByteString.Lazy          as BSL
 import qualified Data.Version                  as V
 import qualified Paths_archive_libarchive      as P
@@ -26,7 +25,7 @@ readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
 readArchiveBytes = FFI.readArchiveBSL
 
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
-unpackToDir = fmap (either throw id) .* FFI.runArchiveM .* FFI.unpackToDirLazy
+unpackToDir = FFI.throwArchiveM .* FFI.unpackToDirLazy
 
 packFiles :: [FilePath] -> IO BSL.ByteString
 packFiles = FFI.packFiles

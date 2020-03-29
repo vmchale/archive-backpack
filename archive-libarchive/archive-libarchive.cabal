@@ -31,7 +31,7 @@ library
     ghc-options:        -Wall
     build-depends:
         base >=4.3 && <5,
-        libarchive >=2.2.1.0,
+        libarchive >=2.2.5.0,
         bytestring -any,
         composition-prelude -any
 
