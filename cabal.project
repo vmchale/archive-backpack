@@ -7,7 +7,6 @@ packages: hstar
 max-backjumps: 40000
 
 allow-newer:
-  lzma:base
   polyparse:base
 
 constraints: archive-sig +development
