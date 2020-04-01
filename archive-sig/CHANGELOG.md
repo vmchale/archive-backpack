@@ -1,3 +1,9 @@
+# 1.0.0.0
+
+  * Add `FP` type to allow the filepath type to be abstract
+  * Add `toFP`, `packFromFilesRaw`, `unpackToDirRaw`
+  * Move `packFromFiles`, `unpackToDir` to `Archive.Compression`
+
 # 0.2.3.0
 
   * Add `archiveSigVersion` function
