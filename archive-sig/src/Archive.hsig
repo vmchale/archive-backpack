@@ -1,25 +1,42 @@
 signature Archive ( Entry
                   , Error
-                  , unpackToDir
+                  , FP
+                  , unpackToDirRaw
                   , readArchiveBytes
-                  , packFiles
+                  , packFilesRaw
                   , writeArchiveBytes
                   , versionInfo
+                  , toFP
                   ) where
 
+import Control.Exception (Exception)
 import qualified Data.ByteString.Lazy as BSL
 
 data Entry
 
 data Error
 
+-- | The type for filepaths used by the library
+--
+-- @since 1.0.0.0
+data FP
+
 instance Show Error
 
--- | @since 0.2.0.0
-packFiles :: [FilePath] -- ^ Files and directories to write to archive
-          -> IO BSL.ByteString -- ^ 'BSL.ByteString' containing archive
+-- | @since 1.0.0.0
+instance Exception Error
 
-unpackToDir :: FilePath -> BSL.ByteString -> IO ()
+-- | Function to get an 'FP' from a 'FilePath'. May throw exceptions if need be.
+--
+-- @since 1.0.0.0
+toFP :: FilePath -> FP
+
+-- @since 1.0.0.0
+packFilesRaw :: [FP] -- ^ Files and directories to write to archive
+             -> IO BSL.ByteString -- ^ 'BSL.ByteString' containing archive
+
+-- @since 1.0.0.0
+unpackToDirRaw :: FP -> BSL.ByteString -> IO ()
 
 readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
 

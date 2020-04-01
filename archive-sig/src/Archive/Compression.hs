@@ -14,6 +14,15 @@ import           System.Directory.Recursive
 type Decompressor = BSL.ByteString -> BSL.ByteString
 type Compressor = BSL.ByteString -> BSL.ByteString
 
+-- | @since 1.0.0.0
+packFiles :: [FilePath] -- ^ Files and directories to write to archive
+          -> IO BSL.ByteString -- ^ 'BSL.ByteString' containing archive
+packFiles = packFilesRaw . fmap toFP
+
+-- | @since 1.0.0.0
+unpackToDir :: FilePath -> BSL.ByteString -> IO ()
+unpackToDir = unpackToDirRaw . toFP
+
 -- | @since 0.2.0.0
 unpackFileToDirAndDecompress :: Decompressor -- ^ Decompression to use
                              -> FilePath -- ^ Filepath pointing to archive

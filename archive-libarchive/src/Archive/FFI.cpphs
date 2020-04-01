@@ -1,10 +1,12 @@
 module Archive.FFI ( Entry
                    , Error
+                   , FP
                    , readArchiveBytes
-                   , unpackToDir
+                   , unpackToDirRaw
                    , writeArchiveBytes
-                   , packFiles
+                   , packFilesRaw
                    , versionInfo
+                   , toFP
                    ) where
 
 import qualified Codec.Archive                 as FFI
@@ -18,17 +20,22 @@ type Entry = FFI.Entry
 
 type Error = FFI.ArchiveResult
 
+type FP = FilePath
+
+toFP :: FilePath -> FP
+toFP = id
+
 writeArchiveBytes :: [Entry] -> BSL.ByteString
 writeArchiveBytes = FFI.entriesToBSL
 
 readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
 readArchiveBytes = FFI.readArchiveBSL
 
-unpackToDir :: FilePath -> BSL.ByteString -> IO ()
-unpackToDir = FFI.throwArchiveM .* FFI.unpackToDirLazy
+unpackToDirRaw :: FP -> BSL.ByteString -> IO ()
+unpackToDirRaw = FFI.throwArchiveM .* FFI.unpackToDirLazy
 
-packFiles :: [FilePath] -> IO BSL.ByteString
-packFiles = FFI.packFiles
+packFilesRaw :: [FP] -> IO BSL.ByteString
+packFilesRaw = FFI.packFiles
 
 -- | @since 0.2.2.0
 versionInfo :: String

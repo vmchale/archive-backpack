@@ -9,9 +9,11 @@ module Archive.Generic ( packFromDir
 import           Archive
 import           Archive.Compression
 import           Control.Composition  ((.@))
+import           Control.Exception    (throw)
 import qualified Data.ByteString.Lazy as BSL
 import qualified Data.Version         as V
 import qualified Paths_archive_sig    as P
+
 
 -- | @since 0.2.3.0
 archiveSigVersion :: V.Version
@@ -26,7 +28,7 @@ packToFile :: FilePath -> [Entry] -> IO ()
 packToFile = writeArchiveBytes .@ BSL.writeFile
 
 unpackFromFile :: FilePath -> IO [Entry]
-unpackFromFile = fmap (either (error . show) id . readArchiveBytes) . BSL.readFile
+unpackFromFile = fmap (either throw id . readArchiveBytes) . BSL.readFile
 
 unpackFileToDir :: FilePath -- ^ Filepath pointing to archive
                 -> FilePath -- ^ Directory

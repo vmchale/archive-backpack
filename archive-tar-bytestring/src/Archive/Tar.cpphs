@@ -2,11 +2,13 @@
 
 module Archive.Tar ( Entry
                    , Error
+                   , FP
                    , writeArchiveBytes
-                   , unpackToDir
+                   , unpackToDirRaw
                    , readArchiveBytes
-                   , packFiles
+                   , packFilesRaw
                    , versionInfo
+                   , toFP
                    ) where
 
 import           Codec.Archive.Tar                (Entries (..))
@@ -23,8 +25,10 @@ type Entry = Tar.Entry
 
 type Error = Tar.FormatError
 
-convertFilePath :: FilePath -> RawFilePath
-convertFilePath = encodeUtf8 . T.pack
+type FP = RawFilePath
+
+toFP :: FilePath -> FP
+toFP = encodeUtf8 . T.pack
 
 coerceToList :: Entries a -> Either a [Entry]
 coerceToList (Next e es) = (e :) <$> coerceToList es
@@ -37,11 +41,11 @@ writeArchiveBytes = Tar.write
 readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
 readArchiveBytes = coerceToList . Tar.read
 
-unpackToDir :: FilePath -> BSL.ByteString -> IO ()
-unpackToDir = Tar.read .@ Tar.unpack . convertFilePath
+unpackToDirRaw :: FP -> BSL.ByteString -> IO ()
+unpackToDirRaw = Tar.read .@ Tar.unpack
 
-packFiles :: [FilePath] -> IO BSL.ByteString
-packFiles = fmap Tar.write . Tar.pack "." . fmap convertFilePath
+packFilesRaw :: [FP] -> IO BSL.ByteString
+packFilesRaw = fmap Tar.write . Tar.pack "."
 
 versionInfo :: String
 versionInfo = "tar-bytestring: " ++ VERSION_tar_bytestring ++ "\narchive-tar-bytestring: " ++ V.showVersion P.version
