@@ -4,6 +4,8 @@ module Archive.Compression ( Decompressor
                            , packFromFilesAndCompress
                            , packFromDirAndCompress
                            , packSrcDirAndCompress
+                           , unpackToDir
+                           , packFiles
                            ) where
 
 import           Archive
@@ -14,12 +16,12 @@ import           System.Directory.Recursive
 type Decompressor = BSL.ByteString -> BSL.ByteString
 type Compressor = BSL.ByteString -> BSL.ByteString
 
--- | @since 1.0.0.0
+-- | @since 1.0.1.0
 packFiles :: [FilePath] -- ^ Files and directories to write to archive
           -> IO BSL.ByteString -- ^ 'BSL.ByteString' containing archive
 packFiles = packFilesRaw . fmap toFP
 
--- | @since 1.0.0.0
+-- | @since 1.0.1.0
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
 unpackToDir = unpackToDirRaw . toFP
 
