@@ -35,7 +35,7 @@ toFP :: FilePath -> FP
 packFilesRaw :: [FP] -- ^ Files and directories to write to archive
              -> IO BSL.ByteString -- ^ 'BSL.ByteString' containing archive
 
--- @since 1.0.0.0
+-- | @since 1.0.0.0
 unpackToDirRaw :: FP -> BSL.ByteString -> IO ()
 
 readArchiveBytes :: BSL.ByteString -> Either Error [Entry]
