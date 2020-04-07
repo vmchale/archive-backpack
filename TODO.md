@@ -2,9 +2,11 @@
 - [ ] cpio: https://en.wikipedia.org/wiki/Cpio
 - [ ] http://hackage.haskell.org/package/tar-conduit-0.3.2/docs/Data-Conduit-Tar.html
 - [ ] http://hackage.haskell.org/package/pure-zlib
-- [ ] http://hackage.haskell.org/package/brotli
-- [ ] lz4 lol
 - [ ] remote downloads?
-- [ ] https://hackage.haskell.org/package/pipes-zlib
 # Features
-- [ ] Abstract fptype so tar-bytestring is smarter
+- [x] Abstract fptype so tar-bytestring is smarter
+# Compare
+- [ ] ztar
+- [ ] busybox tar
+- [ ] go tar, python tar, haskell tar
+- [ ] tarlz
