@@ -1,3 +1,7 @@
+# 1.0.2.0
+
+  * Re-export `unpackToDir` and `packFromFiles` from `Archive.Generic`
+
 # 1.0.1.0
 
   * Export `unpackToDir` and `packFromFiles` from `Archive.Compression`

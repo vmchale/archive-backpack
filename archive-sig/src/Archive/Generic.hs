@@ -4,6 +4,8 @@ module Archive.Generic ( packFromDir
                        , packToFile
                        , archiveSigVersion
                        , packFromFiles
+                       , unpackToDir
+                       , packFiles
                        ) where
 
 import           Archive
