@@ -9,6 +9,14 @@ a [libarchive](http://hackage.haskell.org/package/libarchive) backend wrapping
 the C library, or the [tar](http://hackage.haskell.org/package/tar) library
 written in Haskell.
 
+## Use
+
+To generate bash shell completions:
+
+```
+hstar --bash-completion-script hstar
+```
+
 ## Performance
 
 Benchmarks run on Linux.
