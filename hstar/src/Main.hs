@@ -30,10 +30,11 @@ unpack :: Parser Command
 unpack = Unpack
     <$> argument str
         (metavar "SRC"
-        -- <> completer (bashCompleter "file -X '!*.*tar' -o plusdirs")
+        <> fileCompletions
         <> help "Archive to unpack")
     <*> optional (argument str
         (metavar "DEST"
+        <> dirCompletions
         <> help "Where to unpack it"))
 
 packDir :: Parser Command
@@ -49,11 +50,13 @@ packSrc = PackSrc
 dir :: Parser FilePath
 dir = argument str
         (metavar "DIR"
+        <> dirCompletions
         <> help "Directory to pack up")
 
 archive :: Parser FilePath
 archive = argument str
         (metavar "ARCHIVE"
+        <> fileCompletions
         <> help "File to pack it to")
 
 pack :: Parser Command
@@ -62,8 +65,15 @@ pack = Pack
         (metavar "FILE"
         <> long "file"
         <> short 'f'
+        <> fileCompletions
         <> help "File to add to archive"))
     <*> archive
+
+fileCompletions :: HasCompleter f => Mod f a
+fileCompletions = completer (bashCompleter "file -o plusdirs")
+
+dirCompletions :: HasCompleter f => Mod f a
+dirCompletions = completer (bashCompleter "directory")
 
 cmd :: Parser Command
 cmd = hsubparser
