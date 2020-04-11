@@ -1,6 +1,6 @@
 cabal-version: 2.0
 name:          hstar
-version:       0.1.0.1
+version:       0.1.0.2
 license:       BSD3
 license-file:  LICENSE
 copyright:     Copyright: (c) 2019-2020 Vanessa McHale
@@ -56,7 +56,8 @@ executable hstar
         zlib -any,
         zstd -any,
         lz4-hs >=0.1.1.0,
-        lzlib >=1.0.1.0
+        lzlib >=1.0.1.0,
+        brotli
 
     if impl(ghc >=8.10)
         ghc-options: -Wunused-packages
