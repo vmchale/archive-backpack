@@ -3,7 +3,7 @@
 MAKEFLAGS += --warn-undefined-variables --no-builtin-rules -j
 .DELETE_ON_ERROR:
 
-setup: ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst ghc-8.8.2-x86_64-deb9-linux.tar.lz4
+setup: ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst ghc-8.8.2-x86_64-deb9-linux.tar.lz4 ghc-8.8.2-x86_64-deb9-linux.tar.br
 
 clean:
 	@rm -rf tags dist-newstyle *.tar* *.svg ghc*
@@ -21,6 +21,9 @@ ci: .github/workflows/haskell.yml .github/workflows/dhall.yml .github/workflows/
 
 .github/workflows/hlint.yml: hlint-ci.dhall .github/workflows
 	dhall-to-yaml --file $< --output $@
+
+ghc-8.8.2-x86_64-deb9-linux.tar.br: ghc-8.8.2-x86_64-deb9-linux.tar
+	brotli --keep --force $<
 
 ghc-8.8.2-x86_64-deb9-linux.tar.gz: ghc-8.8.2-x86_64-deb9-linux.tar
 	gzip --keep --force $<
