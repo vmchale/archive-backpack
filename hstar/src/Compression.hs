@@ -3,6 +3,7 @@ module Compression ( compressionByFileExt
                    , compressor
                    ) where
 
+import qualified Codec.Compression.Brotli    as Brotli
 import qualified Codec.Compression.BZip      as BZip
 import qualified Codec.Compression.GZip      as GZip
 import qualified Codec.Compression.Lzma      as Lzma
@@ -20,24 +21,27 @@ data Compressor = Lzma
     | Zstd
     | Deflate
     | Lz4
+    | Brotli
     | None
 
 compressionByFileExt :: FilePath -> Compressor
-compressionByFileExt fp | ".tgz" `isSuffixOf` fp = GZip
+compressionByFileExt fp | ".tgz" `isSuffixOf` fp     = GZip
                         | ".tar.bz2" `isSuffixOf` fp = Bz2
-                        | ".tar.bz" `isSuffixOf` fp = Bz2
-                        | ".tbz2" `isSuffixOf` fp = Bz2
-                        | ".tbz" `isSuffixOf` fp = Bz2
-                        | ".tar.gz" `isSuffixOf` fp = GZip
-                        | ".tar.xz" `isSuffixOf` fp = Lzma
-                        | ".txz" `isSuffixOf` fp = Lzma
-                        | ".tar.lz" `isSuffixOf` fp = Lz
-                        | ".tlz" `isSuffixOf` fp = Lz
+                        | ".tar.bz" `isSuffixOf` fp  = Bz2
+                        | ".tbz2" `isSuffixOf` fp    = Bz2
+                        | ".tbz" `isSuffixOf` fp     = Bz2
+                        | ".tar.gz" `isSuffixOf` fp  = GZip
+                        | ".tar.xz" `isSuffixOf` fp  = Lzma
+                        | ".txz" `isSuffixOf` fp     = Lzma
+                        | ".tar.lz" `isSuffixOf` fp  = Lz
+                        | ".tlz" `isSuffixOf` fp     = Lz
                         | ".tar.zst" `isSuffixOf` fp = Zstd
-                        | ".tar.Z" `isSuffixOf` fp = Deflate
+                        | ".tar.Z" `isSuffixOf` fp   = Deflate
                         | ".tar.lz4" `isSuffixOf` fp = Lz4
-                        | ".tar" `isSuffixOf` fp = None
-                        | otherwise = error "Suffix not supported or invalid."
+                        | ".tbr" `isSuffixOf` fp     = Brotli
+                        | ".tar.br" `isSuffixOf` fp  = Brotli
+                        | ".tar" `isSuffixOf` fp     = None
+                        | otherwise                  = error "Suffix not supported or invalid."
 
 decompressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
 decompressor Lzma    = Lzma.decompress
@@ -47,6 +51,7 @@ decompressor Lz      = Lzip.decompress
 decompressor Zstd    = Zstd.decompress
 decompressor Deflate = Zlib.decompress
 decompressor Lz4     = Lz4.decompress
+decompressor Brotli  = Brotli.decompress
 decompressor None    = id
 
 compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
@@ -57,4 +62,5 @@ compressor Lz      = Lzip.compress
 compressor Zstd    = Zstd.compress 3
 compressor Deflate = Zlib.compress
 compressor Lz4     = Lz4.compress
+compressor Brotli  = Brotli.compress
 compressor None    = id

@@ -22,4 +22,5 @@ allVersionsString =
     ++ "lz4: " ++ lZ4VersionString ++ "\n"
     ++ "zstd-hs: " ++ VERSION_zstd ++ "\n"
     ++ "bz2-hs: " ++ VERSION_bz2 ++ "\n"
-    ++ "bz2: " ++ bZ2BzlibVersion
+    ++ "bz2: " ++ bZ2BzlibVersion ++ "\n"
+    ++ "brotli-hs: " ++ VERSION_brotli
