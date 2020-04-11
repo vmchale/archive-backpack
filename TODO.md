@@ -7,6 +7,10 @@
 - [x] Abstract fptype so tar-bytestring is smarter
 # Compare
 - [ ] ztar
-- [ ] busybox tar
-- [ ] go tar, python tar, haskell tar
+- [x] busybox tar
+- [ ] python tar
+- [ ] haskell tar
+- [x] go tar ?
+  - [x] https://github.com/mholt/archiver
 - [ ] tarlz
+- [ ] https://www.peazip.org/brotli-compression-utility.html
