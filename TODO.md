@@ -5,10 +5,12 @@
 - [ ] remote downloads?
 # Features
 - [x] Abstract fptype so tar-bytestring is smarter
+- [ ] snappy (`.sz`)
+  - [ ] szip!
 # Compare
 - [ ] ztar
 - [x] busybox tar
-- [ ] python tar
+- [x] python tar
 - [ ] haskell tar
 - [x] go tar ?
   - [x] https://github.com/mholt/archiver
