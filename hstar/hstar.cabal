@@ -1,17 +1,20 @@
-cabal-version: 2.0
-name:          hstar
-version:       0.1.0.2
-license:       BSD3
-license-file:  LICENSE
-copyright:     Copyright: (c) 2019-2020 Vanessa McHale
-maintainer:    vamchale@gmail.com
-author:        Vanessa McHale
-synopsis:      Haskell version of tar CLI utility
+cabal-version:      2.0
+name:               hstar
+version:            0.1.0.2
+license:            BSD3
+license-file:       LICENSE
+copyright:          Copyright: (c) 2019-2020 Vanessa McHale
+maintainer:         vamchale@gmail.com
+author:             Vanessa McHale
+synopsis:           Haskell version of tar CLI utility
 description:
     Haskell implementation of the tar utility, demonstrating backpack
 
-category:      Codec, Tar, Archive
-build-type:    Simple
+category:           Codec, Tar, Archive
+build-type:         Simple
+extra-source-files:
+    CHANGELOG.md
+    README.md
 
 source-repository head
     type:     git
@@ -29,7 +32,7 @@ flag pure
 
 flag tar-bytestring
     description: Use tar-bytestring
-    default: False
+    default:     False
 
 executable hstar
     main-is:            Main.hs
@@ -57,7 +60,7 @@ executable hstar
         zstd -any,
         lz4-hs >=0.1.1.0,
         lzlib >=1.0.1.0,
-        brotli
+        brotli -any
 
     if impl(ghc >=8.10)
         ghc-options: -Wunused-packages
@@ -68,7 +71,7 @@ executable hstar
     if flag(tar-bytestring)
         build-depends: archive-tar-bytestring -any
 
-    if !flag(pure) && !flag(tar-bytestring)
+    if (!flag(pure) && !flag(tar-bytestring))
         build-depends: archive-libarchive -any
 
     if flag(pure)
@@ -77,7 +80,7 @@ executable hstar
     if flag(tar-bytestring)
         mixins: archive-tar-bytestring (Archive.Tar as Archive)
 
-    if !flag(pure) && !flag(tar-bytestring)
+    if (!flag(pure) && !flag(tar-bytestring))
         mixins: archive-libarchive (Archive.FFI as Archive)
 
     if flag(development)
