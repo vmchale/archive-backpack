@@ -11,7 +11,7 @@ bench 'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
     'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
     'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
     'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | busybox tar xf -' \
-    'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar -xf -' \
+    'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar xf -' \
     'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | star xf -' --before 'rm -rf ghc-8.8.2'
 
 for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.zst
@@ -19,6 +19,13 @@ do
     bench "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" --before 'rm -rf ghc-8.8.2'
 done
 bench 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.zst'
+
+bench 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.br' \
+    'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.br' \
+    'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | busybox tar xf -' \
+    'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | tar xf -' \
+    'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | star xf -' \
+    'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | bsdtar -xf -'
 
 bench 'lzip -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz | busybox tar xf -' \
     'zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst | busybox tar xf -'

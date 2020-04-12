@@ -3,7 +3,7 @@
 MAKEFLAGS += --warn-undefined-variables --no-builtin-rules -j
 .DELETE_ON_ERROR:
 
-setup: ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst ghc-8.8.2-x86_64-deb9-linux.tar.lz4 ghc-8.8.2-x86_64-deb9-linux.tar.br  ghc-8.8.2-x86_64-deb9-linux.tar.sz
+setup: ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst ghc-8.8.2-x86_64-deb9-linux.tar.lz4 ghc-8.8.2-x86_64-deb9-linux.tar.br
 
 clean:
 	@rm -rf tags dist-newstyle *.tar* *.svg ghc*
@@ -30,9 +30,6 @@ ghc-8.8.2-x86_64-deb9-linux.tar.gz: ghc-8.8.2-x86_64-deb9-linux.tar
 
 ghc-8.8.2-x86_64-deb9-linux.tar.lz: ghc-8.8.2-x86_64-deb9-linux.tar
 	lzip --keep --force $<
-
-ghc-8.8.2-x86_64-deb9-linux.tar.sz: ghc-8.8.2-x86_64-deb9-linux.tar
-	szip --keep --force $<
 
 ghc-8.8.2-x86_64-deb9-linux.tar.zst: ghc-8.8.2-x86_64-deb9-linux.tar
 	zstd -k -f $<
