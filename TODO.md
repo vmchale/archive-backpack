@@ -12,6 +12,7 @@
 - [x] busybox tar
 - [x] python tar
 - [ ] haskell tar
+- [ ] rust tar (might be fun!)
 - [x] go tar ?
   - [x] https://github.com/mholt/archiver
 - [ ] tarlz
