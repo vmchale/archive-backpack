@@ -7,6 +7,8 @@
 - [x] Abstract fptype so tar-bytestring is smarter
 - [ ] snappy (`.sz`)
   - [ ] szip!
+# Upstream
+- [ ] libarchive-hs segfaults when trying to check/verify archives
 # Compare
 - [ ] ztar
 - [x] busybox tar
