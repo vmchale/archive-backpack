@@ -30,6 +30,9 @@ bench 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.br' \
 bench 'lzip -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz | busybox tar xf -' \
     'zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst | busybox tar xf -'
 
+bench 'htar -xzf ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
+    'htar -xjf ghc-8.8.2-x86_64-deb9-linux.tar.bz2'
+
 tar_rs="$HOME/.cargo/bin/star"
 
 bench "$tar_rs x ghc-8.8.2-x86_64-deb9-linux.tar.zst" \
