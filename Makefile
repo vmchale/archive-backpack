@@ -42,6 +42,7 @@ ghc-8.8.2-x86_64-deb9-linux.tar.lz4: ghc-8.8.2-x86_64-deb9-linux.tar
 
 ghc-8.8.2-x86_64-deb9-linux.tar: ghc-8.8.2-x86_64-deb9-linux.tar.xz
 	xz -d --keep -f $<
+	hstar sanitize $@
 
 ghc-8.8.2-x86_64-deb9-linux.tar.xz:
 	wget https://downloads.haskell.org/~ghc/8.8.2/ghc-8.8.2-x86_64-deb9-linux.tar.xz -O $@
