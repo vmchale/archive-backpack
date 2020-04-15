@@ -1,8 +1,11 @@
 module Main ( main ) where
 
+import           Archive
 import           Archive.Compression
 import           Compression
-import           Data.Maybe          (fromMaybe)
+import           Control.Exception    (throw)
+import qualified Data.ByteString.Lazy as BSL
+import           Data.Maybe           (fromMaybe)
 import           Options.Applicative
 import           Version
 
@@ -11,8 +14,22 @@ data Command = PackDir !FilePath !FilePath
     | Pack ![FilePath] !FilePath
     | Unpack !FilePath !(Maybe FilePath)
     | PackSrc !FilePath !FilePath
+    | Sanitize !FilePath
+
+forceBSL :: BSL.ByteString -> IO ()
+forceBSL = (`seq` mempty) . last . BSL.toChunks
+
+sanitize :: FilePath -> IO ()
+sanitize fp = do
+    let enc = compressionByFileExt fp
+    contents <- decompressor enc <$> BSL.readFile fp
+    forceBSL contents
+    let es = either throw id $ readArchiveBytes contents
+        paxContents = writeArchiveBytes es
+    BSL.writeFile fp (compressor enc paxContents)
 
 run :: Command -> IO ()
+run (Sanitize src) = sanitize src
 run (Unpack src dest) =
     let dec = decompressor (compressionByFileExt src)
         in unpackFileToDirAndDecompress dec src (fromMaybe "." dest)
@@ -25,6 +42,13 @@ run (Pack fs tar) =
 run (PackSrc dir' tar) =
     let comp = compressor (compressionByFileExt tar)
         in packSrcDirAndCompress comp dir' tar
+
+sanitizeP :: Parser Command
+sanitizeP = Sanitize
+    <$> argument str
+        (metavar "SRC"
+        <> fileCompletions
+        <> help "Archive to pax-ify")
 
 unpack :: Parser Command
 unpack = Unpack
@@ -81,6 +105,7 @@ cmd = hsubparser
     <> command "pack-dir" (info packDir (progDesc "Pack a directory's contents into an archive"))
     <> command "pack" (info pack (progDesc "Pack an archive from a list of files"))
     <> command "pack-src" (info packSrc (progDesc "Pack up a source directory as a bundle, ignoring version control and artifact directories"))
+    <> command "sanitize" (info sanitizeP (progDesc "Sanitize a tar archive so it is pax-compatible"))
     )
 
 versionMod :: Parser (a -> a)
