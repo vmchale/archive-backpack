@@ -2,6 +2,8 @@
 
 set -e
 
+bench 'pax -rzf ghc-8.8.2-x86_64-deb9-linux.tar.gz'
+
 for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.bz2
 do
     bench "python3 -m tarfile -e $tarball" "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" "arc unarchive $tarball" "busybox tar xf $tarball" --before 'rm -rf ghc-8.8.2'
