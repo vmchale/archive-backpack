@@ -2,7 +2,16 @@
 
 set -e
 
-bench 'pax -rzf ghc-8.8.2-x86_64-deb9-linux.tar.gz'
+# ptar - perl tar
+# minitar - gem install minitar-cli
+# arc - go tar
+# tar_rs (star) - rust tar
+# htar - haskell tar (tar library)
+# bench 'tarlz -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz'
+    # 'minitar extract ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
+
+bench 'ptar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
+    'pax -rzf ghc-8.8.2-x86_64-deb9-linux.tar.gz'
 
 for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.bz2
 do
@@ -31,8 +40,6 @@ bench 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.br' \
 
 bench 'lzip -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz | busybox tar xf -' \
     'zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst | busybox tar xf -'
-
-bench 'tarlz -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz'
 
 bench 'htar -xzf ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
     'htar -xjf ghc-8.8.2-x86_64-deb9-linux.tar.bz2'
