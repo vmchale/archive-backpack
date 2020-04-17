@@ -25,7 +25,7 @@ hstar - An archiving tool
 
 **pack-src** - Pack up a source directory, ignoring version control
 
-**sanitize** - Convert a tarball to a pax-compatible archive in-memory
+**sanitize** - Convert a tarball to a pax-compatible archive. This reads the whole file into memory.
 
 # OPTIONS
 
