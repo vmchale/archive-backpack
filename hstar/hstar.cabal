@@ -1,6 +1,6 @@
 cabal-version:      2.0
 name:               hstar
-version:            0.1.0.3
+version:            0.1.0.2
 license:            BSD3
 license-file:       LICENSE
 copyright:          Copyright: (c) 2019-2020 Vanessa McHale
@@ -34,6 +34,11 @@ flag tar-bytestring
     description: Use tar-bytestring
     default:     False
 
+flag with-brotli
+  description: Enable brotli compression support
+  default: True
+  manual: False
+
 executable hstar
     main-is:            Main.hs
     build-tool-depends: cpphs:cpphs -any
@@ -59,8 +64,14 @@ executable hstar
         zlib -any,
         zstd -any,
         lz4-hs >=0.1.1.0,
-        lzlib >=1.0.1.0,
+        lzlib >=1.0.1.0
+
+    if flag(with-brotli)
+      build-depends:
         brotli -any
+
+    if flag(with-brotli)
+      cpp-options: -DBROTLI
 
     if impl(ghc >=8.10)
         ghc-options: -Wunused-packages
