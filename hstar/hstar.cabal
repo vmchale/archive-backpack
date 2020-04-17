@@ -34,6 +34,9 @@ flag tar-bytestring
     description: Use tar-bytestring
     default:     False
 
+flag with-brotli
+    description: Enable brotli compression support
+
 executable hstar
     main-is:            Main.hs
     build-tool-depends: cpphs:cpphs -any
@@ -59,8 +62,13 @@ executable hstar
         zlib -any,
         zstd -any,
         lz4-hs >=0.1.1.0,
-        lzlib >=1.0.1.0,
-        brotli -any
+        lzlib >=1.0.1.0
+
+    if flag(with-brotli)
+        build-depends: brotli -any
+
+    if flag(with-brotli)
+        cpp-options: -DBROTLI
 
     if impl(ghc >=8.10)
         ghc-options: -Wunused-packages
