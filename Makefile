@@ -7,7 +7,7 @@ setup: llvm-9.0.0.src.tar.lz llvm-9.0.0.src.tar.xz llvm-9.0.0.src.tar.bz2 llvm-9
 
 
 clean:
-	@rm -rf tags dist-newstyle *.tar* *.svg ghc*
+	@rm -rf tags dist-newstyle *.tar* *.svg ghc* llvm*
 
 ci: .github/workflows/haskell.yml .github/workflows/dhall.yml .github/workflows/hlint.yml
 
@@ -22,6 +22,12 @@ ci: .github/workflows/haskell.yml .github/workflows/dhall.yml .github/workflows/
 
 .github/workflows/hlint.yml: hlint-ci.dhall .github/workflows
 	dhall-to-yaml --file $< --output $@
+
+ghc-8.8.2-x86_64-deb9-linux.tar.xz:
+	wget https://downloads.haskell.org/~ghc/8.8.2/ghc-8.8.2-x86_64-deb9-linux.tar.xz -O $@
+
+ghc-8.8.2-x86_64-deb9-linux.tar.%: ghc-8.8.2-x86_64-deb9-linux.tar.xz
+	sak transcode $< $@
 
 llvm-9.0.0.src.tar.xz:
 	wget http://releases.llvm.org/9.0.0/llvm-9.0.0.src.tar.xz -O $@
