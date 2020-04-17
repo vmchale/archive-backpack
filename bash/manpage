@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+pandoc hstar/man/MANPAGE.md -s -t man -o hstar/man/hstar.1
