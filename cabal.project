@@ -12,8 +12,3 @@ constraints: archive-sig +development
            , archive-tar-bytestring +development
            , hstar +development
            , zlib +pkg-config
-
-source-repository-package
-  tag: 6c9edd7dd5c2e72a49c98a932beffda91283e65a
-  location: https://github.com/vmchale/libarchive.git
-  type: git
