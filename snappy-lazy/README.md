@@ -1,0 +1,5 @@
+# snappy-lazy
+
+## Installation
+
+## Configuration
