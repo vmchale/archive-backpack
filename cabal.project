@@ -2,6 +2,7 @@ packages: hstar
         , archive-sig
         , archive-libarchive
         , archive-tar
+        , snappy-lazy
         -- , archive-tar-bytestring
 
 max-backjumps: 40000
@@ -14,6 +15,6 @@ constraints: archive-sig +development
            , zlib +pkg-config
 
 source-repository-package
-  tag: 6c9edd7dd5c2e72a49c98a932beffda91283e65a
-  location: https://github.com/vmchale/libarchive.git
   type: git
+  tag: 91b088b687bad08d358d377aa90dda11a2641d6f
+  location: https://github.com/factisresearch/snappy.git
