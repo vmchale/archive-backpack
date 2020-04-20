@@ -1,3 +1,4 @@
+-- | Snappy frames
 module Codec.Compression.Snappy.BSL ( compress
                                     , decompress
                                     ) where
@@ -7,7 +8,7 @@ import qualified Codec.Compression.Snappy.Framing as Snappy
 import           Data.Binary                      (decodeOrFail, encode)
 import qualified Data.ByteString.Lazy             as BSL
 
-
+-- | Throws exception on error.
 decompress :: BSL.ByteString -> BSL.ByteString
 decompress = BSL.fromChunks . loop
     where loop bs =
