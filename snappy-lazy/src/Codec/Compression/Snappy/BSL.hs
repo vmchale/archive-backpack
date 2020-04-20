@@ -14,11 +14,11 @@ import qualified Data.ByteString.Lazy             as BSL
 decompress :: BSL.ByteString -> BSL.ByteString
 decompress = BSL.fromChunks . loop
     where loop bs =
-            let (res, _, chunk) = yeet $ decodeOrFail bs
+            let (res, _, chunk) = asE $ decodeOrFail bs
                 in if BSL.null res
                     then [extractUncompressed chunk]
                     else extractUncompressed chunk : loop res
-          yeet = either (error.show) id
+          asE = either (error.show) id
           extractUncompressed (Snappy.Compressed _ d)   = Snappy.decompress d
           extractUncompressed (Snappy.Uncompressed _ x) = x
           extractUncompressed Snappy.StreamIdentifier   = mempty
