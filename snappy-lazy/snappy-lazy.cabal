@@ -6,6 +6,7 @@ license-file:    LICENSE
 copyright:       Copyright: (c) 2020 Vanessa McHale
 maintainer:      vamchale@gmail.com
 author:          Vanessa McHale
+bug-reports:     https://github.com/vmchale/archive-backpack/issues
 synopsis:        Lazy bytestring compression and decompression
 description:
     Higher-level wrapper for streaming snappy decompression via ByteString
@@ -15,6 +16,11 @@ build-type:      Simple
 extra-doc-files:
     README.md
     CHANGELOG.md
+
+source-repository head
+    type:     git
+    location: https://github.com/vmchale/archive-backpack
+    subdir:   snappy-lazy
 
 library
     exposed-modules:  Codec.Compression.Snappy.BSL

@@ -6,17 +6,17 @@ license-file:       LICENSE
 copyright:          Copyright: (c) 2019-2020 Vanessa McHale
 maintainer:         vamchale@gmail.com
 author:             Vanessa McHale
+bug-reports:        https://github.com/vmchale/archive-backpack/issues
 synopsis:           Haskell version of tar CLI utility
 description:
     Haskell implementation of the tar utility, demonstrating backpack
 
 category:           Codec, Tar, Archive
 build-type:         Simple
+data-files:         man/hstar.1
 extra-source-files:
     CHANGELOG.md
     README.md
-data-files:
-    man/hstar.1
 
 source-repository head
     type:     git
@@ -70,7 +70,7 @@ executable hstar
         lzlib >=1.0.1.0
 
     if flag(with-snappy)
-        build-depends: snappy-lazy
+        build-depends: snappy-lazy -any
 
     if flag(with-brotli)
         build-depends: brotli -any
