@@ -9,6 +9,7 @@ import qualified Codec.Compression.Snappy         as Snappy
 import qualified Codec.Compression.Snappy.Framing as Snappy
 import           Data.Binary                      (decodeOrFail, encode)
 import qualified Data.ByteString.Lazy             as BSL
+import           Data.Semigroup                   ((<>))
 
 -- | Throws exception on error.
 decompress :: BSL.ByteString -> BSL.ByteString
