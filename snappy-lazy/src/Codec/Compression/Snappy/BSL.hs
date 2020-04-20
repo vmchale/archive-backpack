@@ -1,4 +1,6 @@
--- | Snappy frames
+-- | Snappy frames; see
+-- [here](http://hackage.haskell.org/package/snappy-framing) for more on the
+-- frame format.
 module Codec.Compression.Snappy.BSL ( compress
                                     , decompress
                                     ) where
