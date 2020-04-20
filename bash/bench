@@ -49,3 +49,10 @@ tar_rs="$HOME/.cargo/bin/star"
 bench "$tar_rs x ghc-8.8.2-x86_64-deb9-linux.tar.zst" \
     "$tar_rs x ghc-8.8.2-x86_64-deb9-linux.tar.xz" \
     "$tar_rs x ghc-8.8.2-x86_64-deb9-linux.tar.gz"
+
+bench 'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | bsdtar -xf -' \
+    'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.sz' \
+    'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.sz' \
+    'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | busybox tar xf -' \
+    'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | tar xf -' \
+    'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | star xf -' --before 'rm -rf ghc-8.8.2'

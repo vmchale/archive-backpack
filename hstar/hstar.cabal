@@ -39,6 +39,9 @@ flag tar-bytestring
 flag with-brotli
     description: Enable brotli compression support
 
+flag with-snappy
+    description: Enable snappy support
+
 executable hstar
     main-is:            Main.hs
     build-tool-depends: cpphs:cpphs -any
@@ -66,11 +69,17 @@ executable hstar
         lz4-hs >=0.1.1.0,
         lzlib >=1.0.1.0
 
+    if flag(with-snappy)
+        build-depends: snappy-lazy
+
     if flag(with-brotli)
         build-depends: brotli -any
 
     if flag(with-brotli)
         cpp-options: -DBROTLI
+
+    if flag(with-snappy)
+        cpp-options: -DSNAPPY
 
     if impl(ghc >=8.10)
         ghc-options: -Wunused-packages

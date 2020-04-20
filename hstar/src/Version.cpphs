@@ -24,5 +24,8 @@ allVersionsString =
 #ifdef BROTLI
     ++ "brotli-hs: " ++ VERSION_brotli ++ "\n"
 #endif
+#ifdef SNAPPY
+    ++ "snappy-lazy-hs: " ++ VERSION_snappy_lazy ++ "\n"
+#endif
     ++ "bz2-hs: " ++ VERSION_bz2 ++ "\n"
     ++ "bz2: " ++ bZ2BzlibVersion

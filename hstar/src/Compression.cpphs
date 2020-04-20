@@ -4,17 +4,20 @@ module Compression ( compressionByFileExt
                    ) where
 
 #ifdef BROTLI
-import qualified Codec.Compression.Brotli    as Brotli
+import qualified Codec.Compression.Brotli     as Brotli
 #endif
-import qualified Codec.Compression.BZip      as BZip
-import qualified Codec.Compression.GZip      as GZip
-import qualified Codec.Compression.Lzma      as Lzma
-import qualified Codec.Compression.Zlib      as Zlib
-import qualified Codec.Compression.Zstd.Lazy as Zstd
-import qualified Codec.Lz4                   as Lz4
-import           Codec.Lzip                  as Lzip
-import qualified Data.ByteString.Lazy        as BSL
-import           Data.List                   (isSuffixOf)
+import qualified Codec.Compression.BZip       as BZip
+import qualified Codec.Compression.GZip       as GZip
+import qualified Codec.Compression.Lzma       as Lzma
+#ifdef SNAPPY
+import qualified Codec.Compression.Snappy.BSL as Snappy
+#endif
+import qualified Codec.Compression.Zlib       as Zlib
+import qualified Codec.Compression.Zstd.Lazy  as Zstd
+import qualified Codec.Lz4                    as Lz4
+import           Codec.Lzip                   as Lzip
+import qualified Data.ByteString.Lazy         as BSL
+import           Data.List                    (isSuffixOf)
 
 data Compressor = Lzma
     | Lz
@@ -25,6 +28,9 @@ data Compressor = Lzma
     | Lz4
 #ifdef BROTLI
     | Brotli
+#endif
+#ifdef SNAPPY
+    | Snappy
 #endif
     | None
 
@@ -46,6 +52,9 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp     = GZip
                         | ".tbr" `isSuffixOf` fp     = Brotli
                         | ".tar.br" `isSuffixOf` fp  = Brotli
 #endif
+#ifdef SNAPPY
+                        | ".tar.sz" `isSuffixOf` fp  = Snappy
+#endif
                         | ".tar" `isSuffixOf` fp     = None
                         | otherwise                  = error "Suffix not supported or invalid."
 
@@ -60,6 +69,9 @@ decompressor Lz4     = Lz4.decompress
 #ifdef BROTLI
 decompressor Brotli  = Brotli.decompress
 #endif
+#ifdef SNAPPY
+decompressor Snappy  = Snappy.decompress
+#endif
 decompressor None    = id
 
 compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
@@ -72,5 +84,8 @@ compressor Deflate = Zlib.compress
 compressor Lz4     = Lz4.compress
 #ifdef BROTLI
 compressor Brotli  = Brotli.compress
+#endif
+#ifdef SNAPPY
+compressor Snappy  = Snappy.compress
 #endif
 compressor None    = id
