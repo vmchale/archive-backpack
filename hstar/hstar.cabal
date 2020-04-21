@@ -41,6 +41,7 @@ flag with-brotli
 
 flag with-snappy
     description: Enable snappy support
+    default: False
 
 executable hstar
     main-is:            Main.hs
