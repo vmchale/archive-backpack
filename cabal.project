@@ -11,6 +11,5 @@ constraints: archive-sig +development
            , archive-libarchive +development
            , archive-tar +development
            , archive-tar-bytestring +development
-           , hstar +development
+           , hstar +development +with-snappy +with-brotli
            , zlib +pkg-config
-           , snappy-lazy +with-brotli +with-snappy
