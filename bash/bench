@@ -5,6 +5,8 @@ set -e
 # go get github.com/pierrec/lz4 && cd $GOPATH/src/github.com/pierrec/lz4 && git fetch && git checkout v3.0.1
 # go install github.com/mholt/archiver/cmd/arc
 
+# TODO: lrztar
+
 # ptar - perl tar
 # minitar - gem install minitar-cli
 # arc - go tar
@@ -18,12 +20,12 @@ bench 'ptar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
 
 for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.bz2
 do
-    bench "python3 -m tarfile -e $tarball" "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" "arc unarchive $tarball" "busybox tar xf $tarball" --before 'rm -rf ghc-8.8.2'
+    bench "python3 -m tarfile -e $tarball" "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" "arc -overwrite unarchive $tarball" "busybox tar xf $tarball" --before 'rm -rf ghc-8.8.2'
 done
 
+# 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
 bench 'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
     'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
-    'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
     'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | busybox tar xf -' \
     'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar xf -' \
     'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | star xf -' --before 'rm -rf ghc-8.8.2'
@@ -32,10 +34,8 @@ for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.ta
 do
     bench "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" --before 'rm -rf ghc-8.8.2'
 done
-bench 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.zst'
 
-bench 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.br' \
-    'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.br' \
+bench 'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.br' \
     'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | busybox tar xf -' \
     'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | tar xf -' \
     'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | star xf -' \
@@ -55,7 +55,7 @@ bench "$tar_rs x ghc-8.8.2-x86_64-deb9-linux.tar.zst" \
 
 bench 'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | bsdtar -xf -' \
     'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.sz' \
-    'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.sz' \
+    'arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.sz' \
     'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | busybox tar xf -' \
     'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | tar xf -' \
     'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | star xf -' --before 'rm -rf ghc-8.8.2'
