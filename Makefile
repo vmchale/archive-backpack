@@ -26,8 +26,14 @@ ci: .github/workflows/haskell.yml .github/workflows/dhall.yml .github/workflows/
 ghc-8.8.2-x86_64-deb9-linux.tar.xz:
 	wget https://downloads.haskell.org/~ghc/8.8.2/ghc-8.8.2-x86_64-deb9-linux.tar.xz -O $@
 
+ghc-8.8.2-x86_64-deb9-linux.tar.lz4: ghc-8.8.2-x86_64-deb9-linux.tar
+	lz4 -k -d -f $@
+
 ghc-8.8.2-x86_64-deb9-linux.tar.%: ghc-8.8.2-x86_64-deb9-linux.tar.xz
 	sak transcode $< $@
+
+ghc-8.8.2-x86_64-deb9-linux.tar: ghc-8.8.2-x86_64-deb9-linux.tar.zst
+	sak decompress $^
 
 llvm-9.0.0.src.tar.xz:
 	wget http://releases.llvm.org/9.0.0/llvm-9.0.0.src.tar.xz -O $@
