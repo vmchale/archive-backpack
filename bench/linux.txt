@@ -1,328 +1,377 @@
-benchmarking bench/python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.gz
-time                 8.768 s    (8.535 s .. 9.012 s)
+benchmarking bench/ptar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz
+time                 76.65 s    (75.54 s .. 77.23 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 9.026 s    (8.896 s .. 9.109 s)
-std dev              130.3 ms   (64.19 ms .. 172.4 ms)
+mean                 77.11 s    (76.87 s .. 77.25 s)
+std dev              238.5 ms   (78.58 ms .. 322.5 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/pax -rzf ghc-8.8.2-x86_64-deb9-linux.tar.gz
+time                 8.750 s    (8.715 s .. 8.778 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 8.749 s    (8.741 s .. 8.757 s)
+std dev              10.06 ms   (4.228 ms .. 13.35 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.gz
+time                 8.649 s    (8.599 s .. NaN s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 8.611 s    (8.567 s .. 8.627 s)
+std dev              29.77 ms   (3.444 ms .. 37.67 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.gz
-time                 4.609 s    (4.545 s .. 4.669 s)
+time                 4.562 s    (4.527 s .. 4.586 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 4.643 s    (4.625 s .. 4.661 s)
-std dev              20.76 ms   (17.27 ms .. 22.82 ms)
+mean                 4.559 s    (4.549 s .. 4.565 s)
+std dev              9.654 ms   (4.417 ms .. 12.05 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.gz
-time                 6.336 s    (6.261 s .. 6.374 s)
+time                 6.236 s    (6.166 s .. 6.304 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 6.364 s    (6.343 s .. 6.372 s)
-std dev              14.39 ms   (2.327 ms .. 18.48 ms)
+mean                 6.230 s    (6.222 s .. 6.243 s)
+std dev              12.47 ms   (2.243 ms .. 16.26 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/tar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz
-time                 8.795 s    (8.599 s .. 8.958 s)
+time                 8.236 s    (8.215 s .. 8.261 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 8.782 s    (8.763 s .. 8.816 s)
-std dev              32.28 ms   (3.031 ms .. 40.33 ms)
+mean                 8.239 s    (8.232 s .. 8.243 s)
+std dev              6.854 ms   (3.493 ms .. 9.392 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/star xf ghc-8.8.2-x86_64-deb9-linux.tar.gz
-time                 8.803 s    (8.671 s .. 9.012 s)
-                     1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 8.785 s    (8.748 s .. 8.821 s)
-std dev              41.98 ms   (35.12 ms .. 46.01 ms)
+time                 8.260 s    (8.228 s .. 8.301 s)
+                     1.000 R²   (NaN R² .. 1.000 R²)
+mean                 8.253 s    (8.246 s .. 8.259 s)
+std dev              7.975 ms   (2.426 ms .. 10.95 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
-benchmarking bench/arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.gz
-time                 12.84 s    (12.53 s .. 13.14 s)
+benchmarking bench/arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.gz
+time                 15.60 s    (15.58 s .. NaN s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 12.86 s    (12.82 s .. 12.94 s)
-std dev              74.86 ms   (18.79 ms .. 96.77 ms)
+mean                 15.61 s    (15.60 s .. 15.61 s)
+std dev              5.056 ms   (4.195 ms .. 5.456 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz
-time                 11.10 s    (10.96 s .. 11.36 s)
+time                 10.78 s    (10.53 s .. 11.00 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 10.97 s    (10.93 s .. 11.04 s)
-std dev              61.68 ms   (10.07 ms .. 80.16 ms)
+mean                 10.79 s    (10.76 s .. 10.83 s)
+std dev              37.40 ms   (8.641 ms .. 46.00 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.xz
-time                 16.99 s    (16.88 s .. 17.09 s)
+time                 16.88 s    (16.76 s .. 16.99 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 16.98 s    (16.96 s .. 17.00 s)
-std dev              22.47 ms   (6.457 ms .. 29.55 ms)
+mean                 16.88 s    (16.87 s .. 16.90 s)
+std dev              19.02 ms   (5.816 ms .. 25.02 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.xz
-time                 14.95 s    (14.88 s .. 15.03 s)
+time                 14.87 s    (14.85 s .. 14.87 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 14.92 s    (14.90 s .. 14.94 s)
-std dev              21.18 ms   (10.83 ms .. 26.87 ms)
+mean                 14.84 s    (14.83 s .. 14.85 s)
+std dev              16.41 ms   (1.060 ms .. 20.50 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.xz
-time                 15.28 s    (15.06 s .. 15.46 s)
+time                 15.22 s    (15.17 s .. 15.26 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 15.31 s    (15.28 s .. 15.34 s)
-std dev              33.30 ms   (22.97 ms .. 41.10 ms)
+mean                 15.24 s    (15.22 s .. 15.24 s)
+std dev              11.39 ms   (4.639 ms .. 15.80 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/tar xf ghc-8.8.2-x86_64-deb9-linux.tar.xz
-time                 14.42 s    (14.29 s .. 14.70 s)
+time                 14.30 s    (14.23 s .. 14.35 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 14.39 s    (14.34 s .. 14.42 s)
-std dev              46.04 ms   (37.52 ms .. 52.56 ms)
+mean                 14.30 s    (14.29 s .. 14.31 s)
+std dev              12.15 ms   (4.032 ms .. 16.47 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/star xf ghc-8.8.2-x86_64-deb9-linux.tar.xz
-time                 14.50 s    (14.33 s .. 14.66 s)
+time                 14.36 s    (14.35 s .. 14.36 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 14.44 s    (14.39 s .. 14.47 s)
-std dev              48.82 ms   (23.80 ms .. 61.55 ms)
+mean                 14.35 s    (14.34 s .. 14.35 s)
+std dev              5.868 ms   (1.751 ms .. 7.899 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
-benchmarking bench/arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.xz
-time                 50.58 s    (50.27 s .. 50.79 s)
+benchmarking bench/arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.xz
+time                 48.82 s    (48.54 s .. 49.32 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 50.49 s    (50.39 s .. 50.54 s)
-std dev              92.10 ms   (43.39 ms .. 116.7 ms)
+mean                 48.91 s    (48.83 s .. 49.03 s)
+std dev              114.9 ms   (6.278 ms .. 143.1 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.xz
-time                 16.20 s    (15.99 s .. 16.46 s)
+time                 16.10 s    (15.98 s .. 16.24 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 16.15 s    (16.12 s .. 16.18 s)
-std dev              38.41 ms   (24.60 ms .. 49.63 ms)
+mean                 16.06 s    (16.03 s .. 16.09 s)
+std dev              30.09 ms   (10.13 ms .. 37.74 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.bz2
-time                 40.09 s    (38.35 s .. NaN s)
-                     1.000 R²   (0.999 R² .. 1.000 R²)
-mean                 40.90 s    (40.43 s .. 41.21 s)
-std dev              510.0 ms   (401.2 ms .. 594.6 ms)
+time                 40.14 s    (39.97 s .. 40.39 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 40.01 s    (39.93 s .. 40.07 s)
+std dev              87.52 ms   (70.33 ms .. 104.8 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2
-time                 38.19 s    (36.58 s .. 39.39 s)
-                     1.000 R²   (0.999 R² .. 1.000 R²)
-mean                 38.25 s    (38.01 s .. 38.60 s)
-std dev              329.0 ms   (11.92 ms .. 408.9 ms)
+time                 37.70 s    (36.94 s .. 38.04 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 37.54 s    (37.24 s .. 37.67 s)
+std dev              219.5 ms   (81.87 ms .. 300.1 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.bz2
-time                 40.31 s    (39.58 s .. 40.67 s)
+time                 38.43 s    (38.08 s .. 38.86 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 39.86 s    (39.45 s .. 40.07 s)
-std dev              386.6 ms   (58.31 ms .. 507.1 ms)
+mean                 38.16 s    (38.00 s .. 38.26 s)
+std dev              164.7 ms   (75.70 ms .. 228.7 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/tar xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2
-time                 38.96 s    (38.14 s .. 40.11 s)
+time                 37.68 s    (37.56 s .. 37.89 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 39.65 s    (39.30 s .. 39.95 s)
-std dev              374.9 ms   (307.6 ms .. 431.6 ms)
+mean                 37.59 s    (37.57 s .. 37.64 s)
+std dev              44.61 ms   (15.91 ms .. 60.67 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/star xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2
-time                 38.53 s    (37.28 s .. 39.24 s)
+time                 37.83 s    (37.58 s .. 37.98 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 38.52 s    (38.23 s .. 38.73 s)
-std dev              281.5 ms   (117.2 ms .. 353.4 ms)
+mean                 37.68 s    (37.61 s .. 37.74 s)
+std dev              77.51 ms   (34.11 ms .. 97.07 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
-benchmarking bench/arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.bz2
-time                 82.61 s    (77.30 s .. 85.06 s)
-                     1.000 R²   (0.999 R² .. NaN R²)
-mean                 84.97 s    (83.26 s .. 85.65 s)
-std dev              1.187 s    (354.4 ms .. 1.589 s)
+benchmarking bench/arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.bz2
+time                 80.67 s    (75.48 s .. 89.51 s)
+                     0.998 R²   (0.998 R² .. 1.000 R²)
+mean                 82.94 s    (81.51 s .. 85.02 s)
+std dev              1.981 s    (726.4 ms .. 2.587 s)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2
-time                 38.55 s    (37.40 s .. 40.05 s)
-                     1.000 R²   (0.999 R² .. 1.000 R²)
-mean                 39.13 s    (38.85 s .. 39.44 s)
-std dev              373.1 ms   (162.6 ms .. 472.5 ms)
+time                 38.19 s    (37.79 s .. 38.39 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 38.21 s    (38.10 s .. 38.31 s)
+std dev              116.7 ms   (53.18 ms .. 163.2 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4
-time                 2.072 s    (1.986 s .. 2.192 s)
-                     1.000 R²   (0.999 R² .. 1.000 R²)
-mean                 2.116 s    (2.095 s .. 2.142 s)
-std dev              29.00 ms   (10.43 ms .. 37.54 ms)
+time                 1.784 s    (1.781 s .. 1.791 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 1.781 s    (1.776 s .. 1.783 s)
+std dev              3.408 ms   (131.6 μs .. 4.244 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4
-time                 2.418 s    (2.230 s .. 2.524 s)
-                     0.999 R²   (0.998 R² .. 1.000 R²)
-mean                 2.415 s    (2.390 s .. 2.442 s)
-std dev              32.51 ms   (10.98 ms .. 43.65 ms)
-variance introduced by outliers: 19% (moderately inflated)
-
-benchmarking bench/arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.lz4
-time                 3.384 s    (3.350 s .. 3.415 s)
+time                 1.989 s    (1.944 s .. 2.022 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 3.371 s    (3.354 s .. 3.380 s)
-std dev              16.63 ms   (1.007 ms .. 20.67 ms)
+mean                 1.977 s    (1.962 s .. 1.985 s)
+std dev              14.15 ms   (5.157 ms .. 18.51 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | busybox tar xf -
-time                 3.544 s    (NaN s .. 3.794 s)
-                     0.999 R²   (0.997 R² .. 1.000 R²)
-mean                 3.590 s    (3.546 s .. 3.625 s)
-std dev              45.99 ms   (20.92 ms .. 62.21 ms)
+time                 2.388 s    (2.325 s .. 2.423 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.414 s    (2.395 s .. 2.421 s)
+std dev              13.19 ms   (316.4 μs .. 16.02 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar xf -
-time                 2.564 s    (2.559 s .. 2.576 s)
-                     1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 2.568 s    (2.565 s .. 2.572 s)
-std dev              3.882 ms   (1.411 ms .. 5.302 ms)
+time                 1.518 s    (1.479 s .. 1.570 s)
+                     1.000 R²   (NaN R² .. 1.000 R²)
+mean                 1.518 s    (1.508 s .. 1.525 s)
+std dev              9.863 ms   (4.741 ms .. 12.45 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | star xf -
-time                 1.601 s    (1.599 s .. 1.605 s)
+time                 1.187 s    (1.156 s .. 1.215 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 1.607 s    (1.605 s .. 1.610 s)
-std dev              3.491 ms   (1.473 ms .. 4.575 ms)
+mean                 1.199 s    (1.193 s .. 1.205 s)
+std dev              7.626 ms   (3.524 ms .. 10.09 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz
-time                 12.47 s    (12.40 s .. 12.62 s)
+time                 12.40 s    (12.34 s .. 12.45 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 12.45 s    (12.43 s .. 12.47 s)
-std dev              21.37 ms   (7.674 ms .. 27.14 ms)
+mean                 12.40 s    (12.39 s .. 12.41 s)
+std dev              9.540 ms   (3.560 ms .. 13.17 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz
-time                 16.06 s    (15.88 s .. 16.28 s)
+time                 15.93 s    (15.89 s .. 15.95 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 16.09 s    (16.06 s .. 16.14 s)
-std dev              50.45 ms   (2.049 ms .. 64.15 ms)
+mean                 15.94 s    (15.93 s .. 15.94 s)
+std dev              6.381 ms   (608.4 μs .. 8.095 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/tar xf ghc-8.8.2-x86_64-deb9-linux.tar.lz
-time                 16.94 s    (16.68 s .. 17.45 s)
+time                 16.69 s    (16.65 s .. 16.74 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 16.79 s    (16.73 s .. 16.88 s)
-std dev              86.43 ms   (3.698 ms .. 107.4 ms)
+mean                 16.70 s    (16.70 s .. 16.71 s)
+std dev              10.10 ms   (290.1 μs .. 12.54 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/star xf ghc-8.8.2-x86_64-deb9-linux.tar.lz
-time                 15.88 s    (15.67 s .. 16.10 s)
+time                 15.81 s    (15.74 s .. 15.85 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 15.91 s    (15.85 s .. 15.93 s)
-std dev              40.37 ms   (6.207 ms .. 52.13 ms)
+mean                 15.84 s    (15.82 s .. 15.85 s)
+std dev              14.92 ms   (2.690 ms .. 19.04 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.zst
-time                 2.232 s    (2.178 s .. 2.306 s)
-                     1.000 R²   (1.000 R² .. NaN R²)
-mean                 2.259 s    (2.241 s .. 2.288 s)
-std dev              27.34 ms   (2.403 ms .. 34.61 ms)
+time                 2.123 s    (2.115 s .. 2.133 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.123 s    (2.121 s .. 2.123 s)
+std dev              1.389 ms   (13.71 μs .. 1.706 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.zst
-time                 3.000 s    (2.928 s .. 3.142 s)
-                     1.000 R²   (0.999 R² .. 1.000 R²)
-mean                 2.980 s    (2.961 s .. 2.995 s)
-std dev              20.31 ms   (10.58 ms .. 26.70 ms)
+time                 2.822 s    (2.788 s .. 2.881 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.847 s    (2.836 s .. 2.862 s)
+std dev              14.63 ms   (4.646 ms .. 19.58 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/tar xf ghc-8.8.2-x86_64-deb9-linux.tar.zst
-time                 2.662 s    (2.654 s .. 2.669 s)
+time                 2.536 s    (2.503 s .. 2.559 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 2.657 s    (2.654 s .. 2.660 s)
-std dev              3.599 ms   (1.191 ms .. 4.792 ms)
+mean                 2.529 s    (2.518 s .. 2.533 s)
+std dev              7.759 ms   (3.407 ms .. 9.702 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/star xf ghc-8.8.2-x86_64-deb9-linux.tar.zst
-time                 2.279 s    (2.209 s .. 2.334 s)
-                     1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 2.274 s    (2.265 s .. 2.286 s)
-std dev              12.05 ms   (3.196 ms .. 16.02 ms)
-variance introduced by outliers: 19% (moderately inflated)
-
-benchmarking arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.zst
-time                 9.660 s    (2.691 s .. 15.95 s)
-                     0.940 R²   (0.798 R² .. 1.000 R²)
-mean                 12.20 s    (10.80 s .. 13.60 s)
-std dev              1.775 s    (775.0 ms .. 2.335 s)
-variance introduced by outliers: 24% (moderately inflated)
-
-benchmarking bench/arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.br
-time                 10.45 s    (10.39 s .. 10.50 s)
-                     1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 10.34 s    (10.28 s .. 10.39 s)
-std dev              58.65 ms   (22.21 ms .. 77.93 ms)
+time                 2.083 s    (1.988 s .. 2.171 s)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 2.107 s    (2.092 s .. 2.130 s)
+std dev              21.95 ms   (4.877 ms .. 28.94 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.br
-time                 4.049 s    (3.970 s .. 4.093 s)
+time                 4.091 s    (4.039 s .. 4.155 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 4.041 s    (4.021 s .. 4.054 s)
-std dev              18.99 ms   (6.593 ms .. 25.84 ms)
+mean                 4.106 s    (4.091 s .. 4.117 s)
+std dev              15.88 ms   (8.410 ms .. 22.10 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | busybox tar xf -
-time                 5.102 s    (4.990 s .. 5.312 s)
+time                 5.277 s    (5.231 s .. 5.309 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 5.179 s    (5.142 s .. 5.224 s)
-std dev              48.65 ms   (14.75 ms .. 66.24 ms)
+mean                 5.288 s    (5.279 s .. 5.295 s)
+std dev              9.781 ms   (4.512 ms .. 13.31 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | tar xf -
-time                 4.244 s    (3.830 s .. 4.591 s)
-                     0.999 R²   (0.996 R² .. 1.000 R²)
-mean                 4.267 s    (4.205 s .. 4.363 s)
-std dev              90.52 ms   (4.060 ms .. 112.8 ms)
+time                 4.332 s    (4.316 s .. 4.345 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 4.338 s    (4.334 s .. 4.341 s)
+std dev              3.988 ms   (1.697 ms .. 5.415 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | star xf -
-time                 2.875 s    (2.856 s .. 2.896 s)
+time                 3.003 s    (2.993 s .. 3.020 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 2.886 s    (2.880 s .. 2.890 s)
-std dev              5.740 ms   (2.295 ms .. 7.888 ms)
+mean                 2.987 s    (2.978 s .. 2.993 s)
+std dev              9.312 ms   (4.192 ms .. 12.95 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | bsdtar -xf -
-time                 4.399 s    (4.373 s .. 4.456 s)
+time                 4.544 s    (4.517 s .. 4.566 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 4.421 s    (4.410 s .. 4.435 s)
-std dev              13.40 ms   (6.445 ms .. 18.65 ms)
+mean                 4.544 s    (4.540 s .. 4.550 s)
+std dev              6.160 ms   (2.388 ms .. 8.039 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/lzip -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz | busybox tar xf -
-time                 18.06 s    (17.90 s .. 18.38 s)
+time                 18.15 s    (17.74 s .. 18.61 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 17.99 s    (17.96 s .. 18.04 s)
-std dev              46.14 ms   (12.47 ms .. 61.33 ms)
+mean                 18.04 s    (17.96 s .. 18.12 s)
+std dev              103.6 ms   (52.86 ms .. 125.8 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench/zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst | busybox tar xf -
-time                 3.665 s    (3.617 s .. 3.696 s)
+time                 3.568 s    (3.524 s .. NaN s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 3.665 s    (3.660 s .. 3.673 s)
-std dev              7.304 ms   (2.063 ms .. 9.398 ms)
+mean                 3.556 s    (3.544 s .. 3.563 s)
+std dev              11.89 ms   (5.525 ms .. 14.55 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/htar -xzf ghc-8.8.2-x86_64-deb9-linux.tar.gz
+time                 24.49 s    (23.58 s .. 25.45 s)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 23.54 s    (22.99 s .. 23.99 s)
+std dev              551.1 ms   (381.2 ms .. 642.6 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/htar -xjf ghc-8.8.2-x86_64-deb9-linux.tar.bz2
+time                 49.43 s    (NaN s .. 50.36 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 49.31 s    (49.05 s .. 49.46 s)
+std dev              255.7 ms   (53.65 ms .. 335.2 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench//home/vanessa/.cargo/bin/star x ghc-8.8.2-x86_64-deb9-linux.tar.zst
-time                 3.160 s    (3.114 s .. 3.204 s)
+time                 2.974 s    (2.967 s .. 2.983 s)
                      1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 3.130 s    (3.118 s .. 3.145 s)
-std dev              14.93 ms   (1.693 ms .. 18.98 ms)
+mean                 2.978 s    (2.976 s .. 2.980 s)
+std dev              2.467 ms   (1.440 ms .. 2.992 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking bench//home/vanessa/.cargo/bin/star x ghc-8.8.2-x86_64-deb9-linux.tar.xz
-time                 17.04 s    (13.37 s .. 18.99 s)
-                     0.995 R²   (0.985 R² .. 1.000 R²)
-mean                 16.95 s    (16.01 s .. 17.79 s)
-std dev              976.2 ms   (541.5 ms .. 1.368 s)
-variance introduced by outliers: 19% (moderately inflated)
+time                 15.11 s    (10.17 s .. 21.19 s)
+                     0.982 R²   (0.942 R² .. 1.000 R²)
+mean                 16.35 s    (15.66 s .. 17.74 s)
+std dev              1.381 s    (4.162 ms .. 1.600 s)
+variance introduced by outliers: 22% (moderately inflated)
 
 benchmarking bench//home/vanessa/.cargo/bin/star x ghc-8.8.2-x86_64-deb9-linux.tar.gz
-time                 17.17 s    (12.30 s .. 22.51 s)
-                     0.988 R²   (0.959 R² .. 1.000 R²)
-mean                 15.80 s    (14.84 s .. 16.77 s)
-std dev              1.234 s    (635.2 ms .. 1.503 s)
-variance introduced by outliers: 21% (moderately inflated)
+time                 15.00 s    (14.85 s .. 15.19 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 15.01 s    (14.97 s .. 15.07 s)
+std dev              54.86 ms   (27.17 ms .. 67.64 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | bsdtar -xf -
+time                 2.320 s    (2.309 s .. 2.343 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.319 s    (2.316 s .. 2.322 s)
+std dev              3.581 ms   (1.551 ms .. 4.446 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.sz
+time                 2.405 s    (2.388 s .. 2.418 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.404 s    (2.401 s .. 2.407 s)
+std dev              3.748 ms   (1.546 ms .. 4.899 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.sz
+time                 4.316 s    (4.295 s .. 4.331 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 4.315 s    (4.309 s .. 4.318 s)
+std dev              5.834 ms   (289.5 μs .. 7.200 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | busybox tar xf -
+time                 2.695 s    (2.652 s .. 2.738 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.692 s    (2.682 s .. 2.701 s)
+std dev              12.40 ms   (6.550 ms .. 17.22 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | tar xf -
+time                 2.150 s    (2.124 s .. NaN s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.144 s    (2.140 s .. 2.149 s)
+std dev              5.745 ms   (74.10 μs .. 7.050 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking bench/cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | star xf -
+time                 2.272 s    (2.237 s .. 2.304 s)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.265 s    (2.257 s .. 2.272 s)
+std dev              8.004 ms   (5.922 ms .. 9.268 ms)
+variance introduced by outliers: 19% (moderately inflated)
