@@ -58,6 +58,7 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp     = GZip
 #endif
 #ifdef SNAPPY
                         | ".tar.sz" `isSuffixOf` fp  = Snappy
+                        | ".tsz" `isSuffixOf` fp     = Snappy
 #endif
                         | ".tar" `isSuffixOf` fp     = None
                         | otherwise                  = error "Suffix not supported or invalid."
