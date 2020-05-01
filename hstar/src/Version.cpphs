@@ -21,6 +21,7 @@ allVersionsString =
     ++ "lz4-hs: " ++ VERSION_lz4_hs ++ "\n"
     ++ "lz4: " ++ lZ4VersionString ++ "\n"
     ++ "zstd-hs: " ++ VERSION_zstd ++ "\n"
+    ++ "lzo-hs: " ++ VERSION_lzo ++ "\n"
 #ifdef BROTLI
     ++ "brotli-hs: " ++ VERSION_brotli ++ "\n"
 #endif

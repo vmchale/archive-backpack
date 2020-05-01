@@ -9,6 +9,7 @@ import qualified Codec.Compression.Brotli     as Brotli
 import qualified Codec.Compression.BZip       as BZip
 import qualified Codec.Compression.GZip       as GZip
 import qualified Codec.Compression.Lzma       as Lzma
+import qualified Codec.Compression.Lzo        as Lzo
 #ifdef SNAPPY
 import qualified Codec.Compression.Snappy.BSL as Snappy
 #endif
@@ -26,6 +27,7 @@ data Compressor = Lzma
     | Zstd
     | Deflate
     | Lz4
+    | Lzo
 #ifdef BROTLI
     | Brotli
 #endif
@@ -48,6 +50,8 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp     = GZip
                         | ".tar.zst" `isSuffixOf` fp = Zstd
                         | ".tar.Z" `isSuffixOf` fp   = Deflate
                         | ".tar.lz4" `isSuffixOf` fp = Lz4
+                        | ".tar.lzo" `isSuffixOf` fp = Lzo
+                        | ".tzo" `isSuffixOf` fp     = Lzo
 #ifdef BROTLI
                         | ".tbr" `isSuffixOf` fp     = Brotli
                         | ".tar.br" `isSuffixOf` fp  = Brotli
@@ -66,6 +70,7 @@ decompressor Lz      = Lzip.decompress
 decompressor Zstd    = Zstd.decompress
 decompressor Deflate = Zlib.decompress
 decompressor Lz4     = Lz4.decompress
+decompressor Lzo     = Lzo.decompressFile
 #ifdef BROTLI
 decompressor Brotli  = Brotli.decompress
 #endif
@@ -76,6 +81,7 @@ decompressor None    = id
 
 compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
 compressor Lzma    = Lzma.compress
+compressor Lzo     = Lzo.compressFile
 compressor Bz2     = BZip.compress
 compressor GZip    = GZip.compress
 compressor Lz      = Lzip.compress
