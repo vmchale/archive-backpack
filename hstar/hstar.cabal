@@ -69,7 +69,7 @@ executable hstar
         zstd -any,
         lz4-hs >=0.1.1.0,
         lzlib >=1.0.1.0,
-        lzo
+        lzo >=0.1.1.0
 
     if flag(with-snappy)
         build-depends: snappy-lazy -any
