@@ -22,9 +22,9 @@ forceBSL = (`seq` mempty) . last . BSL.toChunks
 sanitize :: FilePath -> IO ()
 sanitize fp = do
     let enc = compressionByFileExt fp
-    contents <- decompressor enc <$> BSL.readFile fp
-    forceBSL contents
-    let es = either throw id $ readArchiveBytes contents
+    contents <- BSL.readFile fp
+    decoded <- decompressor enc contents <$ forceBSL contents
+    let es = either throw id $ readArchiveBytes decoded
         paxContents = writeArchiveBytes es
     BSL.writeFile fp (compressor enc paxContents)
 
