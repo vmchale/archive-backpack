@@ -45,8 +45,10 @@ hstar - An archiving tool
   - lzip
   - zstd
   - lz4
+  - lzo
   - deflate
   - brotli (optional)
+  - snappy (optional)
 
 # SHELL COMPLETIONS
 

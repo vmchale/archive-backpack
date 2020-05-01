@@ -1,3 +1,7 @@
+# 0.1.0.4
+
+  * Add support for lzo (`.lzo`, `.tzo`) compression
+
 # 0.1.0.3
 
   * Add support for snappy (`.sz`) compressed archive with `with-snappy` flag
