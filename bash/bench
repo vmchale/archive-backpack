@@ -12,8 +12,9 @@ set -e
 # arc - go tar
 # tar_rs (star) - rust tar
 # htar - haskell tar (tar library)
+
+# time minitar extract ghc-8.8.2-x86_64-deb9-linux.tar.gz
 # bench 'tarlz -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz'
-    # 'minitar extract ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
 
 bench 'ptar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
     'pax -rzf ghc-8.8.2-x86_64-deb9-linux.tar.gz'
@@ -23,8 +24,8 @@ do
     bench "python3 -m tarfile -e $tarball" "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" "arc -overwrite unarchive $tarball" "busybox tar xf $tarball" --before 'rm -rf ghc-8.8.2'
 done
 
+# 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
 bench 'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
-    'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
     'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
     'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | busybox tar xf -' \
     'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar xf -' \
