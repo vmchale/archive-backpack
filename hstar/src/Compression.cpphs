@@ -37,31 +37,32 @@ data Compressor = Lzma
     | None
 
 compressionByFileExt :: FilePath -> Compressor
-compressionByFileExt fp | ".tgz" `isSuffixOf` fp     = GZip
-                        | ".tar.bz2" `isSuffixOf` fp = Bz2
-                        | ".tar.bz" `isSuffixOf` fp  = Bz2
-                        | ".tbz2" `isSuffixOf` fp    = Bz2
-                        | ".tbz" `isSuffixOf` fp     = Bz2
-                        | ".tar.gz" `isSuffixOf` fp  = GZip
-                        | ".tar.xz" `isSuffixOf` fp  = Lzma
-                        | ".txz" `isSuffixOf` fp     = Lzma
-                        | ".tar.lz" `isSuffixOf` fp  = Lz
-                        | ".tlz" `isSuffixOf` fp     = Lz
-                        | ".tar.zst" `isSuffixOf` fp = Zstd
-                        | ".tar.Z" `isSuffixOf` fp   = Deflate
-                        | ".tar.lz4" `isSuffixOf` fp = Lz4
-                        | ".tar.lzo" `isSuffixOf` fp = Lzo
-                        | ".tzo" `isSuffixOf` fp     = Lzo
+compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = GZip
+                        | ".tar.bz2" `isSuffixOf` fp  = Bz2
+                        | ".tar.bz" `isSuffixOf` fp   = Bz2
+                        | ".tbz2" `isSuffixOf` fp     = Bz2
+                        | ".tbz" `isSuffixOf` fp      = Bz2
+                        | ".tar.gz" `isSuffixOf` fp   = GZip
+                        | ".tar.xz" `isSuffixOf` fp   = Lzma
+                        | ".txz" `isSuffixOf` fp      = Lzma
+                        | ".tar.lzma" `isSuffixOf` fp = Lzma
+                        | ".tar.lz" `isSuffixOf` fp   = Lz
+                        | ".tlz" `isSuffixOf` fp      = Lz
+                        | ".tar.zst" `isSuffixOf` fp  = Zstd
+                        | ".tar.Z" `isSuffixOf` fp    = Deflate
+                        | ".tar.lz4" `isSuffixOf` fp  = Lz4
+                        | ".tar.lzo" `isSuffixOf` fp  = Lzo
+                        | ".tzo" `isSuffixOf` fp      = Lzo
 #ifdef BROTLI
-                        | ".tbr" `isSuffixOf` fp     = Brotli
-                        | ".tar.br" `isSuffixOf` fp  = Brotli
+                        | ".tbr" `isSuffixOf` fp      = Brotli
+                        | ".tar.br" `isSuffixOf` fp   = Brotli
 #endif
 #ifdef SNAPPY
-                        | ".tar.sz" `isSuffixOf` fp  = Snappy
-                        | ".tsz" `isSuffixOf` fp     = Snappy
+                        | ".tar.sz" `isSuffixOf` fp   = Snappy
+                        | ".tsz" `isSuffixOf` fp      = Snappy
 #endif
-                        | ".tar" `isSuffixOf` fp     = None
-                        | otherwise                  = error "Suffix not supported or invalid."
+                        | ".tar" `isSuffixOf` fp      = None
+                        | otherwise                   = error "Suffix not supported or invalid."
 
 decompressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
 decompressor Lzma    = Lzma.decompress
