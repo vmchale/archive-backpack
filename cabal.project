@@ -3,6 +3,7 @@ packages: hstar
         , archive-libarchive
         , archive-tar
         , snappy-lazy
+        , lrzip
         -- , archive-tar-bytestring
 
 max-backjumps: 40000
@@ -11,5 +12,5 @@ constraints: archive-sig +development
            , archive-libarchive +development
            , archive-tar +development
            , archive-tar-bytestring +development
-           , hstar +development
+           , hstar +development +with-snappy +with-lrzip +with-brotli
            , zlib +pkg-config

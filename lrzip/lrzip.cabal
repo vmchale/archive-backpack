@@ -16,6 +16,7 @@ cabal-version:       1.18
 library
   hs-source-dirs:      src
   exposed-modules:     Codec.Compression.FileLrzip
+                     , Codec.Compression.Lrzip
   pkgconfig-depends:   lrzip
   build-depends:       base >= 4.3 && < 5
                      , bytestring
