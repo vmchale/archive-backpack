@@ -8,9 +8,6 @@ import qualified Codec.Compression.Brotli     as Brotli
 #endif
 import qualified Codec.Compression.BZip       as BZip
 import qualified Codec.Compression.GZip       as GZip
-#ifdef LRZIP
-import qualified Codec.Compression.Lrzip      as Lrzip
-#endif
 import qualified Codec.Compression.Lzma       as Lzma
 import qualified Codec.Compression.Lzo        as Lzo
 #ifdef SNAPPY
@@ -36,9 +33,6 @@ data Compressor = Lzma
 #endif
 #ifdef SNAPPY
     | Snappy
-#endif
-#ifdef LRZIP
-    | Lrzip
 #endif
     | None
 
@@ -67,9 +61,6 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = GZip
                         | ".tar.sz" `isSuffixOf` fp   = Snappy
                         | ".tsz" `isSuffixOf` fp      = Snappy
 #endif
-#ifdef LRZIP
-                        | ".tar.lrz" `isSuffixOf` fp  = Lrzip
-#endif
                         | ".tar" `isSuffixOf` fp      = None
                         | otherwise                   = error "Suffix not supported or invalid."
 
@@ -88,9 +79,6 @@ decompressor Brotli  = Brotli.decompress
 #ifdef SNAPPY
 decompressor Snappy  = Snappy.decompress
 #endif
-#ifdef LRZIP
-decompressor Lrzip   = Lrzip.decompress
-#endif
 decompressor None    = id
 
 compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
@@ -107,8 +95,5 @@ compressor Brotli  = Brotli.compress
 #endif
 #ifdef SNAPPY
 compressor Snappy  = Snappy.compress
-#endif
-#ifdef LRZIP
-compressor Lrzip   = undefined
 #endif
 compressor None    = id
