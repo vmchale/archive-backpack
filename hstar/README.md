@@ -42,7 +42,7 @@ hstar can be configured to support:
 | [bsdtar](http://libarchive.org/) | x | x | x | x | x | x | x | | | x |
 | hstar | x | x | x | x | x | x | x | x | x | x | x | x | x | |
 | [arc](https://github.com/mholt/archiver) | | | x | x | x | x | x | | x | |
-| [Schily tar](http://cdrtools.sourceforge.net/private/star.html) |
+| [Schily tar](http://cdrtools.sourceforge.net/private/star.html) | x | x | x | x | x | x | | | | |
 | [star](https://crates.io/crates/star) | | | x | x | x | x | | | |
 | [busybox tar](https://www.busybox.net/) | | | x | x | x | | | | | |
 | [python3 tar module](https://docs.python.org/3/library/tarfile.html#command-line-interface) | | | x | x | x | | | | | |
