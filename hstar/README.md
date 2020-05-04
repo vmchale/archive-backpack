@@ -39,7 +39,8 @@ hstar can be configured to support:
 
 | Program | lzop | lzip | lzma | zlib | gzip | bzip2 | zstd | lz4 | brotli | snappy | lrzip |
 | ------- | ---- | ---- | ---- | ---- | ---- | ----- | ---- | --- | ------ | ------ | ----- |
-| bsdtar | x | x | x | x | x | x | x | x | | | x |
+| [bsdtar](http://libarchive.org/) | x | x | x | x | x | x | x | x | | | x |
+| [Schily tar](http://cdrtools.sourceforge.net/private/star.html) |
 
 ## Performance
 
