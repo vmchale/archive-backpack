@@ -24,18 +24,8 @@ converts a file into a pax-compatible archive.
 
 ### Compression
 
-hstar can be configured to support:
-
-  - lzop
-  - lzip
-  - lzma
-  - zlib
-  - gzip
-  - bzip2
-  - zstd
-  - lz4
-  - brotli
-  - snappy
+hstar has near-parity with other command-line tar implementations with respect
+to compression support.
 
 | Program | lzop | lzip | lzma | gzip | bzip2 | zstd | lz4 | brotli | snappy | lrzip |
 | ------- | ---- | ---- | ---- | ---- | ----- | ---- | --- | ------ | ------ | ----- |
