@@ -73,29 +73,29 @@ Benchmarks run on Linux.
 | htar | bzip2 | `htar -xjf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 49.20 s |
 | bsdtar | lz4 | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4` | 2.080 s |
 | hstar | lz4 | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4` | 2.364 s |
-| GNU tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar xf -` | 2.577 s |
-| Schily tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | star xf -` | 1.581 s |
+| GNU tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 \| tar xf -` | 2.577 s |
+| Schily tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 \| star xf -` | 1.581 s |
 | bsdtar | lzo | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lzo` | 3.870 s |
 | hstar | lzo | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lzo` | 4.854 |
 | bsdtar | lzip | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz` | 12.35 s |
 | hstar | lzip | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz` | 15.98 s |
 | GNU tar | lzip | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.lz` | 16.70 s |
 | Schily tar | lzip | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.lz` | 15.80 s |
-| busybox tar | lzip | `lzip -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz | busybox tar xf -` | 17.95 s |
+| busybox tar | lzip | `lzip -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz \| busybox tar xf -` | 17.95 s |
 | bsdtar | ztsd | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.154 s |
 | hstar | ztsd | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.819 s |
 | GNU tar | zstd | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.512 s |
 | Schily tar | zstd | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.095 s |
-| busybox tar | zstd | `zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst | busybox tar xf -` | 3.529 s |
+| busybox tar | zstd | `zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst \| busybox tar xf -` | 3.529 s |
 | star | zstd | `star x ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.990 s |
 | hstar | brotli | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.br` | 4.060 s |
-| busybox tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | busybox tar xf -` | 5.270 s |
-| GNU tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | tar xf -` | 4.375 s |
-| Schily tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | star xf -` | 2.991 s |
-| bsdtar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | bsdtar -xf -` | 4.524 s |
-| bsdtar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | bsdtar -xf -` | 2.357 s |
+| busybox tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| busybox tar xf -` | 5.270 s |
+| GNU tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| tar xf -` | 4.375 s |
+| Schily tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| star xf -` | 2.991 s |
+| bsdtar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| bsdtar -xf -` | 4.524 s |
+| bsdtar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz \| szip -d \| bsdtar -xf -` | 2.357 s |
 | hstar | snappy | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.sz` | 2.384 s |
 | arc | snappy | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.sz` | 4.371 s |
-| busybox tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | busybox tar xf -` | 2.729 s |
-| GNU tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | tar xf -` | 2.188 s |
-| Schily tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | star xf -` | 2.305 s |
+| busybox tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz \| szip -d \| busybox tar xf -` | 2.729 s |
+| GNU tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz \| szip -d \| tar xf -` | 2.188 s |
+| Schily tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz \| szip -d \| star xf -` | 2.305 s |
