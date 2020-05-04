@@ -9,6 +9,11 @@ a [libarchive](http://hackage.haskell.org/package/libarchive) backend wrapping
 the C library, or the [tar](http://hackage.haskell.org/package/tar) library
 written in Haskell.
 
+- [Use](#use)
+- [Features](#features)
+  - [Compression](#compression)
+- [Performance](#performance)
+
 ## Use
 
 To generate bash shell completions:
@@ -45,7 +50,7 @@ Benchmarks run on Linux.
 
 | Program | Compression | Command | Time |
 | ------- | ----------- | ------- | ---: |
-| ptar | gzip | `ptar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 68.49 s |
+| [ptar](https://perldoc.perl.org/ptar.html) | gzip | `ptar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 68.49 s |
 | python3 tar | gzip | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 8.742 s |
 | bsdtar | gzip | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 4.570 s |
 | hstar | gzip | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 6.250 s |
@@ -53,7 +58,7 @@ Benchmarks run on Linux.
 | Schily tar | gzip | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 8.349 s |
 | arc | gzip | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 15.69 s |
 | busybox tar | gzip | `busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 10.88 s |
-| htar | gzip | `htar -xzf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 23.94 s |
+| [htar](http://hackage.haskell.org/package/htar) | gzip | `htar -xzf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 23.94 s |
 | star | gzip | `star x ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 15.50 s |
 | python3 tar | lzma | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 16.74 s |
 | bsdtar | lzma | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 14.81 s |
