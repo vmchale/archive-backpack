@@ -29,12 +29,6 @@ ghc-8.8.2-x86_64-deb9-linux.tar.xz:
 ghc-8.8.2-x86_64-deb9-linux.tar: ghc-8.8.2-x86_64-deb9-linux.tar.xz
 	sak decompress $^
 
-ghc-8.8.2-x86_64-deb9-linux.tar.lrz: ghc-8.8.2-x86_64-deb9-linux.tar
-	lrzip $< -f
-
-ghc-8.8.2-x86_64-deb9-linux.tar.lz4: ghc-8.8.2-x86_64-deb9-linux.tar
-	lz4 -k -f $^
-
 ghc-8.8.2-x86_64-deb9-linux.tar.%: ghc-8.8.2-x86_64-deb9-linux.tar.xz
 	sak transcode $< $@
 
