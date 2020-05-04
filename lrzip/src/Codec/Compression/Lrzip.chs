@@ -1,5 +1,6 @@
 -- | None of these functions are lazy; however, lrzip decompresses taking advantage of random access and multiple threads.
 module Codec.Compression.Lrzip ( decompress
+                               , compress
                                ) where
 
 import Control.Monad (unless)
@@ -9,14 +10,15 @@ import Foreign.C.Types (CChar, CULong)
 import Foreign.Marshal.Alloc (alloca)
 import Foreign.Ptr (castPtr, Ptr)
 import Foreign.Storable (peek)
-import System.IO.Unsafe (unsafeDupablePerformIO)
+import System.IO.Unsafe (unsafePerformIO)
 
 #include <Lrzip.h>
 
 {# fun lrzip_decompress as ^ { castPtr `Ptr CChar', alloca- `CULong' peek*, castPtr `Ptr CChar', `CULong' } -> `Bool' #}
+{# fun lrzip_compress as ^ { castPtr `Ptr CChar', alloca- `CULong' peek*, castPtr `Ptr CChar', `CULong' } -> `Bool' #}
 
 libHarness :: (Ptr CChar -> Ptr CChar -> CULong -> IO (Bool, CULong)) -> BS.ByteString -> BS.ByteString
-libHarness libFunction inBS = unsafeDupablePerformIO $
+libHarness libFunction inBS = unsafePerformIO $
     BS.unsafeUseAsCStringLen inBS $ \(inBuf, inSz) ->
         alloca $ \outPtr -> do
             (res, outSz) <- libFunction outPtr inBuf (fromIntegral inSz)
@@ -26,3 +28,6 @@ libHarness libFunction inBS = unsafeDupablePerformIO $
 
 decompress :: BS.ByteString -> BS.ByteString
 decompress = libHarness lrzipDecompress
+
+compress :: BS.ByteString -> BS.ByteString
+compress = libHarness lrzipCompress

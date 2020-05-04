@@ -21,5 +21,6 @@
 - [x] go tar ?
   - [x] https://github.com/mholt/archiver
 - [ ] tarlz
+- [ ] lrzip http://ck.kolivas.org/apps/lrzip/
 - [ ] https://www.peazip.org/brotli-compression-utility.html
 - [ ] https://directory.fsf.org/wiki/Libtar
