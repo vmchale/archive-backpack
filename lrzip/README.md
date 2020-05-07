@@ -1,5 +1,0 @@
-# lrzip
-
-## Installation
-
-## Configuration
