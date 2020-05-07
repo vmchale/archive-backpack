@@ -35,6 +35,9 @@ hstar - An archiving tool
 **-V** **-\-version**
 :   Display version information
 
+**-l** **-\-compression-level**
+:   Set compression level
+
 # SUPPORTED FORMATS
 
 ## COMPRESSION
