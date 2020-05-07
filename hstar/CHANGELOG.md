@@ -1,3 +1,6 @@
+  * Add `check` subcommand
+  * Allow compression level to be set on the command-line
+
 # 0.1.0.4
 
   * Add support for lzo (`.lzo`, `.tzo`) compression

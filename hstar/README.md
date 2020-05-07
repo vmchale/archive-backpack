@@ -27,6 +27,9 @@ hstar --bash-completion-script hstar
 Unlike other tar implementations, hstar has the `sanitize` subcommand which
 converts a file into a pax-compatible archive.
 
+`hstar` can change the compression based on command-line flags, like `bsdtar`
+and `arc` (this feature is missing from GNU tar and seemingly Schily tar).
+
 ### Compression
 
 hstar has near-parity with other command-line tar implementations with respect
