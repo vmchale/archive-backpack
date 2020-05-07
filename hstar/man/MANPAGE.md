@@ -27,6 +27,8 @@ hstar - An archiving tool
 
 **sanitize** - Convert a tarball to a pax-compatible archive. This reads the whole file into memory.
 
+**check** - Check that an archive is valid
+
 # OPTIONS
 
 **-h** **-\-help**

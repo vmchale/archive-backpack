@@ -4,7 +4,7 @@ import           Archive
 import           Archive.Compression
 import           Compression
 import           Compression.Level
-import           Control.Exception    (throw)
+import           Control.Exception    (throw, throwIO)
 import qualified Data.ByteString.Lazy as BSL
 import           Data.Maybe           (fromMaybe)
 import           Options.Applicative
@@ -16,9 +16,20 @@ data Command = PackDir !FilePath !FilePath !CompressionLevel
     | Unpack !FilePath !(Maybe FilePath)
     | PackSrc !FilePath !FilePath !CompressionLevel
     | Sanitize !FilePath !CompressionLevel
+    | Verify !FilePath
+
+forceLast :: [a] -> IO ()
+forceLast = (`seq` mempty) . last
 
 forceBSL :: BSL.ByteString -> IO ()
-forceBSL = (`seq` mempty) . last . BSL.toChunks
+forceBSL = forceLast . BSL.toChunks
+
+verify :: FilePath -> IO ()
+verify fp = do
+    let enc = compressionByFileExt fp
+    contents <- decompressor enc <$> BSL.readFile fp
+    -- FIXME: forceLast
+    either throwIO forceLast $ readArchiveBytes contents
 
 sanitize :: FilePath -> CompressionLevel -> IO ()
 sanitize fp lvl = do
@@ -30,6 +41,7 @@ sanitize fp lvl = do
     BSL.writeFile fp (compressor enc lvl paxContents)
 
 run :: Command -> IO ()
+run (Verify fp) = verify fp
 run (Sanitize src lvl) = sanitize src lvl
 run (Unpack src dest) =
     let dec = decompressor (compressionByFileExt src)
@@ -130,6 +142,13 @@ fileCompletions = completer (bashCompleter "file -o plusdirs")
 dirCompletions :: HasCompleter f => Mod f a
 dirCompletions = completer (bashCompleter "directory")
 
+check :: Parser Command
+check = Verify
+    <$> argument str
+        (metavar "SRC"
+        <> fileCompletions
+        <> help "Archive to verify")
+
 cmd :: Parser Command
 cmd = hsubparser
     (command "unpack" (info unpack (progDesc "Unpack an archive"))
@@ -137,6 +156,7 @@ cmd = hsubparser
     <> command "pack" (info pack (progDesc "Pack an archive from a list of files"))
     <> command "pack-src" (info packSrc (progDesc "Pack up a source directory as a bundle, ignoring version control and artifact directories"))
     <> command "sanitize" (info sanitizeP (progDesc "Sanitize a tar archive so it is pax-compatible"))
+    <> command "check" (info check (progDesc "Check that a tar archive is valid"))
     )
 
 versionMod :: Parser (a -> a)
