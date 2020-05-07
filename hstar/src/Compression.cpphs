@@ -17,24 +17,9 @@ import qualified Codec.Compression.Zlib       as Zlib
 import qualified Codec.Compression.Zstd.Lazy  as Zstd
 import qualified Codec.Lz4                    as Lz4
 import           Codec.Lzip                   as Lzip
+import           Compression.Type
 import qualified Data.ByteString.Lazy         as BSL
 import           Data.List                    (isSuffixOf)
-
-data Compressor = Lzma
-    | Lz
-    | Bz2
-    | GZip
-    | Zstd
-    | Deflate
-    | Lz4
-    | Lzo
-#ifdef BROTLI
-    | Brotli
-#endif
-#ifdef SNAPPY
-    | Snappy
-#endif
-    | None
 
 compressionByFileExt :: FilePath -> Compressor
 compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = GZip

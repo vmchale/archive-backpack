@@ -1,0 +1,18 @@
+module Compression.Type ( Compressor (..)
+                        ) where
+
+data Compressor = Lzma
+    | Lz
+    | Bz2
+    | GZip
+    | Zstd
+    | Deflate
+    | Lz4
+    | Lzo
+#ifdef BROTLI
+    | Brotli
+#endif
+#ifdef SNAPPY
+    | Snappy
+#endif
+    | None

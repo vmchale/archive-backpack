@@ -49,6 +49,7 @@ executable hstar
     hs-source-dirs:     src
     other-modules:
         Compression
+        Compression.Type
         Paths_hstar
         Version
 
