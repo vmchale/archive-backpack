@@ -17,6 +17,7 @@ import qualified Codec.Compression.Zlib       as Zlib
 import qualified Codec.Compression.Zstd.Lazy  as Zstd
 import qualified Codec.Lz4                    as Lz4
 import           Codec.Lzip                   as Lzip
+import           Compression.Level
 import           Compression.Type
 import qualified Data.ByteString.Lazy         as BSL
 import           Data.List                    (isSuffixOf)
@@ -65,20 +66,3 @@ decompressor Brotli  = Brotli.decompress
 decompressor Snappy  = Snappy.decompress
 #endif
 decompressor None    = id
-
-compressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
-compressor Lzma    = Lzma.compress
-compressor Lzo     = Lzo.compressFile
-compressor Bz2     = BZip.compress
-compressor GZip    = GZip.compress
-compressor Lz      = Lzip.compress
-compressor Zstd    = Zstd.compress 3
-compressor Deflate = Zlib.compress
-compressor Lz4     = Lz4.compress
-#ifdef BROTLI
-compressor Brotli  = Brotli.compress
-#endif
-#ifdef SNAPPY
-compressor Snappy  = Snappy.compress
-#endif
-compressor None    = id

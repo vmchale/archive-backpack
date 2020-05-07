@@ -1,0 +1,103 @@
+module Compression.Level ( CompressionLevel (..)
+                         , compressor
+                         ) where
+
+#ifdef BROTLI
+import qualified Codec.Compression.Brotli     as Br
+#endif
+import qualified Codec.Compression.BZip       as BZip
+import qualified Codec.Compression.GZip       as GZip
+import qualified Codec.Compression.Lzma       as Lzma
+import qualified Codec.Compression.Lzo        as Lzo
+#ifdef SNAPPY
+import qualified Codec.Compression.Snappy.BSL as Snappy
+#endif
+import qualified Codec.Compression.Zlib       as Zlib
+import qualified Codec.Compression.Zstd.Lazy  as Zstd
+import qualified Codec.Lz4                    as Lz4
+import qualified Codec.Lzip                   as Lzip
+import           Compression.Type
+import qualified Data.ByteString.Lazy         as BSL
+
+data CompressionLevel = Best
+                      | Fastest
+                      | Default
+                      | Custom !Int
+
+levelGuard :: (Int, Int) -> Int -> Int
+levelGuard (min', max') lvl | lvl < min' || lvl > max' =
+    error ("Invalid compression level. Compression must be between " ++ show min' ++ " and " ++ show max')
+                            | otherwise = lvl
+
+gzipCompression :: Int -> GZip.CompressParams
+gzipCompression lvl = GZip.defaultCompressParams { GZip.compressLevel = GZip.compressionLevel lvl }
+
+zlibCompression :: Int -> Zlib.CompressParams
+zlibCompression lvl = Zlib.defaultCompressParams { Zlib.compressLevel = Zlib.compressionLevel lvl }
+
+lzmaCompression :: Int -> Lzma.CompressParams
+lzmaCompression lvl = Lzma.defaultCompressParams { Lzma.compressLevel = toEnum lvl }
+
+#ifdef BROTLI
+brotliCompression :: Int -> Br.CompressParams
+brotliCompression lvl = Br.defaultCompressParams { Br.compressLevel = toEnum lvl }
+#endif
+
+toInt :: Compressor -> CompressionLevel -> Int
+#ifdef SNAPPY
+toInt Snappy _           = undefined
+#endif
+toInt Lzo _              = undefined
+#ifdef BROTLI
+toInt Brotli Fastest     = fromEnum (minBound :: Br.CompressionLevel)
+toInt Brotli (Custom i)  = levelGuard (0,11) i
+toInt Brotli _           = fromEnum (maxBound :: Br.CompressionLevel)
+#endif
+toInt Zstd Best          = Zstd.maxCLevel
+toInt Zstd Fastest       = 1
+toInt Zstd (Custom i)    = levelGuard (1, Zstd.maxCLevel) i
+toInt Zstd Default       = 3
+toInt Lz Best            = fromEnum (maxBound :: Lzip.CompressionLevel)
+toInt Lz Fastest         = fromEnum (minBound :: Lzip.CompressionLevel)
+toInt Lz (Custom i)      = levelGuard (0, 9) i
+toInt Lz Default         = 6
+toInt Lzma Best          = 9
+toInt Lzma Fastest       = 0
+toInt Lzma (Custom i)    = levelGuard (0, 9) i
+toInt Lzma Default       = 6
+toInt Bz2 Best           = 9
+toInt Bz2 Fastest        = 1
+toInt Bz2 (Custom i)     = i
+toInt Bz2 Default        = 7
+toInt GZip Best          = 9
+toInt GZip Fastest       = 0
+toInt GZip (Custom i)    = i
+toInt GZip Default       = 6
+toInt Deflate Best       = 9
+toInt Deflate Fastest    = 0
+toInt Deflate (Custom i) = i
+toInt Deflate Default    = 6
+toInt Lz4 Best           = Lz4.lZ4HCClevelMax
+toInt Lz4 Fastest        = 0
+toInt Lz4 (Custom i)     = levelGuard (0, Lz4.lZ4HCClevelMax) i
+toInt Lz4 Default        = 0 -- 1?
+toInt None _             = error "Internal error."
+
+compressor :: Compressor -> CompressionLevel -> BSL.ByteString -> BSL.ByteString
+compressor Lzma lvl    = Lzma.compressWith (lzmaCompression $ toInt Lzma lvl)
+compressor Lz lvl      = Lzip.compressWith(toEnum $ toInt Lz lvl)
+compressor Bz2 lvl     = BZip.compressWith (fromIntegral $ toInt Bz2 lvl) 30
+compressor GZip lvl    = GZip.compressWith (gzipCompression $ toInt GZip lvl)
+compressor Deflate lvl = Zlib.compressWith (zlibCompression $ toInt Deflate lvl)
+compressor Zstd lvl    = Zstd.compress (toInt Zstd lvl)
+compressor Lz4  lvl    = Lz4.compressSz (toInt Lz4 lvl)
+#ifdef BROTLI
+compressor Brotli lvl  = Br.compressWith (brotliCompression $ toInt Brotli lvl)
+#endif
+#ifdef SNAPPY
+compressor Snappy _    = Snappy.compress
+#endif
+compressor Lzo _       = Lzo.compressFile
+compressor None _      = id
+
+

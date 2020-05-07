@@ -50,6 +50,7 @@ executable hstar
     other-modules:
         Compression
         Compression.Type
+        Compression.Level
         Paths_hstar
         Version
 

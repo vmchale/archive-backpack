@@ -3,6 +3,7 @@ module Main ( main ) where
 import           Archive
 import           Archive.Compression
 import           Compression
+import           Compression.Level
 import           Control.Exception    (throw)
 import qualified Data.ByteString.Lazy as BSL
 import           Data.Maybe           (fromMaybe)
@@ -10,37 +11,37 @@ import           Options.Applicative
 import           Version
 
 -- pack a directory/list of files?
-data Command = PackDir !FilePath !FilePath
-    | Pack ![FilePath] !FilePath
+data Command = PackDir !FilePath !FilePath !CompressionLevel
+    | Pack ![FilePath] !FilePath !CompressionLevel
     | Unpack !FilePath !(Maybe FilePath)
-    | PackSrc !FilePath !FilePath
-    | Sanitize !FilePath
+    | PackSrc !FilePath !FilePath !CompressionLevel
+    | Sanitize !FilePath !CompressionLevel
 
 forceBSL :: BSL.ByteString -> IO ()
 forceBSL = (`seq` mempty) . last . BSL.toChunks
 
-sanitize :: FilePath -> IO ()
-sanitize fp = do
+sanitize :: FilePath -> CompressionLevel -> IO ()
+sanitize fp lvl = do
     let enc = compressionByFileExt fp
     contents <- BSL.readFile fp
     decoded <- decompressor enc contents <$ forceBSL contents
     let es = either throw id $ readArchiveBytes decoded
         paxContents = writeArchiveBytes es
-    BSL.writeFile fp (compressor enc paxContents)
+    BSL.writeFile fp (compressor enc lvl paxContents)
 
 run :: Command -> IO ()
-run (Sanitize src) = sanitize src
+run (Sanitize src lvl) = sanitize src lvl
 run (Unpack src dest) =
     let dec = decompressor (compressionByFileExt src)
         in unpackFileToDirAndDecompress dec src (fromMaybe "." dest)
-run (PackDir dir' tar) =
-    let comp = compressor (compressionByFileExt tar)
+run (PackDir dir' tar lvl) =
+    let comp = compressor (compressionByFileExt tar) lvl
         in packFromDirAndCompress comp dir' tar
-run (Pack fs tar) =
-    let comp = compressor (compressionByFileExt tar)
+run (Pack fs tar lvl) =
+    let comp = compressor (compressionByFileExt tar) lvl
         in packFromFilesAndCompress comp tar fs
-run (PackSrc dir' tar) =
-    let comp = compressor (compressionByFileExt tar)
+run (PackSrc dir' tar lvl) =
+    let comp = compressor (compressionByFileExt tar) lvl
         in packSrcDirAndCompress comp dir' tar
 
 sanitizeP :: Parser Command
@@ -49,6 +50,7 @@ sanitizeP = Sanitize
         (metavar "SRC"
         <> fileCompletions
         <> help "Archive to pax-ify")
+    <*> compressionLevel
 
 unpack :: Parser Command
 unpack = Unpack
@@ -65,11 +67,13 @@ packDir :: Parser Command
 packDir = PackDir
     <$> dir
     <*> archive
+    <*> compressionLevel
 
 packSrc :: Parser Command
 packSrc = PackSrc
     <$> dir
     <*> archive
+    <*> compressionLevel
 
 dir :: Parser FilePath
 dir = argument str
@@ -92,6 +96,33 @@ pack = Pack
         <> fileCompletions
         <> help "File to add to archive"))
     <*> archive
+    <*> compressionLevel
+
+compressionLevel :: Parser CompressionLevel
+compressionLevel =
+        compressCustom
+    <|> compressBest
+    <|> compressFast
+    <|> flag Default Default mempty
+
+compressCustom :: Parser CompressionLevel
+compressCustom =
+    Custom <$>
+        option auto
+        (long "compression-level"
+        <> short 'l'
+        <> metavar "LVL"
+        <> help "Compression level (usually 0-9)"
+        <> completer (listCompleter (show <$> [(0::Int)..22]))
+        )
+
+compressBest :: Parser CompressionLevel
+compressBest =
+    flag' Best (long "best")
+
+compressFast :: Parser CompressionLevel
+compressFast =
+    flag' Fastest (long "fastest")
 
 fileCompletions :: HasCompleter f => Mod f a
 fileCompletions = completer (bashCompleter "file -o plusdirs")
