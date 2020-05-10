@@ -19,9 +19,9 @@ jobs:
       - name: update
         run: cabal update 
       - name: build
-        run: cabal build all
+        run: cabal build all --project-file cabal.project.ci
       - name: build
-        run: "cabal build all --constraint='hstar +pure'"
+        run: "cabal build all --project-file cabal.project.ci --constraint='hstar +pure'"
     strategy:
       matrix:
         cabal:

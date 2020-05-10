@@ -28,9 +28,14 @@ in      haskellCi.generalCi
           , haskellCi.haskellEnv haskellCi.matrixEnv
           , installLibarchive [ 3, 4, 2 ]
           , haskellCi.cabalWithFlags "update" ([] : List Text)
-          , haskellCi.cabalBuildWithFlags [ "all" ]
           , haskellCi.cabalBuildWithFlags
-              [ "all", "--constraint='hstar +pure'" ]
+              [ "all", "--project-file", "cabal.project.ci" ]
+          , haskellCi.cabalBuildWithFlags
+              [ "all"
+              , "--project-file"
+              , "cabal.project.ci"
+              , "--constraint='hstar +pure'"
+              ]
           ]
           ( Some
               { ghc = [ haskellCi.GHC.GHC865, haskellCi.GHC.GHC883 ]
