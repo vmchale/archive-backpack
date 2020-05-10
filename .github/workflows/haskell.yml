@@ -3,7 +3,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: "actions/checkout@v1"
-      - uses: "actions/setup-haskell@v1"
+      - id: setup-haskell-cabal
+        uses: "actions/setup-haskell@v1.1"
         with:
           cabal-version: "${{ matrix.cabal }}"
           ghc-version: "${{ matrix.ghc }}"
