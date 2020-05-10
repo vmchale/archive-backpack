@@ -29,17 +29,12 @@ in      haskellCi.generalCi
           , installLibarchive [ 3, 4, 2 ]
           , haskellCi.cabalWithFlags "update" ([] : List Text)
           , haskellCi.cabalBuildWithFlags
-              [ "all"
-              , "--project-file"
-              , "cabal.project.ci"
-              , "--constraint='hstar -with-snappy'"
-              ]
+              [ "all", "--project-file", "cabal.project.ci" ]
           , haskellCi.cabalBuildWithFlags
               [ "all"
               , "--project-file"
               , "cabal.project.ci"
               , "--constraint='hstar +pure'"
-              , "--constraint='hstar -with-snappy'"
               ]
           ]
           ( Some
