@@ -9,6 +9,7 @@ data Compressor = Lzma
     | Deflate
     | Lz4
     | Lzo
+    | Lrzip
 #ifdef BROTLI
     | Brotli
 #endif

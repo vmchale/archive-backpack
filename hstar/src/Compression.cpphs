@@ -18,6 +18,7 @@ import qualified Codec.Compression.Zstd.Lazy  as Zstd
 import qualified Codec.Lz4                    as Lz4
 import           Codec.Lzip                   as Lzip
 import           Compression.Level
+import qualified Compression.Lrzip            as Lrzip
 import           Compression.Type
 import qualified Data.ByteString.Lazy         as BSL
 import           Data.List                    (isSuffixOf)
@@ -39,6 +40,7 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = GZip
                         | ".tar.lz4" `isSuffixOf` fp  = Lz4
                         | ".tar.lzo" `isSuffixOf` fp  = Lzo
                         | ".tzo" `isSuffixOf` fp      = Lzo
+                        | ".tar.lrz" `isSuffixOf` fp  = Lrzip
 #ifdef BROTLI
                         | ".tbr" `isSuffixOf` fp      = Brotli
                         | ".tar.br" `isSuffixOf` fp   = Brotli
@@ -59,6 +61,7 @@ decompressor Zstd    = Zstd.decompress
 decompressor Deflate = Zlib.decompress
 decompressor Lz4     = Lz4.decompress
 decompressor Lzo     = Lzo.decompressFile
+decompressor Lrzip   = Lrzip.decompress . BSL.toStrict
 #ifdef BROTLI
 decompressor Brotli  = Brotli.decompress
 #endif

@@ -81,6 +81,10 @@ toInt Lz4 Best           = Lz4.lZ4HCClevelMax
 toInt Lz4 Fastest        = 0
 toInt Lz4 (Custom i)     = levelGuard (0, Lz4.lZ4HCClevelMax) i
 toInt Lz4 Default        = 0 -- 1?
+toInt Lrzip Best         = 9
+toInt Lrzip Fastest      = 1
+toInt Lrzip (Custom i)   = levelGuard (1, 9) i
+toInt Lrzip Default      = 7
 toInt None _             = error "Internal error."
 
 compressor :: Compressor -> CompressionLevel -> BSL.ByteString -> BSL.ByteString
@@ -98,6 +102,7 @@ compressor Brotli lvl  = Br.compressWith (brotliCompression $ toInt Brotli lvl)
 compressor Snappy _    = Snappy.compress
 #endif
 compressor Lzo _       = Lzo.compressFile
+compressor Lrzip _     = error "lrzip compression not available."
 compressor None _      = id
 
 

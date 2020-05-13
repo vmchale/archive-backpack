@@ -2,6 +2,8 @@
 
 set -e
 
+sn d ghc-8.8.2-x86_64-deb9-linux.tar*
+
 # go get github.com/pierrec/lz4 && cd $GOPATH/src/github.com/pierrec/lz4 && git fetch && git checkout v3.0.1
 # go install github.com/mholt/archiver/cmd/arc
 
@@ -35,7 +37,8 @@ bench 'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lzo' \
     'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lzo'
 
 bench 'lrztar -d ghc-8.8.2-x86_64-deb9-linux.tar.lrz' \
-    'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lrz'
+    'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lrz' \
+    'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lrz'
 
 for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.zst
 do

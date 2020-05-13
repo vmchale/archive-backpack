@@ -38,7 +38,7 @@ to compression support.
 | Program | lzop | lzip | lzma | gzip | bzip2 | zstd | lz4 | brotli | snappy | lrzip | grzip |
 | ------- | ---- | ---- | ---- | ---- | ----- | ---- | --- | ------ | ------ | ----- | ----- |
 | [bsdtar](http://libarchive.org/) | x | x | x | x | x | x | x | | | x | x |
-| hstar | x | x | x | x | x | x | x | x | x | | |
+| hstar | x | x | x | x | x | x | x | x | x | ½ | |
 | [arc](https://github.com/mholt/archiver) | | | x | x | x | x | ½ | | x | | |
 | [Schily tar](http://cdrtools.sourceforge.net/private/star.html) | x | x | x | x | x | x | | | | | |
 | [star](https://crates.io/crates/star) | | | x | x | x | x | | | | |

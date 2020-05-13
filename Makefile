@@ -3,7 +3,7 @@
 MAKEFLAGS += --warn-undefined-variables --no-builtin-rules -j
 .DELETE_ON_ERROR:
 
-setup: ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst ghc-8.8.2-x86_64-deb9-linux.tar.lz4 ghc-8.8.2-x86_64-deb9-linux.tar.br ghc-8.8.2-x86_64-deb9-linux.tar.sz ghc-8.8.2-x86_64-deb9-linux.tar.lzo
+setup: ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst ghc-8.8.2-x86_64-deb9-linux.tar.lz4 ghc-8.8.2-x86_64-deb9-linux.tar.br ghc-8.8.2-x86_64-deb9-linux.tar.sz ghc-8.8.2-x86_64-deb9-linux.tar.lzo ghc-8.8.2-x86_64-deb9-linux.tar.lrz
 
 
 clean:
@@ -28,6 +28,9 @@ ghc-8.8.2-x86_64-deb9-linux.tar.xz:
 
 ghc-8.8.2-x86_64-deb9-linux.tar: ghc-8.8.2-x86_64-deb9-linux.tar.xz
 	sak decompress $^
+
+ghc-8.8.2-x86_64-deb9-linux.tar.lrz: ghc-8.8.2-x86_64-deb9-linux.tar
+	lrzip $< -f
 
 ghc-8.8.2-x86_64-deb9-linux.tar.%: ghc-8.8.2-x86_64-deb9-linux.tar.xz
 	sak transcode $< $@

@@ -23,11 +23,6 @@ source-repository head
     location: https://github.com/vmchale/archive-backpack
     subdir:   hstar
 
-flag development
-    description: Enable `-Werror`
-    default:     False
-    manual:      True
-
 flag pure
     description: Use Haskell backend instead of libarchive
     default:     False
@@ -51,6 +46,7 @@ executable hstar
         Compression
         Compression.Type
         Compression.Level
+        Compression.Lrzip
         Paths_hstar
         Version
 
@@ -71,7 +67,8 @@ executable hstar
         zstd -any,
         lz4-hs >=0.1.1.0,
         lzlib >=1.0.1.0,
-        lzo >=0.1.1.0
+        lzo >=0.1.1.0,
+        process >=1.4.3.0
 
     if flag(with-snappy)
         build-depends: snappy-lazy -any
@@ -105,6 +102,3 @@ executable hstar
 
     if (!flag(pure) && !flag(tar-bytestring))
         mixins: archive-libarchive (Archive.FFI as Archive)
-
-    if flag(development)
-        ghc-options: -Werror
