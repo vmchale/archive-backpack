@@ -102,7 +102,7 @@ compressor Brotli lvl  = Br.compressWith (brotliCompression $ toInt Brotli lvl)
 compressor Snappy _    = Snappy.compress
 #endif
 compressor Lzo _       = Lzo.compressFile
-compressor Lrzip _     = error "lrzip compression not available."
+compressor Lrzip _     = error "Lrzip compression unsupported."
 compressor None _      = id
 
 

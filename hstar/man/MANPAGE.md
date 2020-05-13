@@ -54,6 +54,7 @@ hstar - An archiving tool
   - deflate
   - brotli (optional)
   - snappy (optional)
+  - lrzip (decompression only; requires command-line executable at runtime)
 
 # SHELL COMPLETIONS
 

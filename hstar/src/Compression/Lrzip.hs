@@ -7,10 +7,6 @@ import           System.IO            (hSetBinaryMode)
 import           System.IO.Unsafe     (unsafePerformIO)
 import           System.Process       (CreateProcess, StdStream (CreatePipe, Inherit), createProcess, proc, std_err, std_in, std_out)
 
--- TODO:
--- http://hackage.haskell.org/package/temporary-1.3/docs/System-IO-Temp.html
--- handle?
-
 decompress :: BS.ByteString -> BSL.ByteString
 decompress = unsafePerformIO . decompressIO
 
