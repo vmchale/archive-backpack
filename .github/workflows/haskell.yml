@@ -7,6 +7,7 @@ jobs:
         uses: "actions/setup-haskell@v1.1"
         with:
           cabal-version: "${{ matrix.cabal }}"
+          enable-stack: false
           ghc-version: "${{ matrix.ghc }}"
       - name: Install libarchive
         run: |
@@ -19,9 +20,9 @@ jobs:
       - name: update
         run: cabal update 
       - name: build
-        run: "cabal build all --project-file cabal.project.ci --constraint='hstar -with-snappy'"
+        run: cabal build all --project-file cabal.project.ci
       - name: build
-        run: "cabal build all --project-file cabal.project.ci --constraint='hstar +pure' --constraint='hstar -with-snappy'"
+        run: "cabal build all --project-file cabal.project.ci --constraint='hstar +pure'"
     strategy:
       matrix:
         cabal:
