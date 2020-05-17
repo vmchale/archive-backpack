@@ -24,3 +24,4 @@
 - [ ] lrzip http://ck.kolivas.org/apps/lrzip/
 - [ ] https://www.peazip.org/brotli-compression-utility.html
 - [ ] https://directory.fsf.org/wiki/Libtar
+- [ ] jtar (tar.ijs)
