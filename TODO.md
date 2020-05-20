@@ -5,8 +5,9 @@
 - [ ] remote downloads?
 # Features
 - [x] Abstract fptype so tar-bytestring is smarter
-- [ ] snappy (`.sz`)
-  - [ ] szip!
+- [x] snappy (`.sz`)
+  - [x] szip!
+- [ ] Check that an archive is POSIX-compatible
 # Upstream
 - [ ] libarchive-hs segfaults when trying to check/verify archives
 # Compare
