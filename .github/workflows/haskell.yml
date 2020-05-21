@@ -11,9 +11,9 @@ jobs:
           ghc-version: "${{ matrix.ghc }}"
       - name: Install libarchive
         run: |
-          wget https://www.libarchive.org/downloads/libarchive-3.4.2.tar.gz
-          tar xvf libarchive-3.4.2.tar.gz
-          cd libarchive-3.4.2
+          wget https://www.libarchive.org/downloads/libarchive-3.4.3.tar.gz
+          tar xvf libarchive-3.4.3.tar.gz
+          cd libarchive-3.4.3
           ./configure
           make -j
           sudo make install
