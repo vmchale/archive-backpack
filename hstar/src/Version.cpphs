@@ -8,6 +8,7 @@ import           Codec.Lz4              (lZ4VersionString)
 import           Codec.Lzip
 import qualified Data.Version           as V
 import qualified Paths_hstar            as P
+import           Version.Foreign
 
 allVersionsString :: String
 allVersionsString =
@@ -18,9 +19,12 @@ allVersionsString =
     ++ "lzlib: " ++ lZVersion ++ "\n"
     ++ "lzlib API: " ++ show (lZApiVersion :: Int) ++ "\n"
     ++ "zlib-hs: " ++ VERSION_zlib ++ "\n"
+    ++ "zlib: " ++ zlib ++ "\n"
     ++ "lzma-hs: " ++ VERSION_lzma ++ "\n"
+    ++ "lzma: " ++ lzma ++ "\n"
     ++ "lz4-hs: " ++ VERSION_lz4_hs ++ "\n"
     ++ "lz4: " ++ lZ4VersionString ++ "\n"
+    ++ "zstd: " ++ zstd ++ "\n"
     ++ "zstd-hs: " ++ VERSION_zstd ++ "\n"
     ++ "lzo: " ++ lzoVersionString ++ "\n"
     ++ "lzo-hs: " ++ VERSION_lzo ++ "\n"

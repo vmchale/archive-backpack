@@ -49,6 +49,7 @@ executable hstar
         Compression.Lrzip
         Paths_hstar
         Version
+        Version.Foreign
 
     autogen-modules:    Paths_hstar
     default-language:   Haskell2010
