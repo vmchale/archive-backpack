@@ -22,13 +22,13 @@ jobs:
         run: |
           cabal update
           cd "$(mktemp -d /tmp/dhall-XXX)"
-          cabal install dhall-json
+          cabal install dhall-yaml
       - name: Check Dhall can be converted to YAML
         run: |
           export PATH=$HOME/.cabal/bin:$PATH
-          dhall-to-yaml --file dhall-ci.dhall
-          dhall-to-yaml --file haskell-ci.dhall
-          dhall-to-yaml --file hlint-ci.dhall
+          dhall-to-yaml-ng --file dhall-ci.dhall
+          dhall-to-yaml-ng --file haskell-ci.dhall
+          dhall-to-yaml-ng --file hlint-ci.dhall
 name: Dhall CI
 on:
   - push
