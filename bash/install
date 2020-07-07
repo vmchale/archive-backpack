@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-cabal install exe:hstar -w ghc-8.10.1 --overwrite-policy=always
-cp hstar/man/hstar.1 "$HOME"/.local/share/man/man1

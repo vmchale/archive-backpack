@@ -1,9 +1,18 @@
-.PHONY: ci
+.PHONY: ci install docs
 
 MAKEFLAGS += --warn-undefined-variables --no-builtin-rules -j
 .DELETE_ON_ERROR:
 
 setup: ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst ghc-8.8.2-x86_64-deb9-linux.tar.lz4 ghc-8.8.2-x86_64-deb9-linux.tar.br ghc-8.8.2-x86_64-deb9-linux.tar.sz ghc-8.8.2-x86_64-deb9-linux.tar.lzo ghc-8.8.2-x86_64-deb9-linux.tar.lrz
+
+install: hstar/man/hstar.1
+	cabal install exe:hstar -w ghc-8.10.1 --overwrite-policy=always --constraint='libarchive +static'
+	cp hstar/man/hstar.1 $$HOME/.local/share/man/man1
+
+docs: hstar/man/hstar.1
+
+hstar/man/hstar.1: hstar/man/MANPAGE.md
+	pandoc $< -s -t man -o $@
 
 
 clean:
