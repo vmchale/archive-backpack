@@ -17,4 +17,4 @@ constraints: archive-sig +development
 source-repository-package
   type: git
   location: https://github.com/vmchale/libarchive.git
-  tag: 9f722a8dee0b5a8168b0ece3a62c7e9bf406c66b
+  tag: 06cf738e747b5eb45fb77a2ee93399867da31c9b
