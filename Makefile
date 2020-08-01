@@ -47,5 +47,11 @@ ghc-8.8.2-x86_64-deb9-linux.tar.%: ghc-8.8.2-x86_64-deb9-linux.tar.xz
 llvm-9.0.0.src.tar.xz:
 	wget http://releases.llvm.org/9.0.0/llvm-9.0.0.src.tar.xz -O $@
 
+sparc64-linux-dist.tar.gz:
+	wget https://github.com/vmchale/dickinson/releases/download/1.1.0.1/sparc64-linux-dist.tar.gz -O $@
+
+sparc64-linux-dist.tar.%: sparc64-linux-dist.tar.gz
+	sak transcode $^ $@
+
 llvm-9.0.0.src.tar.%: llvm-9.0.0.src.tar.xz
 	sak transcode $^ $@
