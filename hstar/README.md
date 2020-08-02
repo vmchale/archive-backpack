@@ -46,7 +46,6 @@ Benchmarks run on Linux.
 
 | Program | Compression | Command | Time |
 | ------- | ----------- | ------- | ---: |
-| [ptar](https://perldoc.perl.org/ptar.html) | gzip | `ptar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 68.49 s |
 | python3 tar | gzip | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 8.742 s |
 | bsdtar | gzip | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 4.570 s |
 | hstar | gzip | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 6.250 s |
@@ -54,7 +53,6 @@ Benchmarks run on Linux.
 | Schily tar | gzip | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 8.349 s |
 | arc | gzip | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 15.69 s |
 | busybox tar | gzip | `busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 10.88 s |
-| [htar](http://hackage.haskell.org/package/htar) | gzip | `htar -xzf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 23.94 s |
 | python3 tar | lzma | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 16.74 s |
 | bsdtar | lzma | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 14.81 s |
 | hstar | lzma | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 15.18 s |
@@ -69,7 +67,6 @@ Benchmarks run on Linux.
 | Schily tar | bzip2 | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 38.05 s |
 | arc | bzip2 | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 84.67 s |
 | busybox tar | bzip2 | `busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 38.10 s |
-| htar | bzip2 | `htar -xjf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 49.20 s |
 | bsdtar | lz4 | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4` | 2.080 s |
 | hstar | lz4 | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4` | 2.364 s |
 | GNU tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 \| tar xf -` | 2.577 s |
