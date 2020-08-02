@@ -36,7 +36,6 @@ to compression support.
 | hstar | x | x | x | x | x | x | x | x | x | ½ | |
 | [arc](https://github.com/mholt/archiver) | | | x | x | x | x | ½ | | x | | |
 | [Schily tar](http://cdrtools.sourceforge.net/private/star.html) | x | x | x | x | x | x | | | | | |
-| [star](https://crates.io/crates/star) | | | x | x | x | x | | | | |
 | [busybox tar](https://www.busybox.net/) | | | x | x | x | | | | | | |
 | [python3 tar module](https://docs.python.org/3/library/tarfile.html#command-line-interface) | | | x | x | x | | | | | | |
 | [GNU tar](https://www.gnu.org/software/tar/) | x | x | x | x | x | x | | | | | |
@@ -56,7 +55,6 @@ Benchmarks run on Linux.
 | arc | gzip | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 15.69 s |
 | busybox tar | gzip | `busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 10.88 s |
 | [htar](http://hackage.haskell.org/package/htar) | gzip | `htar -xzf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 23.94 s |
-| star | gzip | `star x ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 15.50 s |
 | python3 tar | lzma | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 16.74 s |
 | bsdtar | lzma | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 14.81 s |
 | hstar | lzma | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 15.18 s |
@@ -64,7 +62,6 @@ Benchmarks run on Linux.
 | Schily tar | lzma | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 14.33 s |
 | arc | lzma | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 50.27 s |
 | busybox tar | lzma | `busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 16.05 s |
-| star | lzma | `star x ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 15.57 s |
 | python3 tar | bzip2 | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 41.57 s |
 | bsdtar | bzip2 | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 37.27 s |
 | hstar | bzip2 | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 39.02 s |
@@ -89,7 +86,6 @@ Benchmarks run on Linux.
 | GNU tar | zstd | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.512 s |
 | Schily tar | zstd | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.095 s |
 | busybox tar | zstd | `zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst \| busybox tar xf -` | 3.529 s |
-| star | zstd | `star x ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.990 s |
 | hstar | brotli | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.br` | 4.060 s |
 | busybox tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| busybox tar xf -` | 5.270 s |
 | GNU tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| tar xf -` | 4.375 s |
