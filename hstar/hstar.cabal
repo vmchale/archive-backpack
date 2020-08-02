@@ -39,7 +39,7 @@ executable hstar
         Compression.Type
         Compression.Level
         Compression.Lrzip
-        Archive
+        Tar
         Lint
         Paths_hstar
         Version
@@ -55,7 +55,7 @@ executable hstar
         base >=4.11 && <5,
         libarchive >=3.0.0.0,
         optparse-applicative -any,
-        composition-prelude,
+        composition-prelude -any,
         bytestring -any,
         lzma -any,
         bz2 >=1.0.0.0,
@@ -66,7 +66,6 @@ executable hstar
         lzo >=0.1.1.0,
         process >=1.4.3.0,
         dir-traverse >=0.2.2.0
-
 
     if flag(with-snappy)
         build-depends: snappy-lazy -any

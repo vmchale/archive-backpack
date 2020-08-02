@@ -1,9 +1,9 @@
-module Archive ( unpackToDir
-               , packFromDirAndCompress
-               , packFromFilesAndCompress
-               , unpackFileToDirAndDecompress
-               , packSrcDirAndCompress
-               ) where
+module Tar ( unpackToDir
+           , packFromDirAndCompress
+           , packFromFilesAndCompress
+           , unpackFileToDirAndDecompress
+           , packSrcDirAndCompress
+           ) where
 
 import           Codec.Archive              (packFiles, throwArchiveM, unpackToDirLazy)
 import           Control.Composition        ((.*))

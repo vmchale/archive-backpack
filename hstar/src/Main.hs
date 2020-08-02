@@ -1,6 +1,5 @@
 module Main ( main ) where
 
-import           Archive
 import           Codec.Archive        (entriesToBSL, readArchiveBSL)
 import           Compression
 import           Compression.Level
@@ -10,6 +9,7 @@ import           Data.Foldable        (traverse_)
 import           Data.Maybe           (fromMaybe)
 import           Lint                 (lintEntry)
 import           Options.Applicative
+import           Tar
 import           Version
 
 -- pack a directory/list of files?
