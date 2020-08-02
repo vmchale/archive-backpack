@@ -21,13 +21,3 @@ tar](https://libarchive.org/) if built with the `libarchive` backend.
 ```
 cabal build all
 ```
-
-### CI
-
-CI is provided via
-[github-actions-dhall](https://github.com/vmchale/github-actions-dhall). To edit
-the CI scripts, edit `haskell-ci.dhall` and run
-
-```
-make ci
-```

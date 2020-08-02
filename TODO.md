@@ -8,6 +8,7 @@
 - [x] snappy (`.sz`)
   - [x] szip!
 - [ ] Check that an archive is POSIX-compatible
+- [ ] Linter? check that an archive doesn't have hardlinks to itself...
 # Upstream
 - [ ] libarchive-hs segfaults when trying to check/verify archives
 # Compare

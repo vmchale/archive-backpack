@@ -7,6 +7,7 @@ module Archive.FFI ( Entry
                    , packFilesRaw
                    , versionInfo
                    , toFP
+                   , lintEntry
                    ) where
 
 import qualified Codec.Archive                 as FFI
@@ -43,3 +44,7 @@ versionInfo =
        "libarchive-hs: " ++ VERSION_libarchive ++ "\n"
     ++ archiveVersionString ++ "\n"
     ++ "archive-libarchive: " ++ V.showVersion P.version
+
+lintEntry :: Entry -> Bool
+lintEntry (FFI.Entry fp (FFI.Hardlink fp') _ _ _) = fp /= fp'
+lintEntry _                                       = True

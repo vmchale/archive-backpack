@@ -5,6 +5,7 @@ import           Archive.Compression
 import           Compression
 import           Compression.Level
 import           Control.Exception    (throw, throwIO)
+import           Control.Monad        (forM_, unless)
 import qualified Data.ByteString.Lazy as BSL
 import           Data.Maybe           (fromMaybe)
 import           Options.Applicative
@@ -17,12 +18,22 @@ data Command = PackDir !FilePath !FilePath !CompressionLevel
     | PackSrc !FilePath !FilePath !CompressionLevel
     | Sanitize !FilePath !CompressionLevel
     | Verify !FilePath
+    | Lint !FilePath
 
 forceLast :: [a] -> IO ()
 forceLast = (`seq` mempty) . last
 
 forceBSL :: BSL.ByteString -> IO ()
 forceBSL = forceLast . BSL.toChunks
+
+lint :: FilePath -> IO ()
+lint fp = do
+    let enc = compressionByFileExt fp
+    contents <- decompressor enc <$> BSL.readFile fp
+    let es = either throw id $ readArchiveBytes contents
+    forM_ es $ \e ->
+        unless (lintEntry e) $
+            error ("Invalid entry:\n" ++ show e)
 
 verify :: FilePath -> IO ()
 verify fp = do
@@ -55,6 +66,7 @@ run (Pack fs tar lvl) =
 run (PackSrc dir' tar lvl) =
     let comp = compressor (compressionByFileExt tar) lvl
         in packSrcDirAndCompress comp dir' tar
+run (Lint fp) = lint fp
 
 sanitizeP :: Parser Command
 sanitizeP = Sanitize
@@ -63,6 +75,13 @@ sanitizeP = Sanitize
         <> fileCompletions
         <> help "Archive to pax-ify")
     <*> compressionLevel
+
+lintP :: Parser Command
+lintP = Lint
+    <$> argument str
+        (metavar "ARCHIVE"
+        <> fileCompletions
+        <> help "Archive to check")
 
 unpack :: Parser Command
 unpack = Unpack
@@ -157,6 +176,7 @@ cmd = hsubparser
     <> command "pack-src" (info packSrc (progDesc "Pack up a source directory as a bundle, ignoring version control and artifact directories"))
     <> command "sanitize" (info sanitizeP (progDesc "Sanitize a tar archive so it is pax-compatible"))
     <> command "check" (info check (progDesc "Check that a tar archive is valid"))
+    <> command "lint" (info lintP (progDesc "Lint an archive"))
     )
 
 versionMod :: Parser (a -> a)

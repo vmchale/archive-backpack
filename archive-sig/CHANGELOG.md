@@ -1,3 +1,8 @@
+# 1.1.0.0
+
+  * Require `Show` instance for `Entry`
+  * Add `lintEntry`
+
 # 1.0.2.0
 
   * Re-export `unpackToDir` and `packFromFiles` from `Archive.Generic`

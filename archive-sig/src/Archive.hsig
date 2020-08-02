@@ -7,12 +7,16 @@ signature Archive ( Entry
                   , writeArchiveBytes
                   , versionInfo
                   , toFP
+                  , lintEntry
                   ) where
 
 import Control.Exception (Exception)
 import qualified Data.ByteString.Lazy as BSL
 
 data Entry
+
+-- | @since 1.1.0.0
+instance Show Entry
 
 data Error
 
@@ -44,3 +48,6 @@ writeArchiveBytes :: [Entry] -> BSL.ByteString
 
 -- | @since 0.2.2.0
 versionInfo :: String
+
+-- | @since 1.1.0.0
+lintEntry :: Entry -> Bool
