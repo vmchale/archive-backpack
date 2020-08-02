@@ -45,6 +45,3 @@ writeArchiveBytes :: [Entry] -> BSL.ByteString
 
 -- | @since 0.2.2.0
 versionInfo :: String
-
--- | @since 1.0.3.0
-lintEntry :: Entry -> IO ()

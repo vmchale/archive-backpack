@@ -1,13 +1,14 @@
 module Main ( main ) where
 
 import           Archive
-import           Archive.Compression
+import           Codec.Archive        (entriesToBSL, readArchiveBSL)
 import           Compression
 import           Compression.Level
 import           Control.Exception    (throw, throwIO)
 import qualified Data.ByteString.Lazy as BSL
 import           Data.Foldable        (traverse_)
 import           Data.Maybe           (fromMaybe)
+import           Lint                 (lintEntry)
 import           Options.Applicative
 import           Version
 
@@ -30,7 +31,7 @@ lint :: FilePath -> IO ()
 lint fp = do
     let enc = compressionByFileExt fp
     contents <- decompressor enc <$> BSL.readFile fp
-    let es = either throw id $ readArchiveBytes contents
+    let es = either throw id $ readArchiveBSL contents
     traverse_ lintEntry es
 
 verify :: FilePath -> IO ()
@@ -38,15 +39,15 @@ verify fp = do
     let enc = compressionByFileExt fp
     contents <- decompressor enc <$> BSL.readFile fp
     -- FIXME: forceLast
-    either throwIO forceLast $ readArchiveBytes contents
+    either throwIO forceLast $ readArchiveBSL contents
 
 sanitize :: FilePath -> CompressionLevel -> IO ()
 sanitize fp lvl = do
     let enc = compressionByFileExt fp
     contents <- BSL.readFile fp
     decoded <- decompressor enc contents <$ forceBSL contents
-    let es = either throw id $ readArchiveBytes decoded
-        paxContents = writeArchiveBytes es
+    let es = either throw id $ readArchiveBSL decoded
+        paxContents = entriesToBSL es
     BSL.writeFile fp (compressor enc lvl paxContents)
 
 run :: Command -> IO ()
