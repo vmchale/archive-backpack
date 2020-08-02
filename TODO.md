@@ -9,6 +9,9 @@
   - [x] szip!
 - [ ] Check that an archive is POSIX-compatible
 - [ ] Linter? check that an archive doesn't have hardlinks to itself...
+  - [ ] Sanitize by reordering tar archive
+  - [ ] Warn when symlink points to file that hasn't been unpacked yet
+- [ ] `inspect` subcommand?
 # Upstream
 - [ ] libarchive-hs segfaults when trying to check/verify archives
 # Compare

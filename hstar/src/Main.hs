@@ -13,6 +13,7 @@ import           Options.Applicative
 import           Version
 
 -- pack a directory/list of files?
+-- repack .tar.gz to .cpio.gz or whatnot?
 data Command = PackDir !FilePath !FilePath !CompressionLevel
     | Pack ![FilePath] !FilePath !CompressionLevel
     | Unpack !FilePath !(Maybe FilePath)
