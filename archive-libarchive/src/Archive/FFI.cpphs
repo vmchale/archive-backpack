@@ -13,6 +13,8 @@ module Archive.FFI ( Entry
 import qualified Codec.Archive                 as FFI
 import           Codec.Archive.Foreign.Archive (archiveVersionString)
 import           Control.Composition           ((.*))
+import           Control.Exception             (Exception, throwIO)
+import           Control.Monad                 (unless)
 import qualified Data.ByteString.Lazy          as BSL
 import qualified Data.Version                  as V
 import qualified Paths_archive_libarchive      as P
@@ -45,6 +47,15 @@ versionInfo =
     ++ archiveVersionString ++ "\n"
     ++ "archive-libarchive: " ++ V.showVersion P.version
 
-lintEntry :: Entry -> Bool
-lintEntry (FFI.Entry fp (FFI.Hardlink fp') _ _ _) = fp /= fp'
-lintEntry _                                       = True
+newtype LintException = SelfHardlink FilePath
+
+instance Show LintException where
+    show (SelfHardlink fp)       = "Entry " ++ fp ++ " is a hardlink pointing to itself."
+
+instance Exception LintException
+
+lintEntry :: Entry -> IO ()
+lintEntry (FFI.Entry fp (FFI.Hardlink fp') _ _ _) =
+    unless (fp /= fp') $
+        throwIO (SelfHardlink fp)
+lintEntry _ = pure ()

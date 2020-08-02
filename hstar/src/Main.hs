@@ -5,8 +5,8 @@ import           Archive.Compression
 import           Compression
 import           Compression.Level
 import           Control.Exception    (throw, throwIO)
-import           Control.Monad        (forM_, unless)
 import qualified Data.ByteString.Lazy as BSL
+import           Data.Foldable        (traverse_)
 import           Data.Maybe           (fromMaybe)
 import           Options.Applicative
 import           Version
@@ -31,9 +31,7 @@ lint fp = do
     let enc = compressionByFileExt fp
     contents <- decompressor enc <$> BSL.readFile fp
     let es = either throw id $ readArchiveBytes contents
-    forM_ es $ \e ->
-        unless (lintEntry e) $
-            error ("Invalid entry:\n" ++ show e)
+    traverse_ lintEntry es
 
 verify :: FilePath -> IO ()
 verify fp = do

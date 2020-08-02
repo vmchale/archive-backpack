@@ -1,6 +1,5 @@
-# 1.1.0.0
+# 1.0.3.0
 
-  * Require `Show` instance for `Entry`
   * Add `lintEntry`
 
 # 1.0.2.0
