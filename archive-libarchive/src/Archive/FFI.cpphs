@@ -14,7 +14,7 @@ import qualified Codec.Archive                 as FFI
 import           Codec.Archive.Foreign.Archive (archiveVersionString)
 import           Control.Composition           ((.*))
 import           Control.Exception             (Exception, throwIO)
-import           Control.Monad                 (unless)
+import           Control.Monad                 (when)
 import qualified Data.ByteString.Lazy          as BSL
 import qualified Data.Version                  as V
 import qualified Paths_archive_libarchive      as P
@@ -56,6 +56,6 @@ instance Exception LintException
 
 lintEntry :: Entry -> IO ()
 lintEntry (FFI.Entry fp (FFI.Hardlink fp') _ _ _) =
-    unless (fp /= fp') $
+    when (fp == fp') $
         throwIO (SelfHardlink fp)
 lintEntry _ = pure ()
