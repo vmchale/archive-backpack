@@ -1,13 +1,7 @@
 # hstar
 
 `hstar` is a command-line tool like [tar](https://www.gnu.org/software/tar/),
-but written in Haskell and taking advantage of
-[backpack](http://blog.ezyang.com/category/haskell/backpack/).
-
-It can be built with
-a [libarchive](http://hackage.haskell.org/package/libarchive) backend wrapping
-the C library, or the [tar](http://hackage.haskell.org/package/tar) library
-written in Haskell.
+with several more features.
 
 - [Use](#use)
 - [Features](#features)
@@ -25,7 +19,8 @@ hstar --bash-completion-script hstar
 ## Features
 
 Unlike other tar implementations, hstar has the `sanitize` subcommand which
-converts a file into a pax-compatible archive.
+converts a file into a pax-compatible archive and the `lint` subcommand which
+points out suspicious archives.
 
 `hstar` can change the compression based on command-line flags, like `bsdtar`
 and `arc` (this feature is missing from GNU tar, busybox tar, and seemingly Schily tar).
@@ -44,12 +39,11 @@ to compression support.
 | [star](https://crates.io/crates/star) | | | x | x | x | x | | | | |
 | [busybox tar](https://www.busybox.net/) | | | x | x | x | | | | | | |
 | [python3 tar module](https://docs.python.org/3/library/tarfile.html#command-line-interface) | | | x | x | x | | | | | | |
+| [GNU tar](https://www.gnu.org/software/tar/) | x | x | x | x | x | x | | | | | |
 
 ## Performance
 
 Benchmarks run on Linux.
-
-`hstar` built with the `libarchive` backend.
 
 | Program | Compression | Command | Time |
 | ------- | ----------- | ------- | ---: |
