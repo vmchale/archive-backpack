@@ -21,7 +21,7 @@ hstar/man/hstar.1: hstar/man/MANPAGE.md
 
 
 clean:
-	@rm -rf tags dist-newstyle *.tar* *.svg ghc* llvm* *.tgz
+	@rm -rf tags dist-newstyle *.tar* *.svg ghc* llvm* *.tgz language-dickinson*
 
 ghc-8.8.2-x86_64-deb9-linux.tar.xz:
 	wget https://downloads.haskell.org/~ghc/8.8.2/ghc-8.8.2-x86_64-deb9-linux.tar.xz -O $@
