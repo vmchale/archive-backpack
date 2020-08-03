@@ -3,7 +3,13 @@
 MAKEFLAGS += --warn-undefined-variables --no-builtin-rules -j
 .DELETE_ON_ERROR:
 
-setup: ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.bz2 ghc-8.8.2-x86_64-deb9-linux.tar.zst ghc-8.8.2-x86_64-deb9-linux.tar.lz4 ghc-8.8.2-x86_64-deb9-linux.tar.br ghc-8.8.2-x86_64-deb9-linux.tar.sz ghc-8.8.2-x86_64-deb9-linux.tar.lzo ghc-8.8.2-x86_64-deb9-linux.tar.lrz
+setup: sparc64-linux-dist.tar.gz \
+    sparc64-linux-dist.tar.lz \
+    sparc64-linux-dist.tar.zst \
+    sparc64-linux-dist.tar.bz2 \
+    sparc64-linux-dist.tar.xz \
+    sparc64-linux-dist.tar.lz4 \
+    sparc64-linux-dist.tar.lzo
 
 install: hstar/man/hstar.1
 	cabal install exe:hstar -w ghc-8.10.1 --overwrite-policy=always --constraint='libarchive -system-libarchive' --enable-executable-static
@@ -37,7 +43,7 @@ ghc-8.0.2-x86_64-deb8-linux.tar.xz:
 	wget https://downloads.haskell.org/~ghc/8.0.2/ghc-8.0.2-x86_64-deb8-linux.tar.xz -O $@
 
 sparc64-linux-dist.tar.gz:
-	wget https://github.com/vmchale/dickinson/releases/download/1.1.0.1/sparc64-linux-dist.tar.gz -O $@
+	wget https://github.com/vmchale/dickinson/releases/download/1.1.0.2/sparc64-linux-dist.tar.gz -O $@
 
 sparc64-linux-dist.tar.%: sparc64-linux-dist.tar.gz
 	sak transcode $^ $@
