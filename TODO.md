@@ -15,6 +15,7 @@
 # Upstream
 - [ ] libarchive-hs segfaults when trying to check/verify archives
 # Compare
+- [ ] IBM tar/pax https://www.ibm.com/support/knowledgecenter/en/ssw_aix_72/p_commands/pax.html
 - [ ] ztar
 - [x] ptar
 - [x] minitar
