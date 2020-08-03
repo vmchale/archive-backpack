@@ -31,7 +31,9 @@ hstar - An archiving tool
 
 **check** - Check that an archive is valid
 
-**lint** - Check an archive for common silly mistakes
+**lint** - Check an archive for questionable content
+
+**inspect** - Inspect entries in tape archive
 
 # OPTIONS
 

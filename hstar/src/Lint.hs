@@ -13,15 +13,6 @@ instance Show LintException where
 
 instance Exception LintException
 
--- ./ -> ""
--- /dir/../ -> ./
--- normalize :: FilePath -> FilePath
--- normalize fp = loop (splitPath fp)
-    -- where loop (dir:"../")
-
--- canonicalize is a pain in the ass
--- step :: Entry -> HS.HashSet FilePath -> HS.HashSet FilePath
-
 selfLink :: Entry -> Bool
 selfLink (Entry fp (Hardlink fp') _ _ _) = (fp == fp')
 selfLink _                               = False
