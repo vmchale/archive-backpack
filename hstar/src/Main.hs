@@ -214,3 +214,4 @@ printEntry :: Entry -> String
 printEntry (Entry fp Directory _ _ _)        = "dir " ++ fp
 printEntry (Entry fp (NormalFile bsl) _ _ _) = fp ++ " (" ++ show (BSL.length bsl) ++ " bytes)"
 printEntry (Entry fp (Symlink fp' _) _ _ _)  = fp ++ " -> " ++ fp'
+printEntry (Entry fp (Hardlink fp') _ _ _)   = fp ++ " -> " ++ fp'
