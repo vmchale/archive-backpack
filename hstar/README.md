@@ -46,51 +46,39 @@ Benchmarks run on Linux.
 
 | Program | Compression | Command | Time |
 | ------- | ----------- | ------- | ---: |
-| python3 tar | gzip | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 8.742 s |
-| bsdtar | gzip | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 4.570 s |
-| hstar | gzip | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 6.250 s |
-| GNU tar | gzip | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 8.335 s |
-| Schily tar | gzip | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 8.349 s |
-| arc | gzip | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 15.69 s |
-| busybox tar | gzip | `busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz` | 10.88 s |
-| python3 tar | lzma | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 16.74 s |
-| bsdtar | lzma | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 14.81 s |
-| hstar | lzma | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 15.18 s |
-| GNU tar | lzma | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 14.30 s |
-| Schily tar | lzma | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 14.33 s |
-| arc | lzma | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 50.27 s |
-| busybox tar | lzma | `busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.xz` | 16.05 s |
-| python3 tar | bzip2 | `python3 -m tarfile -e ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 41.57 s |
-| bsdtar | bzip2 | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 37.27 s |
-| hstar | bzip2 | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 39.02 s |
-| GNU tar | bzip2 | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 38.08 s |
-| Schily tar | bzip2 | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 38.05 s |
-| arc | bzip2 | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 84.67 s |
-| busybox tar | bzip2 | `busybox tar xf ghc-8.8.2-x86_64-deb9-linux.tar.bz2` | 38.10 s |
-| bsdtar | lz4 | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4` | 2.080 s |
-| hstar | lz4 | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4` | 2.364 s |
-| GNU tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 \| tar xf -` | 2.577 s |
-| Schily tar | lz4 | `lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 \| star xf -` | 1.581 s |
-| bsdtar | lzo | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lzo` | 3.870 s |
-| hstar | lzo | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lzo` | 4.854 s |
-| bsdtar | lzip | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz` | 12.35 s |
-| hstar | lzip | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz` | 15.98 s |
-| GNU tar | lzip | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.lz` | 16.70 s |
-| Schily tar | lzip | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.lz` | 15.80 s |
-| busybox tar | lzip | `lzip -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz \| busybox tar xf -` | 17.95 s |
-| bsdtar | ztsd | `bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.154 s |
-| hstar | ztsd | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.819 s |
-| GNU tar | zstd | `tar xf ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.512 s |
-| Schily tar | zstd | `star xf ghc-8.8.2-x86_64-deb9-linux.tar.zst` | 2.095 s |
-| busybox tar | zstd | `zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst \| busybox tar xf -` | 3.529 s |
-| hstar | brotli | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.br` | 4.060 s |
-| busybox tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| busybox tar xf -` | 5.270 s |
-| GNU tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| tar xf -` | 4.375 s |
-| Schily tar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| star xf -` | 2.991 s |
-| bsdtar | brotli | `brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br \| bsdtar -xf -` | 4.524 s |
-| bsdtar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz \| szip -d \| bsdtar -xf -` | 2.357 s |
-| hstar | snappy | `hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.sz` | 2.384 s |
-| arc | snappy | `arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.sz` | 4.371 s |
-| busybox tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz \| szip -d \| busybox tar xf -` | 2.729 s |
-| GNU tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz \| szip -d \| tar xf -` | 2.188 s |
-| Schily tar | snappy | `cat ghc-8.8.2-x86_64-deb9-linux.tar.sz \| szip -d \| star xf -` | 2.305 s |
+| bsdtar | zstd | `bsdtar -xf sparc64-linux-dist.tar.zst` | 61.28 ms |
+| hstar | zstd | `hstar unpack sparc64-linux-dist.tar.zst` | 69.63 ms |
+| GNU tar | zstd | `tar xf sparc64-linux-dist.tar.zst` | 303.8 ms |
+| Schily tar | zstd | `star xf sparc64-linux-dist.tar.zst` | 291.0 ms |
+| bsdtar | lzip | `bsdtar -xf sparc64-linux-dist.tar.lz` | 345.3 ms |
+| hstar | lzip | `hstar unpack sparc64-linux-dist.tar.lz` | 433.2 ms |
+| GNU tar | lzip | `tar xf sparc64-linux-dist.tar.lz` | 456.8 ms |
+| Schily tar | lzip | `star xf sparc64-linux-dist.tar.lz` | 440.0 ms | 
+| busybox tar | lzip | `lzip -cd sparc64-linux-dist.tar.lz | busybox tar xf -` | 481.0 ms |
+| busybox tar | zstd | `zstd -cd sparc64-linux-dist.tar.zst | busybox tar xf -` | 319.0 ms |
+| python3 tar | gzip | `python3 -m tarfile -e sparc64-linux-dist.tar.gz` | 245.3 ms |
+| bsdtar | gzip | `bsdtar -xf sparc64-linux-dist.tar.gz` | 122.8 ms |
+| hstar | gzip | `hstar unpack sparc64-linux-dist.tar.gz` | 172.4 ms |
+| GNU tar | gzip | `tar xf sparc64-linux-dist.tar.gz` | 233.9 ms |
+| Schily tar | gzip | `star xf sparc64-linux-dist.tar.gz` | 234.8 ms |
+| arc | gzip | `arc -overwrite unarchive sparc64-linux-dist.tar.gz` | 362.0 ms |
+| python3 tar | lzma | `python3 -m tarfile -e sparc64-linux-dist.tar.xz` | 414.9 ms |
+| bsdtar | lzma | `bsdtar -xf sparc64-linux-dist.tar.xz` | 349.4 ms |
+| hstar | lzma | `hstar unpack sparc64-linux-dist.tar.xz` | 360.6 ms |
+| GNU tar | lzma | `tar xf sparc64-linux-dist.tar.xz` | 364.3 ms |
+| Schily tar | lzma | `star xf sparc64-linux-dist.tar.xz` | 353.6 ms |
+| arc | lzma | `arc -overwrite unarchive sparc64-linux-dist.tar.xz` | 1.191 s |
+| python3 tar | bzip2 | `python3 -m tarfile -e sparc64-linux-dist.tar.bz2` | 1.242 s |
+| bsdtar | bzip2 | `bsdtar -xf sparc64-linux-dist.tar.bz2` | 1.149 s |
+| hstar | bzip2 | `hstar unpack sparc64-linux-dist.tar.bz2` | 1.136 s |
+| GNU tar | bzip2 | `tar xf sparc64-linux-dist.tar.bz2` | 1.092 s |
+| Schily tar | bzip2 | `star xf sparc64-linux-dist.tar.bz2` | 1.103 s |
+| arc | bzip2 | `arc -overwrite unarchive sparc64-linux-dist.tar.bz2` | 2.544 s |
+| busybox tar | gzip | `busybox tar xzf sparc64-linux-dist.tar.gz` | 307.5 ms |
+| busybox tar | bzip2 | `busybox tar xjf sparc64-linux-dist.tar.bz2` | 1.018 s |
+| busybox tar | lzma | `busybox tar xJf sparc64-linux-dist.tar.xz` | 385.6 ms |
+| bsdtar | lz4 | `bsdtar -xf sparc64-linux-dist.tar.lz4` | 40.69 ms |
+| hstar | lz4 | `hstar unpack sparc64-linux-dist.tar.lz4` | 49.87 ms |
+| busybox tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 | busybox tar xf -` | 56.00 ms |
+| GNU tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 | tar xf -` | 39.19 ms |
+| Schily tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 | star xf -` | 30.88 ms |
