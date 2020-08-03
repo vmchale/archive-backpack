@@ -2,70 +2,28 @@
 
 set -e
 
-sn d ghc-8.8.2-x86_64-deb9-linux.tar*
+sn d sparc64-linux-dist.tar*
 
-# go get github.com/pierrec/lz4 && cd $GOPATH/src/github.com/pierrec/lz4 && git fetch && git checkout v3.0.1
-# go install github.com/mholt/archiver/cmd/arc
-
-# TODO: lrztar
-
-# ptar - perl tar
-# minitar - gem install minitar-cli
-# arc - go tar
-# tar_rs (star) - rust tar
-# htar - haskell tar (tar library)
-
-# time minitar extract ghc-8.8.2-x86_64-deb9-linux.tar.gz
-# bench 'tarlz -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz'
-
-bench 'ptar xf ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
-    'pax -rzf ghc-8.8.2-x86_64-deb9-linux.tar.gz'
-
-for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.gz ghc-8.8.2-x86_64-deb9-linux.tar.xz ghc-8.8.2-x86_64-deb9-linux.tar.bz2
+for tarball in sparc64-linux-dist.tar.zst sparc64-linux-dist.tar.lz
 do
-    bench "python3 -m tarfile -e $tarball" "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" "arc -overwrite unarchive $tarball" "busybox tar xf $tarball" --before 'rm -rf ghc-8.8.2'
+    bench "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" --before 'rm -rf language-dickinson-1.1.0.2'
 done
 
-# 'arc unarchive ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
-bench 'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
-    'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lz4' \
-    'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | busybox tar xf -' \
-    'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | tar xf -' \
-    'lz4 -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz4 | star xf -' --before 'rm -rf ghc-8.8.2'
+bench 'lzip -cd sparc64-linux-dist.tar.lz | busybox tar xf -' \
+    'zstd -cd sparc64-linux-dist.tar.zst | busybox tar xf -'
 
-bench 'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lzo' \
-    'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lzo'
-
-bench 'lrztar -d ghc-8.8.2-x86_64-deb9-linux.tar.lrz' \
-    'bsdtar -xf ghc-8.8.2-x86_64-deb9-linux.tar.lrz' \
-    'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.lrz'
-
-for tarball in ghc-8.8.2-x86_64-deb9-linux.tar.lz ghc-8.8.2-x86_64-deb9-linux.tar.zst
+for tarball in sparc64-linux-dist.tar.gz sparc64-linux-dist.tar.xz sparc64-linux-dist.tar.bz2
 do
-    bench "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" --before 'rm -rf ghc-8.8.2'
+    bench "python3 -m tarfile -e $tarball" "bsdtar -xf $tarball" "hstar unpack $tarball" "tar xf $tarball" "star xf $tarball" "arc -overwrite unarchive $tarball" --before 'rm -rf language-dickinson-1.1.0.2'
 done
 
-bench 'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.br' \
-    'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | busybox tar xf -' \
-    'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | tar xf -' \
-    'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | star xf -' \
-    'brotli -cd ghc-8.8.2-x86_64-deb9-linux.tar.br | bsdtar -xf -' --before "rm -rf ghc-8.8.2"
+bench 'busybox tar xzf sparc64-linux-dist.tar.gz' \
+    'busybox tar xjf sparc64-linux-dist.tar.bz2' \
+    'busybox tar xJf sparc64-linux-dist.tar.xz'
 
-bench 'lzip -cd ghc-8.8.2-x86_64-deb9-linux.tar.lz | busybox tar xf -' \
-    'zstd -cd ghc-8.8.2-x86_64-deb9-linux.tar.zst | busybox tar xf -'
-
-bench 'htar -xzf ghc-8.8.2-x86_64-deb9-linux.tar.gz' \
-    'htar -xjf ghc-8.8.2-x86_64-deb9-linux.tar.bz2'
-
-tar_rs="$HOME/.cargo/bin/star"
-
-bench "$tar_rs x ghc-8.8.2-x86_64-deb9-linux.tar.zst" \
-    "$tar_rs x ghc-8.8.2-x86_64-deb9-linux.tar.xz" \
-    "$tar_rs x ghc-8.8.2-x86_64-deb9-linux.tar.gz"
-
-bench 'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | bsdtar -xf -' \
-    'hstar unpack ghc-8.8.2-x86_64-deb9-linux.tar.sz' \
-    'arc -overwrite unarchive ghc-8.8.2-x86_64-deb9-linux.tar.sz' \
-    'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | busybox tar xf -' \
-    'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | tar xf -' \
-    'cat ghc-8.8.2-x86_64-deb9-linux.tar.sz | szip -d | star xf -' --before 'rm -rf ghc-8.8.2'
+# 'arc unarchive sparc64-linux-dist.tar.lz4' \
+bench 'bsdtar -xf sparc64-linux-dist.tar.lz4' \
+    'hstar unpack sparc64-linux-dist.tar.lz4' \
+    'lz4 -cd sparc64-linux-dist.tar.lz4 | busybox tar xf -' \
+    'lz4 -cd sparc64-linux-dist.tar.lz4 | tar xf -' \
+    'lz4 -cd sparc64-linux-dist.tar.lz4 | star xf -' --before 'rm -rf language-dickinson-1.1.0.2'
