@@ -1,20 +1,19 @@
 module Version ( allVersionsString ) where
 
-import           Archive
-import           Archive.Generic
+import           Codec.Archive.Foreign.Archive (archiveVersionString)
 import           Codec.Compression.BZip
-import           Codec.Compression.Lzo  (lzoVersionString)
-import           Codec.Lz4              (lZ4VersionString)
+import           Codec.Compression.Lzo         (lzoVersionString)
+import           Codec.Lz4                     (lZ4VersionString)
 import           Codec.Lzip
-import qualified Data.Version           as V
-import qualified Paths_hstar            as P
+import qualified Data.Version                  as V
+import qualified Paths_hstar                   as P
 import           Version.Foreign
 
 allVersionsString :: String
 allVersionsString =
        "hstar version: " ++ V.showVersion P.version ++ "\n"
-    ++ "archive-sig version: " ++ V.showVersion archiveSigVersion ++ "\n"
-    ++ versionInfo ++ "\n"
+    ++ "libarchive-hs: " ++ VERSION_libarchive ++ "\n"
+    ++ archiveVersionString ++ "\n"
     ++ "lzlib-hs: " ++ VERSION_lzlib ++ "\n"
     ++ "lzlib: " ++ lZVersion ++ "\n"
     ++ "lzlib API: " ++ show (lZApiVersion :: Int) ++ "\n"

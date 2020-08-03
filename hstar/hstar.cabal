@@ -39,6 +39,8 @@ executable hstar
         Compression.Type
         Compression.Level
         Compression.Lrzip
+        Tar
+        Lint
         Paths_hstar
         Version
         Version.Foreign
@@ -51,8 +53,9 @@ executable hstar
 
     build-depends:
         base >=4.11 && <5,
-        archive-sig >=0.2.1.2,
+        libarchive >=3.0.0.0,
         optparse-applicative -any,
+        composition-prelude -any,
         bytestring -any,
         lzma -any,
         bz2 >=1.0.0.0,
@@ -62,9 +65,7 @@ executable hstar
         lzlib >=1.0.1.0,
         lzo >=0.1.1.0,
         process >=1.4.3.0,
-        archive-libarchive -any
-
-    mixins: archive-libarchive (Archive.FFI as Archive)
+        dir-traverse >=0.2.2.0
 
     if flag(with-snappy)
         build-depends: snappy-lazy -any

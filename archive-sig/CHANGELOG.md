@@ -1,7 +1,3 @@
-# 1.0.3.0
-
-  * Add `lintEntry`
-
 # 1.0.2.0
 
   * Re-export `unpackToDir` and `packFromFiles` from `Archive.Generic`
