@@ -33,8 +33,6 @@ hstar - An archiving tool
 
 **lint** - Check an archive for questionable content
 
-**inspect** - Inspect entries in tape archive
-
 # OPTIONS
 
 **-h** **-\-help**
