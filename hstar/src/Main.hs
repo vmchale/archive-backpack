@@ -1,6 +1,6 @@
 module Main ( main ) where
 
-import           Codec.Archive        (Entry (Entry), EntryContent (..), entriesToBSL, readArchiveBSL)
+import           Codec.Archive        (entriesToBSL, readArchiveBSL)
 import           Compression
 import           Compression.Level
 import           Control.Exception    (throw, throwIO)
@@ -21,20 +21,12 @@ data Command = PackDir !FilePath !FilePath !CompressionLevel
     | Sanitize !FilePath !CompressionLevel
     | Verify !FilePath
     | Lint !FilePath
-    | Inspect !FilePath
 
 forceLast :: [a] -> IO ()
 forceLast = (`seq` mempty) . last
 
 forceBSL :: BSL.ByteString -> IO ()
 forceBSL = forceLast . BSL.toChunks
-
-inspect :: FilePath -> IO ()
-inspect fp = do
-    let enc = compressionByFileExt fp
-    contents <- decompressor enc <$> BSL.readFile fp
-    let es = either throw id $ readArchiveBSL contents
-    traverse_ (putStrLn . printEntry) es
 
 lint :: FilePath -> IO ()
 lint fp = do
@@ -76,7 +68,6 @@ run (PackSrc dir' tar lvl) =
     let comp = compressor (compressionByFileExt tar) lvl
         in packSrcDirAndCompress comp dir' tar
 run (Lint fp) = lint fp
-run (Inspect fp) = inspect fp
 
 sanitizeP :: Parser Command
 sanitizeP = Sanitize
@@ -85,13 +76,6 @@ sanitizeP = Sanitize
         <> fileCompletions
         <> help "Archive to pax-ify")
     <*> compressionLevel
-
-inspectP :: Parser Command
-inspectP = Inspect
-    <$> argument str
-        (metavar "ARCHIVE"
-        <> fileCompletions
-        <> help "Archive to open")
 
 lintP :: Parser Command
 lintP = Lint
@@ -194,7 +178,6 @@ cmd = hsubparser
     <> command "sanitize" (info sanitizeP (progDesc "Sanitize a tar archive so it is pax-compatible"))
     <> command "check" (info check (progDesc "Check that a tar archive is valid"))
     <> command "lint" (info lintP (progDesc "Lint an archive"))
-    <> command "inspect" (info inspectP (progDesc "Inspect an archive"))
     )
 
 versionMod :: Parser (a -> a)
@@ -208,9 +191,3 @@ topLevel = info (helper <*> versionMod <*> cmd)
 
 main :: IO ()
 main = run =<< execParser topLevel
-
-printEntry :: Entry -> String
-printEntry (Entry fp Directory _ _ _)        = "dir " ++ fp
-printEntry (Entry fp (NormalFile bsl) _ _ _) = fp ++ " (" ++ show (BSL.length bsl) ++ " bytes)" -- TODO: upstream get size?
-printEntry (Entry fp (Symlink fp' _) _ _ _)  = fp ++ " -> " ++ fp'
-printEntry (Entry fp (Hardlink fp') _ _ _)   = fp ++ " link to " ++ fp'
