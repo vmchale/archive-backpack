@@ -7,7 +7,6 @@ signature Archive ( Entry
                   , writeArchiveBytes
                   , versionInfo
                   , toFP
-                  , lintEntry
                   ) where
 
 import Control.Exception (Exception)

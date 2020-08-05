@@ -13,11 +13,11 @@ instance Show LintException where
 
 instance Exception LintException
 
-selfLink :: Entry -> Bool
+selfLink :: Eq fp => Entry fp e -> Bool
 selfLink (Entry fp (Hardlink fp') _ _ _) = (fp == fp')
 selfLink _                               = False
 
-lintEntry :: Entry -> IO ()
+lintEntry :: Entry FilePath e -> IO ()
 lintEntry (Entry fp (Hardlink fp') _ _ _) =
     when (fp == fp') $
         throwIO (SelfHardlink fp)

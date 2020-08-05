@@ -7,19 +7,17 @@ module Archive.FFI ( Entry
                    , packFilesRaw
                    , versionInfo
                    , toFP
-                   , lintEntry
                    ) where
 
 import qualified Codec.Archive                 as FFI
 import           Codec.Archive.Foreign.Archive (archiveVersionString)
 import           Control.Composition           ((.*))
-import           Control.Exception             (Exception, throwIO)
-import           Control.Monad                 (when)
+import qualified Data.ByteString               as BS
 import qualified Data.ByteString.Lazy          as BSL
 import qualified Data.Version                  as V
 import qualified Paths_archive_libarchive      as P
 
-type Entry = FFI.Entry
+type Entry = FFI.Entry FilePath BS.ByteString
 
 type Error = FFI.ArchiveResult
 
