@@ -10,10 +10,12 @@
 - [ ] Check that an archive is POSIX-compatible
 - [ ] Linter? check that an archive doesn't have hardlinks to itself...
   - [ ] Sanitize by reordering tar archive
+  - [ ] all executable with sdists?
   - [ ] Warn when symlink points to file that hasn't been unpacked yet
 - [ ] `inspect` subcommand?
 # Upstream
 - [ ] libarchive-hs segfaults when trying to check/verify archives
+- [ ] Report Schily tar feature request (linter)
 # Compare
 - [ ] IBM tar/pax https://www.ibm.com/support/knowledgecenter/en/ssw_aix_72/p_commands/pax.html
 - [ ] ztar
