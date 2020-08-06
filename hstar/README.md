@@ -54,8 +54,8 @@ Benchmarks run on Linux. Performance should be near GNU tar, bsdtar, or Schily t
 | hstar | lzip | `hstar unpack sparc64-linux-dist.tar.lz` | 433.2 ms |
 | GNU tar | lzip | `tar xf sparc64-linux-dist.tar.lz` | 456.8 ms |
 | Schily tar | lzip | `star xf sparc64-linux-dist.tar.lz` | 440.0 ms | 
-| busybox tar | lzip | `lzip -cd sparc64-linux-dist.tar.lz | busybox tar xf -` | 481.0 ms |
-| busybox tar | zstd | `zstd -cd sparc64-linux-dist.tar.zst | busybox tar xf -` | 319.0 ms |
+| busybox tar | lzip | `lzip -cd sparc64-linux-dist.tar.lz \| busybox tar xf -` | 481.0 ms |
+| busybox tar | zstd | `zstd -cd sparc64-linux-dist.tar.zst \| busybox tar xf -` | 319.0 ms |
 | python3 tar | gzip | `python3 -m tarfile -e sparc64-linux-dist.tar.gz` | 245.3 ms |
 | bsdtar | gzip | `bsdtar -xf sparc64-linux-dist.tar.gz` | 122.8 ms |
 | hstar | gzip | `hstar unpack sparc64-linux-dist.tar.gz` | 172.4 ms |
@@ -79,6 +79,6 @@ Benchmarks run on Linux. Performance should be near GNU tar, bsdtar, or Schily t
 | busybox tar | lzma | `busybox tar xJf sparc64-linux-dist.tar.xz` | 385.6 ms |
 | bsdtar | lz4 | `bsdtar -xf sparc64-linux-dist.tar.lz4` | 40.69 ms |
 | hstar | lz4 | `hstar unpack sparc64-linux-dist.tar.lz4` | 49.87 ms |
-| busybox tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 | busybox tar xf -` | 56.00 ms |
-| GNU tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 | tar xf -` | 39.19 ms |
-| Schily tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 | star xf -` | 30.88 ms |
+| busybox tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 \| busybox tar xf -` | 56.00 ms |
+| GNU tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 \| tar xf -` | 39.19 ms |
+| Schily tar | lz4 | `lz4 -cd sparc64-linux-dist.tar.lz4 \| star xf -` | 30.88 ms |
