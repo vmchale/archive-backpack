@@ -42,7 +42,7 @@ to compression support.
 
 ## Performance
 
-Benchmarks run on Linux.
+Benchmarks run on Linux. Performance should be near GNU tar, bsdtar, or Schily tar.
 
 | Program | Compression | Command | Time |
 | ------- | ----------- | ------- | ---: |
