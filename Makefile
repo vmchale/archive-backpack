@@ -11,7 +11,7 @@ setup: sparc64-linux-dist.tar.gz \
     sparc64-linux-dist.tar.lz4
 
 install: hstar/man/hstar.1
-	cabal install exe:hstar -w ghc-8.10.1 --overwrite-policy=always --constraint='libarchive -system-libarchive' --enable-executable-static
+	cabal install exe:hstar -w ghc-8.10.2 --overwrite-policy=always --constraint='libarchive -system-libarchive' --enable-executable-static
 	cp hstar/man/hstar.1 $$HOME/.local/share/man/man1
 
 docs: hstar/man/hstar.1
