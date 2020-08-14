@@ -11,7 +11,7 @@ constraints: archive-sig +development
            , archive-libarchive +development
            , archive-tar +development
            , archive-tar-bytestring +development
-           , hstar +development +with-snappy -with-brotli
+           , hstar +development +with-snappy +with-brotli
            , zlib -pkg-config +bundled-c-zlib
 
 source-repository-package
