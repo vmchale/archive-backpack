@@ -2,6 +2,6 @@
 
 set -e pipefail
 
-cabal build exe:hstar -w ghc-8.10.1 --enable-profiling
+cabal build exe:hstar -w ghc-8.10.2 --enable-profiling
 bin="$(fd -t x '^hstar$' -I | tail -n1)"
 cp "$bin" "$HOME"/.local/bin/hstar-prof
