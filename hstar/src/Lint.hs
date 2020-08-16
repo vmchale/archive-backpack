@@ -25,12 +25,11 @@ insecurePath fp | "/" `isPrefixOf` fp = True
                 | otherwise = False
 
 lintEntry :: Entry FilePath e -> IO ()
-lintEntry (Entry fp (Hardlink fp') _ _ _) =
-    when (fp == fp') $
-        throwIO (SelfHardlink fp)
-lintEntry (Entry fp (Hardlink fp') _ _ _) =
+lintEntry (Entry fp (Hardlink fp') _ _ _) = do
     when (insecurePath fp') $
         print (InsecureLink fp)
+    when (fp == fp') $
+        throwIO (SelfHardlink fp)
 lintEntry (Entry fp (Symlink fp' _) _ _ _) =
     when (insecurePath fp') $
         print (InsecureLink fp)
