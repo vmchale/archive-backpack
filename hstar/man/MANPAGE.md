@@ -15,8 +15,6 @@ hstar - An archiving tool
 
   hstar unpack src-dist-0.1.0.0.tar.zst
 
-  hstar lint silly-dist.tar.xz
-
 # SUBCOMMANDS
 
 **unpack** - Unpack an archive
@@ -28,8 +26,6 @@ hstar - An archiving tool
 **pack-src** - Pack up a source directory, ignoring version control
 
 **sanitize** - Convert a tarball to a pax-compatible archive. This reads the whole file into memory.
-
-**lint** - Check an archive for questionable content
 
 # OPTIONS
 
