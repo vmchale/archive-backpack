@@ -1,13 +1,11 @@
 module Main ( main ) where
 
-import           Codec.Archive        (entriesToBSL, readArchiveBSL, readArchiveHeaders)
+import           Codec.Archive        (Entry (Entry), EntryContent (Hardlink), entriesToBSL, readArchiveBSL)
 import           Compression
 import           Compression.Level
 import           Control.Exception    (throw)
 import qualified Data.ByteString.Lazy as BSL
-import           Data.Foldable        (traverse_)
 import           Data.Maybe           (fromMaybe)
-import           Lint
 import           Options.Applicative
 import           Tar
 import           Version
@@ -19,20 +17,12 @@ data Command = PackDir !FilePath !FilePath !CompressionLevel
     | Unpack !FilePath !(Maybe FilePath)
     | PackSrc !FilePath !FilePath !CompressionLevel
     | Sanitize !FilePath !CompressionLevel
-    | Lint !FilePath
 
 forceLast :: [a] -> IO ()
 forceLast = (`seq` mempty) . last
 
 forceBSL :: BSL.ByteString -> IO ()
 forceBSL = forceLast . BSL.toChunks
-
-lint :: FilePath -> IO ()
-lint fp = do
-    let enc = compressionByFileExt fp
-    contents <- decompressor enc <$> BSL.readFile fp
-    let es = either throw id $ readArchiveHeaders contents
-    traverse_ lintEntry es
 
 sanitize :: FilePath -> CompressionLevel -> IO ()
 sanitize fp lvl = do
@@ -43,6 +33,11 @@ sanitize fp lvl = do
         -- also removes hardlinks pointing to themselves
         paxContents = entriesToBSL (filter (not.selfLink) es)
     BSL.writeFile fp (compressor enc lvl paxContents)
+
+
+selfLink :: Eq fp => Entry fp e -> Bool
+selfLink (Entry fp (Hardlink fp') _ _ _) = (fp == fp')
+selfLink _                               = False
 
 run :: Command -> IO ()
 run (Sanitize src lvl) = sanitize src lvl
@@ -58,7 +53,6 @@ run (Pack fs tar lvl) =
 run (PackSrc dir' tar lvl) =
     let comp = compressor (compressionByFileExt tar) lvl
         in packSrcDirAndCompress comp dir' tar
-run (Lint fp) = lint fp
 
 sanitizeP :: Parser Command
 sanitizeP = Sanitize
@@ -67,13 +61,6 @@ sanitizeP = Sanitize
         <> fileCompletions
         <> help "Archive to pax-ify")
     <*> compressionLevel
-
-lintP :: Parser Command
-lintP = Lint
-    <$> argument str
-        (metavar "ARCHIVE"
-        <> fileCompletions
-        <> help "Archive to check")
 
 unpack :: Parser Command
 unpack = Unpack
@@ -160,7 +147,6 @@ cmd = hsubparser
     <> command "pack" (info pack (progDesc "Pack an archive from a list of files"))
     <> command "pack-src" (info packSrc (progDesc "Pack up a source directory as a bundle, ignoring version control and artifact directories"))
     <> command "sanitize" (info sanitizeP (progDesc "Sanitize a tar archive so it is pax-compatible"))
-    <> command "lint" (info lintP (progDesc "Lint an archive"))
     )
 
 versionMod :: Parser (a -> a)

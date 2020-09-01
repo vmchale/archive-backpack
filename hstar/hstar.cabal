@@ -40,7 +40,6 @@ executable hstar
         Compression.Level
         Compression.Lrzip
         Tar
-        Lint
         Paths_hstar
         Version
         Version.Foreign
