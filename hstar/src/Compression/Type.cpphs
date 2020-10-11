@@ -1,5 +1,11 @@
 module Compression.Type ( Compressor (..)
+                        , Archive (..)
                         ) where
+
+data Archive = Tar !Compressor
+             | SevenZip
+             | Cpio !Compressor
+             | Zip
 
 data Compressor = Lzma
     | Lz

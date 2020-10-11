@@ -5,26 +5,31 @@ module Tar ( unpackToDir
            , packSrcDirAndCompress
            ) where
 
-import           Codec.Archive              (packFiles, throwArchiveM, unpackToDirLazy)
+import           Codec.Archive              (packFiles, packFiles7zip, packFilesCpio, packFilesZip, throwArchiveM, unpackToDirLazy)
+import           Compression.Level          (CompressionLevel, compressor)
+import           Compression.Type           (Archive (..))
 import           Control.Composition        ((.*))
 import qualified Data.ByteString.Lazy       as BSL
 import           Data.List                  (isSuffixOf)
 import           System.Directory.Recursive (getDirFiltered, getDirRecursive)
 
 type Decompressor = BSL.ByteString -> BSL.ByteString
-type Compressor = BSL.ByteString -> BSL.ByteString
 
 unpackToDir :: FilePath -> BSL.ByteString -> IO ()
 unpackToDir = throwArchiveM .* unpackToDirLazy
 
-packFromDirAndCompress :: Compressor
+packFromDirAndCompress :: Archive
+                       -> CompressionLevel
                        -> FilePath -- ^ Directory to pack up
                        -> FilePath -- ^ Destination tarball
                        -> IO ()
-packFromDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< getDirRecursive dir
+packFromDirAndCompress a lvl dir tar = packFromFilesAndCompress a lvl tar =<< getDirRecursive dir
 
-packFromFilesAndCompress :: Compressor -> FilePath -> [FilePath] -> IO ()
-packFromFilesAndCompress f tar fps = BSL.writeFile tar =<< (f <$> packFiles fps)
+packFromFilesAndCompress :: Archive -> CompressionLevel -> FilePath -> [FilePath] -> IO ()
+packFromFilesAndCompress (Tar c) lvl tar fps  = BSL.writeFile tar =<< (compressor c lvl <$> packFiles fps)
+packFromFilesAndCompress SevenZip _ tar fps   = BSL.writeFile tar =<< packFiles7zip fps
+packFromFilesAndCompress (Cpio c) lvl tar fps = BSL.writeFile tar =<< (compressor c lvl <$> packFilesCpio fps)
+packFromFilesAndCompress Zip _ tar fps        = BSL.writeFile tar =<< packFilesZip fps
 
 unpackFileToDirAndDecompress :: Decompressor -- ^ Decompression to use
                              -> FilePath -- ^ Filepath pointing to archive
@@ -32,8 +37,8 @@ unpackFileToDirAndDecompress :: Decompressor -- ^ Decompression to use
                              -> IO ()
 unpackFileToDirAndDecompress f tar dir = unpackToDir dir =<< (f <$> BSL.readFile tar)
 
-packSrcDirAndCompress :: Compressor -> FilePath -> FilePath -> IO ()
-packSrcDirAndCompress f dir tar = packFromFilesAndCompress f tar =<< getDirFiltered (pure.srcFilter) dir
+packSrcDirAndCompress :: Archive -> CompressionLevel -> FilePath -> FilePath -> IO ()
+packSrcDirAndCompress a lvl dir tar = packFromFilesAndCompress a lvl tar =<< getDirFiltered (pure.srcFilter) dir
 
 srcFilter :: FilePath -> Bool
 srcFilter fp | ".git" `isSuffixOf` fp = False

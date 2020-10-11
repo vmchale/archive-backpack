@@ -23,35 +23,36 @@ import           Compression.Type
 import qualified Data.ByteString.Lazy         as BSL
 import           Data.List                    (isSuffixOf)
 
--- shar?
-compressionByFileExt :: FilePath -> Compressor
-compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = GZip
-                        | ".cpio.gz" `isSuffixOf` fp  = GZip
-                        | ".tar.bz2" `isSuffixOf` fp  = Bz2
-                        | ".tar.bz" `isSuffixOf` fp   = Bz2
-                        | ".tbz2" `isSuffixOf` fp     = Bz2
-                        | ".tbz" `isSuffixOf` fp      = Bz2
-                        | ".tar.gz" `isSuffixOf` fp   = GZip
-                        | ".tar.xz" `isSuffixOf` fp   = Lzma
-                        | ".txz" `isSuffixOf` fp      = Lzma
-                        | ".tar.lzma" `isSuffixOf` fp = Lzma
-                        | ".tar.lz" `isSuffixOf` fp   = Lz
-                        | ".tlz" `isSuffixOf` fp      = Lz
-                        | ".tar.zst" `isSuffixOf` fp  = Zstd
-                        | ".tar.Z" `isSuffixOf` fp    = Deflate
-                        | ".tar.lz4" `isSuffixOf` fp  = Lz4
-                        | ".tar.lzo" `isSuffixOf` fp  = Lzo
-                        | ".tzo" `isSuffixOf` fp      = Lzo
-                        | ".tar.lrz" `isSuffixOf` fp  = Lrzip
+-- shar? .vba.gz?
+compressionByFileExt :: FilePath -> Archive
+compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = Tar GZip
+                        | ".cpio.gz" `isSuffixOf` fp  = Cpio GZip
+                        | ".tar.bz2" `isSuffixOf` fp  = Tar Bz2
+                        | ".tar.bz" `isSuffixOf` fp   = Tar Bz2
+                        | ".tbz2" `isSuffixOf` fp     = Tar Bz2
+                        | ".tbz" `isSuffixOf` fp      = Tar Bz2
+                        | ".tar.gz" `isSuffixOf` fp   = Tar GZip
+                        | ".tar.xz" `isSuffixOf` fp   = Tar Lzma
+                        | ".txz" `isSuffixOf` fp      = Tar Lzma
+                        | ".tar.lzma" `isSuffixOf` fp = Tar Lzma
+                        | ".tar.lz" `isSuffixOf` fp   = Tar Lz
+                        | ".tlz" `isSuffixOf` fp      = Tar Lz
+                        | ".tar.zst" `isSuffixOf` fp  = Tar Zstd
+                        | ".tar.Z" `isSuffixOf` fp    = Tar Deflate
+                        | ".tar.lz4" `isSuffixOf` fp  = Tar Lz4
+                        | ".tar.lzo" `isSuffixOf` fp  = Tar Lzo
+                        | ".tzo" `isSuffixOf` fp      = Tar Lzo
+                        | ".tar.lrz" `isSuffixOf` fp  = Tar Lrzip
 #ifdef BROTLI
-                        | ".tbr" `isSuffixOf` fp      = Brotli
-                        | ".tar.br" `isSuffixOf` fp   = Brotli
+                        | ".tbr" `isSuffixOf` fp      = Tar Brotli
+                        | ".tar.br" `isSuffixOf` fp   = Tar Brotli
 #endif
 #ifdef SNAPPY
-                        | ".tar.sz" `isSuffixOf` fp   = Snappy
-                        | ".tsz" `isSuffixOf` fp      = Snappy
+                        | ".tar.sz" `isSuffixOf` fp   = Tar Snappy
+                        | ".tsz" `isSuffixOf` fp      = Tar Snappy
 #endif
-                        | ".tar" `isSuffixOf` fp      = None
+                        | ".tar" `isSuffixOf` fp      = Tar None
+                        | ".7z" `isSuffixOf` fp       = SevenZip
                         | otherwise                   = error "Suffix not supported or invalid."
 
 decompressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)

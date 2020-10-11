@@ -104,5 +104,3 @@ compressor Snappy _    = Snappy.compress
 compressor Lzo _       = Lzo.compressFile
 compressor Lrzip _     = error "Lrzip compression unsupported."
 compressor None _      = id
-
-

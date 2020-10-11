@@ -3,6 +3,7 @@ module Main ( main ) where
 import           Codec.Archive        (Entry (Entry), EntryContent (Hardlink), entriesToBSL, readArchiveBSL)
 import           Compression
 import           Compression.Level
+import           Compression.Type
 import           Control.Exception    (throw)
 import qualified Data.ByteString.Lazy as BSL
 import           Data.Maybe           (fromMaybe)
@@ -26,7 +27,7 @@ forceBSL = forceLast . BSL.toChunks
 
 sanitize :: FilePath -> CompressionLevel -> IO ()
 sanitize fp lvl = do
-    let enc = compressionByFileExt fp
+    let enc = fromArchive $ compressionByFileExt fp
     contents <- BSL.readFile fp
     decoded <- decompressor enc contents <$ forceBSL contents
     let es = either throw id $ readArchiveBSL decoded
@@ -34,25 +35,26 @@ sanitize fp lvl = do
         paxContents = entriesToBSL (filter (not.selfLink) es)
     BSL.writeFile fp (compressor enc lvl paxContents)
 
-
 selfLink :: Eq fp => Entry fp e -> Bool
-selfLink (Entry fp (Hardlink fp') _ _ _) = (fp == fp')
+selfLink (Entry fp (Hardlink fp') _ _ _) = fp == fp'
 selfLink _                               = False
+
+fromArchive :: Archive -> Compressor
+fromArchive (Tar c)  = c
+fromArchive (Cpio c) = c
+fromArchive _        = None
 
 run :: Command -> IO ()
 run (Sanitize src lvl) = sanitize src lvl
 run (Unpack src dest) =
-    let dec = decompressor (compressionByFileExt src)
+    let dec = decompressor (fromArchive $ compressionByFileExt src)
         in unpackFileToDirAndDecompress dec src (fromMaybe "." dest)
 run (PackDir dir' tar lvl) =
-    let comp = compressor (compressionByFileExt tar) lvl
-        in packFromDirAndCompress comp dir' tar
+    packFromDirAndCompress (compressionByFileExt tar) lvl dir' tar
 run (Pack fs tar lvl) =
-    let comp = compressor (compressionByFileExt tar) lvl
-        in packFromFilesAndCompress comp tar fs
+    packFromFilesAndCompress (compressionByFileExt tar) lvl tar fs
 run (PackSrc dir' tar lvl) =
-    let comp = compressor (compressionByFileExt tar) lvl
-        in packSrcDirAndCompress comp dir' tar
+    packSrcDirAndCompress (compressionByFileExt tar) lvl dir' tar
 
 sanitizeP :: Parser Command
 sanitizeP = Sanitize
