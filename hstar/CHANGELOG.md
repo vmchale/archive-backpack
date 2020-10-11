@@ -1,6 +1,7 @@
   * Add `check` subcommand
   * Allow compression level to be set on the command-line
   * Add lrzip decompression support
+  * Add `repack` subcommand
 
 # 0.1.0.4
 
