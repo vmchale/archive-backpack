@@ -26,6 +26,9 @@ control
 .PP
 \f[B]sanitize\f[R] - Convert a tarball to a pax-compatible archive.
 This reads the whole file into memory.
+.PP
+\f[B]repack\f[R] - Convert from one archive format to another.
+This reads the whole file into memory.
 .SH OPTIONS
 .TP
 \f[B]-h\f[R] \f[B]--help\f[R]
@@ -60,6 +63,15 @@ brotli (optional)
 snappy (optional)
 .IP \[bu] 2
 lrzip (decompression only; requires command-line executable at runtime)
+.SS Archive
+.IP \[bu] 2
+tar
+.IP \[bu] 2
+cpio
+.IP \[bu] 2
+zip
+.IP \[bu] 2
+7zip
 .SH SHELL COMPLETIONS
 .PP
 To get shell completions in your current session:

@@ -1,6 +1,7 @@
 module Main ( main ) where
 
-import           Codec.Archive        (Entry (Entry), EntryContent (Hardlink), entriesToBSL, readArchiveBSL)
+import           Codec.Archive        (Entry (Entry), EntryContent (Hardlink), entriesToBSL, entriesToBSL7zip, entriesToBSLCpio, entriesToBSLzip,
+                                       readArchiveBSL)
 import           Compression
 import           Compression.Level
 import           Compression.Type
@@ -18,6 +19,7 @@ data Command = PackDir !FilePath !FilePath !CompressionLevel
     | Unpack !FilePath !(Maybe FilePath)
     | PackSrc !FilePath !FilePath !CompressionLevel
     | Sanitize !FilePath !CompressionLevel
+    | Repack !FilePath !FilePath !CompressionLevel
 
 forceLast :: [a] -> IO ()
 forceLast = (`seq` mempty) . last
@@ -34,6 +36,24 @@ sanitize fp lvl = do
         -- also removes hardlinks pointing to themselves
         paxContents = entriesToBSL (filter (not.selfLink) es)
     BSL.writeFile fp (compressor enc lvl paxContents)
+
+repack :: FilePath
+       -> FilePath
+       -> CompressionLevel
+       -> IO ()
+repack inp out lvl = do
+    let enc = fromArchive $ compressionByFileExt inp
+    contents <- BSL.readFile inp
+    let decoded = decompressor enc contents
+        es = either throw id $ readArchiveBSL decoded
+        outArchive = compressionByFileExt out
+        archiveContentsNew =
+            case outArchive of
+                Tar{}    -> entriesToBSL es
+                Cpio{}   -> entriesToBSLCpio es
+                SevenZip -> entriesToBSL7zip es
+                Zip      -> entriesToBSLzip es
+    BSL.writeFile out (compressor (fromArchive outArchive) lvl archiveContentsNew)
 
 selfLink :: Eq fp => Entry fp e -> Bool
 selfLink (Entry fp (Hardlink fp') _ _ _) = fp == fp'
@@ -55,6 +75,8 @@ run (Pack fs tar lvl) =
     packFromFilesAndCompress (compressionByFileExt tar) lvl tar fs
 run (PackSrc dir' tar lvl) =
     packSrcDirAndCompress (compressionByFileExt tar) lvl dir' tar
+run (Repack inp out lvl) =
+    repack inp out lvl
 
 sanitizeP :: Parser Command
 sanitizeP = Sanitize
@@ -78,6 +100,13 @@ unpack = Unpack
 packDir :: Parser Command
 packDir = PackDir
     <$> dir
+    <*> archive
+    <*> compressionLevel
+
+
+repackP :: Parser Command
+repackP = Repack
+    <$> archive
     <*> archive
     <*> compressionLevel
 
@@ -149,6 +178,7 @@ cmd = hsubparser
     <> command "pack" (info pack (progDesc "Pack an archive from a list of files"))
     <> command "pack-src" (info packSrc (progDesc "Pack up a source directory as a bundle, ignoring version control and artifact directories"))
     <> command "sanitize" (info sanitizeP (progDesc "Sanitize a tar archive so it is pax-compatible"))
+    <> command "repack" (info repackP (progDesc "Convert from one archive format to another"))
     )
 
 versionMod :: Parser (a -> a)

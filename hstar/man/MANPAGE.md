@@ -27,6 +27,8 @@ hstar - An archiving tool
 
 **sanitize** - Convert a tarball to a pax-compatible archive. This reads the whole file into memory.
 
+**repack** - Convert from one archive format to another. This reads the whole file into memory.
+
 # OPTIONS
 
 **-h** **-\-help**
@@ -53,6 +55,12 @@ hstar - An archiving tool
   - brotli (optional)
   - snappy (optional)
   - lrzip (decompression only; requires command-line executable at runtime)
+
+## Archive
+  - tar
+  - cpio
+  - zip
+  - 7zip
 
 # SHELL COMPLETIONS
 
