@@ -1,6 +1,6 @@
 cabal-version:      2.0
 name:               hstar
-version:            0.1.0.4
+version:            0.1.0.5
 license:            BSD3
 license-file:       LICENSE
 copyright:          Copyright: (c) 2019-2020 Vanessa McHale
@@ -9,7 +9,7 @@ author:             Vanessa McHale
 bug-reports:        https://github.com/vmchale/archive-backpack/issues
 synopsis:           Haskell version of tar CLI utility
 description:
-    Haskell implementation of the tar utility, demonstrating backpack
+    Haskell implementation of the tar utility, backed by [libarchive](http://libarchive.org/).
 
 category:           Codec, Tar, Archive
 build-type:         Simple

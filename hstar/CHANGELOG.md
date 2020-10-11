@@ -1,7 +1,9 @@
-  * Add `check` subcommand
+# 0.1.0.5
+
   * Allow compression level to be set on the command-line
   * Add lrzip decompression support
   * Add `repack` subcommand
+  * Support CPIO, 7zip, zip formats
 
 # 0.1.0.4
 
