@@ -1,3 +1,5 @@
+  * Add `.shar` support
+
 # 0.1.0.5
 
   * Allow compression level to be set on the command-line

@@ -5,7 +5,7 @@ module Tar ( unpackToDir
            , packSrcDirAndCompress
            ) where
 
-import           Codec.Archive              (packFiles, packFiles7zip, packFilesCpio, packFilesZip, throwArchiveM, unpackToDirLazy)
+import           Codec.Archive              (packFiles, packFiles7zip, packFilesCpio, packFilesShar, packFilesZip, throwArchiveM, unpackToDirLazy)
 import           Compression.Level          (CompressionLevel, compressor)
 import           Compression.Type           (Archive (..))
 import           Control.Composition        ((.*))
@@ -29,6 +29,7 @@ packFromFilesAndCompress :: Archive -> CompressionLevel -> FilePath -> [FilePath
 packFromFilesAndCompress (Tar c) lvl tar fps  = BSL.writeFile tar =<< (compressor c lvl <$> packFiles fps)
 packFromFilesAndCompress SevenZip _ tar fps   = BSL.writeFile tar =<< packFiles7zip fps
 packFromFilesAndCompress (Cpio c) lvl tar fps = BSL.writeFile tar =<< (compressor c lvl <$> packFilesCpio fps)
+packFromFilesAndCompress (Shar c) lvl tar fps = BSL.writeFile tar =<< (compressor c lvl <$> packFilesShar fps)
 packFromFilesAndCompress Zip _ tar fps        = BSL.writeFile tar =<< packFilesZip fps
 
 unpackFileToDirAndDecompress :: Decompressor -- ^ Decompression to use

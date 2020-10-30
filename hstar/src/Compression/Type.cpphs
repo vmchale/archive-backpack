@@ -5,6 +5,7 @@ module Compression.Type ( Compressor (..)
 data Archive = Tar !Compressor
              | SevenZip
              | Cpio !Compressor
+             | Shar !Compressor
              | Zip
 
 data Compressor = Lzma

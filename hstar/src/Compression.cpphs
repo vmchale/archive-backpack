@@ -27,6 +27,7 @@ import           Data.List                    (isSuffixOf)
 compressionByFileExt :: FilePath -> Archive
 compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = Tar GZip
                         | ".cpio.gz" `isSuffixOf` fp  = Cpio GZip
+                        | ".shar.Z" `isSuffixOf` fp   = Shar Deflate
                         | ".tar.bz2" `isSuffixOf` fp  = Tar Bz2
                         | ".tar.bz" `isSuffixOf` fp   = Tar Bz2
                         | ".tbz2" `isSuffixOf` fp     = Tar Bz2

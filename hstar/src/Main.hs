@@ -1,7 +1,7 @@
 module Main ( main ) where
 
-import           Codec.Archive        (Entry (Entry), EntryContent (Hardlink), entriesToBSL, entriesToBSL7zip, entriesToBSLCpio, entriesToBSLzip,
-                                       readArchiveBSL)
+import           Codec.Archive        (Entry (Entry), EntryContent (Hardlink), entriesToBSL, entriesToBSL7zip, entriesToBSLCpio, entriesToBSLShar,
+                                       entriesToBSLzip, readArchiveBSL)
 import           Compression
 import           Compression.Level
 import           Compression.Type
@@ -53,6 +53,7 @@ repack inp out lvl = do
                 Cpio{}   -> entriesToBSLCpio es
                 SevenZip -> entriesToBSL7zip es
                 Zip      -> entriesToBSLzip es
+                Shar{}   -> entriesToBSLShar es
     BSL.writeFile out (compressor (fromArchive outArchive) lvl archiveContentsNew)
 
 selfLink :: Eq fp => Entry fp e -> Bool
