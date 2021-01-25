@@ -15,8 +15,3 @@ constraints: archive-sig +development
 
 package zlib
   flags: -pkg-config +bundled-c-zlib
-
-source-repository-package
-  type: git
-  location: https://github.com/vmchale/libarchive
-  tag: 5b757329788a56239cc018f7d5db3484a7b2f527
