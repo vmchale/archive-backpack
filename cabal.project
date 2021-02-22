@@ -7,11 +7,16 @@ packages: hstar
 
 max-backjumps: 40000
 
-constraints: archive-sig +development
-           , archive-libarchive +development
-           , archive-tar +development
-           , archive-tar-bytestring +development
-           , hstar +development +with-snappy +with-brotli
+constraints: archive-sig +development,
+             archive-libarchive +development,
+             archive-tar +development,
+             archive-tar-bytestring +development,
+             hstar +development +with-snappy +with-brotli
 
 package zlib
   flags: -pkg-config +bundled-c-zlib
+
+allow-newer:
+    polyparse:base
+  , lzma:base
+  , brotli:base
