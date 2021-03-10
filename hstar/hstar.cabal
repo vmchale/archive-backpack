@@ -1,6 +1,6 @@
 cabal-version:      2.0
 name:               hstar
-version:            0.1.0.5
+version:            0.1.0.6
 license:            BSD3
 license-file:       LICENSE
 copyright:          Copyright: (c) 2019-2020 Vanessa McHale

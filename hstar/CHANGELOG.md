@@ -1,4 +1,5 @@
   * Add `.shar` support
+  * Detect `.zip` files properly
 
 # 0.1.0.5
 
