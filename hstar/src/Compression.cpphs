@@ -54,6 +54,7 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = Tar GZip
 #endif
                         | ".tar" `isSuffixOf` fp      = Tar None
                         | ".7z" `isSuffixOf` fp       = SevenZip
+                        | ".zip" `isSuffixOf` fp      = Zip
                         | otherwise                   = error "Suffix not supported or invalid."
 
 decompressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
