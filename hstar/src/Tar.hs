@@ -26,17 +26,17 @@ packFromDirAndCompress :: Archive
 packFromDirAndCompress a lvl dir tar = packFromFilesAndCompress a lvl tar =<< getDirRecursive dir
 
 packFromFilesAndCompress :: Archive -> CompressionLevel -> FilePath -> [FilePath] -> IO ()
-packFromFilesAndCompress (Tar c) lvl tar fps  = BSL.writeFile tar =<< (compressor c lvl <$> packFiles fps)
+packFromFilesAndCompress (Tar c) lvl tar fps  = BSL.writeFile tar . compressor c lvl =<< packFiles fps
 packFromFilesAndCompress SevenZip _ tar fps   = BSL.writeFile tar =<< packFiles7zip fps
-packFromFilesAndCompress (Cpio c) lvl tar fps = BSL.writeFile tar =<< (compressor c lvl <$> packFilesCpio fps)
-packFromFilesAndCompress (Shar c) lvl tar fps = BSL.writeFile tar =<< (compressor c lvl <$> packFilesShar fps)
+packFromFilesAndCompress (Cpio c) lvl tar fps = BSL.writeFile tar . compressor c lvl =<< packFilesCpio fps
+packFromFilesAndCompress (Shar c) lvl tar fps = BSL.writeFile tar . compressor c lvl =<< packFilesShar fps
 packFromFilesAndCompress Zip _ tar fps        = BSL.writeFile tar =<< packFilesZip fps
 
 unpackFileToDirAndDecompress :: Decompressor -- ^ Decompression to use
                              -> FilePath -- ^ Filepath pointing to archive
                              -> FilePath -- ^ Directory
                              -> IO ()
-unpackFileToDirAndDecompress f tar dir = unpackToDir dir =<< (f <$> BSL.readFile tar)
+unpackFileToDirAndDecompress f tar dir = unpackToDir dir . f =<< BSL.readFile tar
 
 packSrcDirAndCompress :: Archive -> CompressionLevel -> FilePath -> FilePath -> IO ()
 packSrcDirAndCompress a lvl dir tar = packFromFilesAndCompress a lvl tar =<< getDirFiltered (pure.srcFilter) dir
