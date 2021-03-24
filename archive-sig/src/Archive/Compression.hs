@@ -30,7 +30,7 @@ unpackFileToDirAndDecompress :: Decompressor -- ^ Decompression to use
                              -> FilePath -- ^ Filepath pointing to archive
                              -> FilePath -- ^ Directory
                              -> IO ()
-unpackFileToDirAndDecompress f tar dir = unpackToDir dir =<< (f <$> BSL.readFile tar)
+unpackFileToDirAndDecompress f tar dir = unpackToDir dir . f =<< BSL.readFile tar
 
 -- | @since 0.2.0.0
 packFromDirAndCompress :: Compressor
@@ -76,4 +76,4 @@ srcFilter fp | ".git" `isSuffixOf` fp = False
 
 -- | @since 0.2.0.0
 packFromFilesAndCompress :: Compressor -> FilePath -> [FilePath] -> IO ()
-packFromFilesAndCompress f tar fps = BSL.writeFile tar =<< (f <$> packFiles fps)
+packFromFilesAndCompress f tar fps = BSL.writeFile tar . f =<< packFiles fps
