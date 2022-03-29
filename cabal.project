@@ -11,12 +11,22 @@ constraints: archive-sig +development,
              archive-libarchive +development,
              archive-tar +development,
              archive-tar-bytestring +development,
-             hstar +development +with-snappy +with-brotli
+             hstar +development -with-snappy +with-brotli,
+             libarchive -system-libarchive
 
 package zlib
   flags: -pkg-config +bundled-c-zlib
 
 allow-newer:
-    polyparse:base
-  , lzma:base
-  , brotli:base
+    brotli:base
+  , brotli:bytestring
+
+source-repository-package
+  type: git
+  tag: 416683012ef437312b9c01f937ac34557eaea4d0
+  location: https://github.com/vmchale/libarchive.git
+
+source-repository-package
+  type: git
+  tag: 9e0cc2e7ed8a09b7f892fb5d4d0618c8274f76dc
+  location: https://github.com/vmchale/zlib.git
