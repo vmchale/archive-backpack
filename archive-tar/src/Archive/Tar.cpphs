@@ -9,7 +9,7 @@ module Archive.Tar ( Entry
                    , toFP
                    ) where
 
-import           Codec.Archive.Tar    (Entries (..))
+import           Codec.Archive.Tar    (Entries, GenEntries (..))
 import qualified Codec.Archive.Tar    as Tar
 import           Control.Composition  ((.@))
 import qualified Data.ByteString.Lazy as BSL

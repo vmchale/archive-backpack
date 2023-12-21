@@ -34,7 +34,7 @@ library
     ghc-options:        -Wall
     build-depends:
         base >=4.3 && <5,
-        tar -any,
+        tar >=0.6.0.0,
         bytestring -any,
         composition-prelude >=2.0.3.0
 
