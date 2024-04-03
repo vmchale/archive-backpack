@@ -56,7 +56,7 @@ executable hstar
         optparse-applicative -any,
         composition-prelude -any,
         bytestring -any,
-        lzma -any,
+        lzma-static,
         bz2 >=1.0.0.0,
         zlib -any,
         zstd -any,
