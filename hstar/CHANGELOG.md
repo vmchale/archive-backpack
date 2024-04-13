@@ -1,5 +1,8 @@
+# 0.1.0.6
+
   * Add `.shar` support
   * Detect `.zip` files properly
+  * Depend on `lzma-static` over `lzma`
 
 # 0.1.0.5
 
