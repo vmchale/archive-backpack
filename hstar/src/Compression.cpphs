@@ -1,5 +1,6 @@
 module Compression ( compressionByFileExt
                    , decompressor
+                   , archiveDecompressor
                    , compressor
                    ) where
 
@@ -56,6 +57,10 @@ compressionByFileExt fp | ".tgz" `isSuffixOf` fp      = Tar GZip
                         | ".7z" `isSuffixOf` fp       = SevenZip
                         | ".zip" `isSuffixOf` fp      = Zip
                         | otherwise                   = error "Suffix not supported or invalid."
+
+archiveDecompressor :: Archive -> (BSL.ByteString -> BSL.ByteString)
+archiveDecompressor (Tar c) = decompressor c
+archiveDecompressor _       = id
 
 decompressor :: Compressor -> (BSL.ByteString -> BSL.ByteString)
 decompressor Lzma    = Lzma.decompress

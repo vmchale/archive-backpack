@@ -16,7 +16,3 @@ constraints: archive-sig +development,
 
 package zlib
   flags: -pkg-config +bundled-c-zlib
-
-allow-newer:
-    brotli:base
-  , brotli:bytestring

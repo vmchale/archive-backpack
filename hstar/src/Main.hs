@@ -1,12 +1,14 @@
 module Main ( main ) where
 
-import           Codec.Archive        (Entry (Entry), EntryContent (Hardlink), entriesToBSL, entriesToBSL7zip, entriesToBSLCpio, entriesToBSLShar,
-                                       entriesToBSLzip, readArchiveBSL)
+import           Codec.Archive        (Entry (Entry), EntryContent (..), entriesToBSL, entriesToBSL7zip, entriesToBSLCpio, entriesToBSLShar, entriesToBSLzip,
+                                       readArchiveBSL)
 import           Compression
 import           Compression.Level
 import           Compression.Type
 import           Control.Exception    (throw)
+import qualified Data.ByteString      as BS
 import qualified Data.ByteString.Lazy as BSL
+import           Data.Foldable        (traverse_)
 import           Data.Maybe           (fromMaybe)
 import           Options.Applicative
 import           Tar
@@ -20,12 +22,20 @@ data Command = PackDir !FilePath !FilePath !CompressionLevel
     | PackSrc !FilePath !FilePath !CompressionLevel
     | Sanitize !FilePath !CompressionLevel
     | Repack !FilePath !FilePath !CompressionLevel
+    | Inspect !FilePath
 
 forceLast :: [a] -> IO ()
 forceLast = (`seq` mempty) . last
 
 forceBSL :: BSL.ByteString -> IO ()
 forceBSL = forceLast . BSL.toChunks
+
+inspect :: FilePath -> IO ()
+inspect fp = do
+    let enc = compressionByFileExt fp
+    contents <- archiveDecompressor enc <$> BSL.readFile fp
+    let es = either throw id $ readArchiveBSL contents
+    traverse_ (putStrLn . printEntry) es
 
 sanitize :: FilePath -> CompressionLevel -> IO ()
 sanitize fp lvl = do
@@ -78,6 +88,7 @@ run (PackSrc dir' tar lvl) =
     packSrcDirAndCompress (compressionByFileExt tar) lvl dir' tar
 run (Repack inp out lvl) =
     repack inp out lvl
+run (Inspect fp) = inspect fp
 
 sanitizeP :: Parser Command
 sanitizeP = Sanitize
@@ -86,6 +97,13 @@ sanitizeP = Sanitize
         <> fileCompletions
         <> help "Archive to pax-ify")
     <*> compressionLevel
+
+inspectP :: Parser Command
+inspectP = Inspect
+    <$> argument str
+        (metavar "ARCHIVE"
+        <> fileCompletions
+        <> help "Archive to open")
 
 unpack :: Parser Command
 unpack = Unpack
@@ -180,6 +198,7 @@ cmd = hsubparser
     <> command "pack-src" (info packSrc (progDesc "Pack up a source directory as a bundle, ignoring version control and artifact directories"))
     <> command "sanitize" (info sanitizeP (progDesc "Sanitize a tar archive so it is pax-compatible"))
     <> command "repack" (info repackP (progDesc "Convert from one archive format to another"))
+    <> command "inspect" (info inspectP (progDesc "Inspect an archive"))
     )
 
 versionMod :: Parser (a -> a)
@@ -193,3 +212,9 @@ topLevel = info (helper <*> versionMod <*> cmd)
 
 main :: IO ()
 main = run =<< execParser topLevel
+
+printEntry :: Entry FilePath BS.ByteString -> String
+printEntry (Entry fp Directory _ _ _)        = "dir " ++ fp
+printEntry (Entry fp (NormalFile bsl) _ _ _) = fp ++ " (" ++ show (BS.length bsl) ++ " bytes)" -- TODO: upstream get size?
+printEntry (Entry fp (Symlink fp' _) _ _ _)  = fp ++ " -> " ++ fp'
+printEntry (Entry fp (Hardlink fp') _ _ _)   = fp ++ " link to " ++ fp'
