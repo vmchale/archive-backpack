@@ -39,10 +39,10 @@ llvm-9.0.0.src.tar.xz:
 	wget http://releases.llvm.org/9.0.0/llvm-9.0.0.src.tar.xz -O $@
 
 ghc-8.0.2-x86_64-deb8-linux.tar.xz:
-	wget https://downloads.haskell.org/~ghc/8.0.2/ghc-8.0.2-x86_64-deb8-linux.tar.xz -O $@
+	curl -L https://downloads.haskell.org/~ghc/8.0.2/ghc-8.0.2-x86_64-deb8-linux.tar.xz -o $@
 
 sparc64-linux-dist.tar.gz:
-	wget https://github.com/vmchale/dickinson/releases/download/1.1.0.2/sparc64-linux-dist.tar.gz -O $@
+	curl -L https://github.com/vmchale/dickinson/releases/download/1.1.0.2/sparc64-linux-dist.tar.gz -o $@
 
 sparc64-linux-dist.tar.%: sparc64-linux-dist.tar.gz
 	sak transcode $^ $@
@@ -51,4 +51,4 @@ llvm-9.0.0.src.tar.%: llvm-9.0.0.src.tar.xz
 	sak transcode $^ $@
 
 ATS2-Postiats-0.3.13.tgz:
-	wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.13.tgz -O $@
+	curl -L http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.13.tgz -o $@
