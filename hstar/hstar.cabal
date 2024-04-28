@@ -32,7 +32,7 @@ flag with-snappy
 
 executable hstar
     main-is:            Main.hs
-    build-tool-depends: cpphs:cpphs -any
+    build-tool-depends: cpphs:cpphs
     hs-source-dirs:     src
     other-modules:
         Compression
@@ -53,24 +53,24 @@ executable hstar
     build-depends:
         base >=4.11 && <5,
         libarchive >=3.0.0.0,
-        optparse-applicative -any,
-        composition-prelude -any,
-        bytestring -any,
+        optparse-applicative,
+        composition-prelude,
+        bytestring,
         lzma-static,
         bz2 >=1.0.0.0,
-        zlib -any,
-        zstd -any,
-        lz4-hs >=0.1.1.0,
-        lzlib >=1.0.1.0,
+        zlib,
+        zstd,
+        lz4-hs >=0.1.4.0,
+        lzlib >=1.0.7.0,
         lzo >=0.1.1.0,
         process >=1.4.3.0,
         dir-traverse >=0.2.2.0
 
     if flag(with-snappy)
-        build-depends: snappy-lazy -any
+        build-depends: snappy-lazy
 
     if flag(with-brotli)
-        build-depends: brotli -any
+        build-depends: brotli
 
     if flag(with-brotli)
         cpp-options: -DBROTLI
